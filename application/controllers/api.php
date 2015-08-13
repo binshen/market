@@ -13,8 +13,6 @@ class Api extends MY_Controller {
 	}
 	
 	public function index() {
-		//$access_token = $this->api_model->get_or_create_token();
-		//var_dump($access_token);
 		
 		$echoStr = $_GET["echostr"];
 		if(isset($echoStr)) {
@@ -50,62 +48,124 @@ class Api extends MY_Controller {
 		}
 	}
 	
-	private function receiveText($obj) {
-		$keyword = trim($obj->Content);
+	private function checkSignature() {
+		$signature = $_GET["signature"];
+		$timestamp = $_GET["timestamp"];
+		$nonce = $_GET["nonce"];
+		$token = TOKEN;
+		$tmpArr = array($token, $timestamp, $nonce);
+		sort($tmpArr);
+		$tmpStr = implode( $tmpArr );
+		$tmpStr = sha1( $tmpStr );
+		if($tmpStr == $signature){
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function get_qrcode() {
+		
+	}
+	
+	public function get_ticket() {
+	
+		$access_token = $this->api_model->get_or_create_token()['token'];
+		$url = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $access_token;
+
+		@$post_data->expire_seconds = 604800;
+ 		@$post_data->action_name = "QR_SCENE";
+ 		@$post_data->action_info->scene->scene_id = 1;
+
+ 		$token_data = json_decode($this->post($url, $post_data));
+		$ticket = $token_data->ticket;
+		var_dump($ticket);
+		
+		$url = $token_data->url;
+		var_dump($url);
+		
+		$qrcode_url = 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=' . $ticket;
+		var_dump($qrcode_url);
+	}
+	
+	private function post($url, $post_data, $timeout = 300){
+		$options = array(
+			'http' => array(
+				'method' => 'POST',
+				'header' => 'Content-type:application/json',
+				'content' => json_encode($post_data),
+				'timeout' => 300
+			)
+		);
+		$context = stream_context_create($options);
+		return file_get_contents($url, false, $context);
+	}
+	
+/////////////////
+// 测试代码	
+////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	private function receiveText($object) {
+		$keyword = trim($object->Content);
 		$result = "";
 		if (preg_match('/^笑话[0-9]{8}$/',$keyword)){
 			//include("jokes.php");
 			$content = "这就是笑话:)"; //showContents($keyword);
-			$result = $this->transmitText($obj, $content);
+			$result = $this->transmitText($object, $content);
 		}elseif ($keyword == 'help' ||$keyword == '帮助') {
 			$content = "帮助：1.查人品，回复RP名字，如RP张三  2.笑话，则回复笑话+日期，如：笑话20140319 3.看天气，回复城市名称，如TQ北京";
-			$result = $this->transmitText($obj, $content);
+			$result = $this->transmitText($object, $content);
 		}elseif(preg_match('/^(TQ)|(tq)[\x{4e00}-\x{9fa5}]+$/iu',$keyword)){
 			//include("weather.php");
 			$a = substr($keyword,2,strlen($keyword));
 			$cityName = fromNameToCode($a);
 			if ($cityName==''){
 				$content = "帮助：1.查人品，回复RP名字，如RP张三  2.笑话，则回复笑话+日期，如：笑话20140319 3.看天气，回复城市名称，如TQ北京";
-				$result = $this->transmitText($obj, $content);
+				$result = $this->transmitText($object, $content);
 			}else{
 				$content = "正在查询天气预报，请等待"; //getWeatherInfo($a);
-				$result = $this->transmitNews($obj, $content);
+				$result = $this->transmitNews($object, $content);
 			}
 		}elseif(preg_match('/^RP[\x{4e00}-\x{9fa5}a-zA-Z0-9]+$/iu',$keyword)){
 			$a = substr($keyword,2,strlen($keyword));
 			$content=$this->getMoralInfo($a);
-			$result = $this->transmitText($obj, $content);
+			$result = $this->transmitText($object, $content);
 		}else {
 			$content = "帮助：1.查人品，回复RP名字，如RP张三  2.笑话，则回复笑话+日期，如：笑话20140319 3.看天气，回复城市名称，如TQ北京";
-			$result = $this->transmitText($obj, $content);
+			$result = $this->transmitText($object, $content);
 		}
 		return $result;
 	}
 	
-	private function receiveEvent($obj) {
+	private function receiveEvent($object) {
 		$content = "";
-		switch ($obj->Event) {
+		switch ($object->Event) {
 			case "subscribe":
 				$content = "欢迎关注宜居花桥房产超市。帮助：1.查人品，回复RP名字，如RP张三  2.笑话，则回复笑话+日期，如：笑话20140319 3.看天气，回复城市名称，如TQ北京";
+				if (isset($object->EventKey)){
+					$content = "关注二维码场景 " . $object->EventKey;
+				}
 				break;
 			case "unsubscribe":
 				$content = "取消关注";
 				break;
+			case "SCAN":
+				$content = "扫描 " . $object->EventKey;
+				break;
 		}
-		return $this->transmitText($obj, $content);
+		return $this->transmitText($object, $content);
 	}
 	
-	private function receiveImage($obj) {
-		$apicallurl = urlencode("http://api2.sinaapp.com/recognize/picture/?appkey=0020120430&appsecert=fa6095e123cd28fd&reqtype=text&keyword=".$obj->PicUrl);
+	private function receiveImage($object) {
+		$apicallurl = urlencode("http://api2.sinaapp.com/recognize/picture/?appkey=0020120430&appsecert=fa6095e123cd28fd&reqtype=text&keyword=".$object->PicUrl);
 		$pictureJsonInfo = file_get_contents($apicallurl);
 		$pictureInfo = json_decode($pictureJsonInfo, true);
 		$contentStr = $pictureInfo['text']['content'];
-		$resultStr = $this->transmitText($obj, $contentStr);
+		$resultStr = $this->transmitText($object, $contentStr);
 		return $resultStr;
 	}
 	
 	
-	private function transmitText($obj, $content) {
+	private function transmitText($object, $content) {
 		$textTpl = "
 			<xml>
 				<ToUserName><![CDATA[%s]]></ToUserName>
@@ -116,10 +176,10 @@ class Api extends MY_Controller {
 				<FuncFlag>0</FuncFlag>
 			</xml>
 		";
-		return sprintf($textTpl, $obj->FromUserName, $obj->ToUserName, time(), $content);
+		return sprintf($textTpl, $object->FromUserName, $object->ToUserName, time(), $content);
 	}
 	
-	private function transmitNews($obj, $arr_item)
+	private function transmitNews($object, $arr_item)
 	{
 		if(!is_array($arr_item))
 			return;
@@ -147,7 +207,7 @@ class Api extends MY_Controller {
 				<Articles>$item_str</Articles>
 			</xml>
 		";
-		return sprintf($newsTpl, $obj->FromUserName, $obj->ToUserName, time(), count($arr_item));
+		return sprintf($newsTpl, $object->FromUserName, $object->ToUserName, time(), count($arr_item));
 	}
 	
 	private function getUnicodeFromUTF8($word) {
@@ -231,27 +291,5 @@ class Api extends MY_Controller {
 			$addd ="你的人品竟然负溢出了...我对你无语..";
 		}
 		return $name."的人品分数为：".$n."\n".$addd;
-	}
-	
-	private function get_ticket() {
-		
-	}
-	
-	private function checkSignature() {
-		$signature = $_GET["signature"];
-		$timestamp = $_GET["timestamp"];
-		$nonce = $_GET["nonce"];
-	
-		$token = TOKEN;
-		$tmpArr = array($token, $timestamp, $nonce);
-		sort($tmpArr);
-		$tmpStr = implode( $tmpArr );
-		$tmpStr = sha1( $tmpStr );
-	
-		if( $tmpStr == $signature ){
-			return true;
-		}else{
-			return false;
-		}
 	}
 }
