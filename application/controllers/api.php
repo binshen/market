@@ -140,14 +140,20 @@ class Api extends MY_Controller {
 			case "subscribe":
 				$content = "欢迎关注宜居花桥房产超市。帮助：1.查人品，回复RP名字，如RP张三  2.笑话，则回复笑话+日期，如：笑话20140319 3.看天气，回复城市名称，如TQ北京";
 				if (isset($object->EventKey)){
-					$content = "关注二维码场景 " . $object->EventKey;
+					$content = "关注二维码场景： " . $object->EventKey;
 				}
 				break;
 			case "unsubscribe":
 				$content = "取消关注";
 				break;
 			case "SCAN":
-				$content = "扫描 " . $object->EventKey;
+				$content = "扫描场景： " . $object->EventKey;
+				break;
+			case "CLICK":
+				$content = "点击菜单拉取消息： " . $object->EventKey;
+				break;
+			case "VIEW":
+				$content = "点击菜单跳转链接： " . $object->EventKey;
 				break;
 		}
 		return $this->transmitText($object, $content);
