@@ -150,6 +150,26 @@ class Api extends MY_Controller {
 		return sprintf($newsTpl, $obj->FromUserName, $obj->ToUserName, time(), count($arr_item));
 	}
 	
+	private function getUnicodeFromUTF8($word) {
+		//获取其字符的内部数组表示，所以本文件应用utf-8编码！
+		if (is_array( $word))
+			$arr = $word;
+		else
+			$arr = str_split($word);
+		//此时，$arr应类似array(228, 189, 160)
+		//定义一个空字符串存储
+		$bin_str = '';
+		//转成数字再转成二进制字符串，最后联合起来。
+		foreach ($arr as $value)
+			$bin_str .= decbin(ord($value));
+		//此时，$bin_str应类似111001001011110110100000,如果是汉字"你"
+		//正则截取
+		$bin_str = preg_replace('/^.{4}(.{4}).{2}(.{6}).{2}(.{6})$/','$1$2$3', $bin_str);
+		//此时， $bin_str应类似0100111101100000,如果是汉字"你"
+		return bindec($bin_str); //返回类似20320， 汉字"你"
+		//return dechex(bindec($bin_str)); //如想返回十六进制4f60，用这句
+	}
+	
 	private function getMoralInfo($name){
 		$name = str_replace("+", "", $name);
 		$f = mb_substr($name,0,1,'utf-8');
