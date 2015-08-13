@@ -41,6 +41,8 @@ class Api extends MY_Controller {
 						$result = "Unknow msg type: ".$RX_TYPE;
 						break;
 				}
+				echo $result;
+				exit;
 			} else {
 				echo "";
 				exit;
