@@ -66,14 +66,16 @@ class Api extends MY_Controller {
 
 	public function get_qrcode() {
 		
-		$token_data = $this->get_ticket();
-		$ticket = $token_data->ticket;
+		$ticket_data = $this->get_ticket();
+		$ticket = $ticket_data->ticket;
 		echo 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=' . $ticket;
 	}
 	
 	public function get_ticket() {
 	
-		$access_token = $this->api_model->get_or_create_token()['token'];
+		$token_data = $this->api_model->get_or_create_token();
+		var_dump($token_data);
+		$access_token = $token_data['token'];
 		$url = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $access_token;
 
 		@$post_data->expire_seconds = 604800;
@@ -81,9 +83,6 @@ class Api extends MY_Controller {
  		@$post_data->action_info->scene->scene_id = 1;
 
   		return json_decode($this->post($url, $post_data));
-
-// 		$url = $token_data->url;
-// 		var_dump($url);
 	}
 	
 	private function post($url, $post_data, $timeout = 300){
