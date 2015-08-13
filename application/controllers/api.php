@@ -178,7 +178,7 @@ class Api extends MY_Controller {
 		$x = mb_substr($name,3,1,'utf-8');
 		$n=($this->getUnicodeFromUTF8($f) + $this->getUnicodeFromUTF8($s) + $this->getUnicodeFromUTF8($w) + $this->getUnicodeFromUTF8($x)) % 100;
 		$addd='';
-		if(emptyempty($name)){
+		if(empty($name)){
 			$addd="大哥不要玩我啊，名字都没有你想算什么！";
 	
 		} else if ($n <= 0) {
