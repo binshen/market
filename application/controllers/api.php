@@ -26,7 +26,6 @@ class Api extends MY_Controller {
 			$postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
 			if (!empty($postStr)){
 				$postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
-				
 				$RX_TYPE = trim($postObj->MsgType);
 				switch ($RX_TYPE) {
 					case "text":
@@ -50,40 +49,40 @@ class Api extends MY_Controller {
 	}
 	
 	private function receiveText($obj) {
-		$keyword = trim($object->Content);
+		$keyword = trim($obj->Content);
 		$result = "";
 		if (preg_match('/^笑话[0-9]{8}$/',$keyword)){
 			//include("jokes.php");
 			$content = "这就是笑话:)"; //showContents($keyword);
-			$result = $this->transmitText($object, $content);
+			$result = $this->transmitText($obj, $content);
 		}elseif ($keyword == 'help' ||$keyword == '帮助') {
 			$content = "帮助：1.查人品，回复RP名字，如RP张三  2.笑话，则回复笑话+日期，如：笑话20140319 3.看天气，回复城市名称，如TQ北京";
-			$result = $this->transmitText($object, $content);
+			$result = $this->transmitText($obj, $content);
 		}elseif(preg_match('/^(TQ)|(tq)[\x{4e00}-\x{9fa5}]+$/iu',$keyword)){
 			//include("weather.php");
 			$a = substr($keyword,2,strlen($keyword));
 			$cityName = fromNameToCode($a);
 			if ($cityName==''){
 				$content = "帮助：1.查人品，回复RP名字，如RP张三  2.笑话，则回复笑话+日期，如：笑话20140319 3.看天气，回复城市名称，如TQ北京";
-				$result = $this->transmitText($object, $content);
+				$result = $this->transmitText($obj, $content);
 			}else{
 				$content = "正在查询天气预报，请等待"; //getWeatherInfo($a);
-				$result = $this->transmitNews($object, $content);
+				$result = $this->transmitNews($obj, $content);
 			}
 		}elseif(preg_match('/^RP[\x{4e00}-\x{9fa5}a-zA-Z0-9]+$/iu',$keyword)){
 			$a = substr($keyword,2,strlen($keyword));
 			$content=$this->getMoralInfo($a);
-			$result = $this->transmitText($object, $content);
+			$result = $this->transmitText($obj, $content);
 		}else {
 			$content = "帮助：1.查人品，回复RP名字，如RP张三  2.笑话，则回复笑话+日期，如：笑话20140319 3.看天气，回复城市名称，如TQ北京";
-			$result = $this->transmitText($object, $content);
+			$result = $this->transmitText($obj, $content);
 		}
 		return $result;
 	}
 	
 	private function receiveEvent($obj) {
 		$content = "";
-		switch ($object->Event) {
+		switch ($obj->Event) {
 			case "subscribe":
 				$content = "欢迎关注宜居花桥房产超市。帮助：1.查人品，回复RP名字，如RP张三  2.笑话，则回复笑话+日期，如：笑话20140319 3.看天气，回复城市名称，如TQ北京";
 				break;
@@ -115,10 +114,10 @@ class Api extends MY_Controller {
 				<FuncFlag>0</FuncFlag>
 			</xml>
 		";
-		return sprintf($textTpl, $object->FromUserName, $object->ToUserName, time(), $content);
+		return sprintf($textTpl, $obj->FromUserName, $obj->ToUserName, time(), $content);
 	}
 	
-	private function transmitNews($object, $arr_item)
+	private function transmitNews($obj, $arr_item)
 	{
 		if(!is_array($arr_item))
 			return;
@@ -146,7 +145,7 @@ class Api extends MY_Controller {
 				<Articles>$item_str</Articles>
 			</xml>
 		";
-		return sprintf($newsTpl, $object->FromUserName, $object->ToUserName, time(), count($arr_item));
+		return sprintf($newsTpl, $obj->FromUserName, $obj->ToUserName, time(), count($arr_item));
 	}
 	
 	private function getMoralInfo($name){
