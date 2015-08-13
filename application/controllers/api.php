@@ -2,7 +2,7 @@
 
 if(!defined('APP_ID')) define('APP_ID', 'wx74ecabd9ee84aa89');
 if(!defined('APP_SECRET')) define('APP_SECRET', '03aae99bb72ec4fd2aa592e9716d762e');
-if(!defined('CB_TOKEN')) define('CB_TOKEN', '8654b302d5100247d2acc6211664c6f2');
+if(!defined('TOKEN')) define('TOKEN', '8654b302d5100247d2acc6211664c6f2');
  
 class Api extends MY_Controller {
 
