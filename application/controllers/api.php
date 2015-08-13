@@ -66,6 +66,9 @@ class Api extends MY_Controller {
 
 	public function get_qrcode() {
 		
+		$token_data = $this->get_ticket();
+		$ticket = $token_data->ticket;
+		echo 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=' . $ticket;
 	}
 	
 	public function get_ticket() {
@@ -77,15 +80,10 @@ class Api extends MY_Controller {
  		@$post_data->action_name = "QR_SCENE";
  		@$post_data->action_info->scene->scene_id = 1;
 
- 		$token_data = json_decode($this->post($url, $post_data));
-		$ticket = $token_data->ticket;
-		var_dump($ticket);
-		
-		$url = $token_data->url;
-		var_dump($url);
-		
-		$qrcode_url = 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=' . $ticket;
-		var_dump($qrcode_url);
+  		return json_decode($this->post($url, $post_data));
+
+// 		$url = $token_data->url;
+// 		var_dump($url);
 	}
 	
 	private function post($url, $post_data, $timeout = 300){
