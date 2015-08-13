@@ -1,0 +1,257 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>房猫</title>
+<meta name="keywords" content="房猫,昆山" />
+<meta name="description" content="" />
+<link href="{{$base_url}}css/detail.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{{$base_url}}js/jquery-1.8.3.min.js" ></script>
+<script type="text/javascript" src="{{$base_url}}js/dpl-jquery.slide.js" ></script>
+
+<link href="{{$base_url}}css/map.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=gDeY0HhjlQOvjMmGKKWHAtCb"></script>
+<script>
+var mapX ="{{$xy['lng']}}";
+var mapY ="{{$xy['lat']}}";
+var mapComm = "{{$house['xq_name']}}";
+var mapCommAddress = "";
+</script>
+<script type="text/javascript" src="{{$base_url}}js/map.js"></script>
+
+</head>
+<style>
+#pic_control { width: 408px; }
+#pic_control .current{ border:1px solid #87be33; }
+</style>
+<body>
+<div class="wraper">
+	{include file="header.html"}
+
+    <!--------------搜索列表start---------------->
+    <div class="p_crumbs">
+        <a href="{{site_url url='house/second_hand_list'}}" target="_self">二手房房源</a>&gt;<a href="javascript:$('#second_hand_detail_form').submit();">{{$house.region_name}}</a>&gt;<a>{{$house.xq_name}}</a>
+    </div>
+    <div class="housedetail">
+        <div class="house-d-top clearfix">
+            <div class="photoshow">
+                <div id="bigPic" class="tab">
+                    <ul>
+                        {{foreach from=$house.house_pics key=key item=item}}
+                        	<li><img src="{{$base_url}}uploadfiles/pics/{{$house.folder}}/1/{{$item.pic}}" alt="" width="420" height="420" /></li>
+            			{{/foreach}}
+                    </ul>
+                </div>
+                <ul class="control" id ="pic_control">
+                	{{foreach from=$house.house_pics key=key item=item}}
+            			<li {{if $key == 4}}class="last"{{/if}}><img src="{{$base_url}}uploadfiles/pics/{{$house.folder}}/1/{{$item.pic_short}}" alt="" width="60" height="60" /></li>
+                    {{/foreach}}
+                </ul> 
+            </div>
+            <div class="detail-txt">
+                <div class="d-p-txt1">{{$house.name}}</div>
+                <div class="d-p-txt2">{{$house.sub_title}}</div>
+                <div class="ev-prices">
+                    <span class="alwa-pr"><i class="color1">价格：</i>{{$house.unit_price}}元/m²</span> 
+                    <span class="sepc-pr"><i class="color1">本月均价：</i>{{$house.unit_price}}元/m²</span><br />
+                    <span class="sale-pr"><i class="color1">售 价：</i><i class="iNum">{{$house.total_price}}</i>万元</span>
+                </div>
+                <div class="d-other-info clearfix">
+                    <dl class="other-dl">
+                        <dt>首付：</dt>
+                        <dd>{{$house.first_pay}}万</dd>
+                        <dt>房 型：</dt>
+                        <dd>{{$house.room}}室{{$house.lounge}}厅</dd>
+                        <dt>装 修：</dt>
+                        <dd>{{$house.decoration_name}}</dd>
+                        <dt>楼 层：</dt>
+                        <dd>{{$house.floor}}/{{$house.total_floor}}层</dd>
+                    </dl>
+                    <dl class="other-dl">
+                        <dt>月 供：</dt>
+                        <dd>{{$house.monthly_pay}}元</dd>
+                        <dt>面 积：</dt>
+                        <dd>{{$house.acreage}}㎡</dd>
+                        <dt>朝 向：</dt>
+                        <dd>{{$house.orientation_name}}</dd>
+                        <dt>所在小区：</dt>
+                        <dd class="color2">{{$house.xq_name}}  <a href="#house_map_area" target="_self">[地图]</a></dd>
+                    </dl>
+                </div>
+                <div class="key-word">
+                	{{foreach from=$house.feature_list item=item}}
+            			<span>{{$item}}</span>
+                    {{/foreach}}
+                </div>
+                <div class="detail-tel">
+                     <em class="tel-icon"></em>
+                     <em class="tel-txt">
+                     	{{if $house.broker_id > 0 }}
+                     		{{$house.tel}}
+                     	{{else}}
+                     		{{$house.user_tel}}
+                     	{{/if}}
+                     </em>
+                </div>
+                <div class="d-other-info">
+                    <dl class="other-dl other-dl1">
+                        <dt>年 代：</dt>
+                        <dd>{{$house.xq_name}}年</dd>
+                        <dt>物业费：</dt>
+                        <dd>{{$house.estate_price}}元/平米</dd>
+                        <dt>配套设施：</dt>
+                        <dd>{{$house.facility}} </dd>
+                        <dt>地址：</dt>
+                        <dd>{{$house.address|default:"地址不详"}} </dd>
+                    </dl>
+                    <dl class="other-dl other-dl2">
+                        <dt>类型：</dt>
+                        <dd>{{$house.style_name}}</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="house-d-title">
+            房源描述
+        </div>
+        <div class="house-d-by">
+            {{$house.description}}
+        </div>
+        <div class="house-d-title">
+            房源图片
+        </div>
+        <div class="house-d-by">
+            {{foreach from=$house.house_pics_all key=key item=item}}
+            	<img src="{{$base_url}}/uploadfiles/pics/{{$house.folder}}/1/{{$item.pic}}" width="860" height="600" style="padding-bottom:10px;"/>
+    		{{/foreach}}
+        </div>
+        <div class="house-d-title" id="house_map_area">
+            小区地图
+        </div>
+        <div class="house-d-by">
+            <div id="detail-map" class="detail-map">
+	            <div class="detail-map-main" id="bigmap" style="width:860px;"></div>
+	            <div id="wrapper">
+	            <!--demo1 end-->
+	            <div class="box demo2">
+	                <ul class="tab_menu">
+	                    <li onclick="searchcondition('公交',this);" class="current tab-traffic-menu">交通</li>
+	                    <li onclick="searchcondition('医疗',this);" class="tab-hospital-menu">医疗</li>
+	                    <li onclick="searchcondition('学校',this);" class="tab-school-menu">教育</li>
+	                    <li onclick="searchcondition('超市',this);" class="tab-trade-menu">商业</li>
+	                </ul>
+	                <div class="tab_box">
+	                    <div class="hide tab_box_eq">
+	                        <ul id="tab-traffic"><li class="tab-traffic"><b>数据正在加载中</b></li></ul>
+	                    </div>
+	                    <div class="hide tab_box_eq">
+	                        <ul id="tab-hospital"><li class="tab-hospital"><b>数据正在加载中</b></li></ul>
+	                    </div>
+	                    <div class="hide tab_box_eq">
+	                        <ul id="tab-school"><li class="tab-school"><b>数据正在加载中</b></li></ul>
+	                    </div>
+	                    <div class="hide tab_box_eq">
+	                        <ul id="tab-trade"><li class="tab-trade"><b>数据正在加载中</b></li></ul>
+	                    </div>
+	                </div>
+	            </div>
+	            </div>
+	        </div>
+        </div>
+    </div>
+    <div class="house-d-fr">
+        <div class="agent-peo-info">
+            <div class="agent-head">
+                <img src="{{$base_url}}images/headpic.jpg" style="width:165px; height:235px;">
+            </div>
+            {{if $house.broker_id > 0 }}
+	            <div class="agent-position">
+	                <p class="p-name"><em class="fz14">经纪人：{{$house.rel_name}}</em><br />
+	                <em class="color666 fz10">{{$house.company_name}}</em></p>
+	                <p class="agent-icon">
+	                    <i class="i_identifuy"></i>
+	                    <i class="i_company_verify"></i>
+	                </p>    
+	                <p class="agent-num"><em class="color666">房源数：</em>{{$house.house_count}}套</p>
+	                <p class="agent-tel"><em></em>{{$house.tel}}</p>
+	                <p class="fz10">房屋买卖咨询，请致电我</p>
+	            </div>
+	        {{else}}
+	        	<div class="agent-position">
+	                <p class="p-name"><em class="fz14">姓名：{{$house.user_name}}</em><br />
+	                <em class="color666 fz10">网站注册用户</em></p>
+	                <p class="agent-icon">
+	                    <i class="i_identifuy"></i>
+	                    <i class="i_company_verify"></i>
+	                </p>    
+	                <p class="agent-num"><em class="color666">房源数：</em>{{$house.house_count}}套</p>
+	                <p class="agent-tel"><em></em>{{$house.user_tel}}</p>
+	                <p class="fz10">房屋买卖咨询，请致电我</p>
+	            </div>
+	        {{/if}}
+        </div>
+        <!--
+        <div class="agent-reco-info">
+            <div class="a-r-title">————— 推荐小区 —————</div>
+            <div class="a-r-house">
+                <a href="" target="_blank"><img src="http://dummyimage.com/165x125/000/fff">
+                <p class="a-r-house-p"><i class="blue">天地华城赔本娄江双学区</i><br /><i class="red">55万</i><br /><i>1室2厅，66平米</i><br /><i>天地华城</i></p></a>
+            </div>
+            <div class="a-r-house">
+                <a href="" target="_blank"><img src="http://dummyimage.com/165x125/000/fff">
+                <p class="a-r-house-p"><i class="blue">天地华城赔本娄江双学区</i><br /><i class="red">55万</i><br /><i>1室2厅，66平米</i><br /><i>天地华城</i></p>
+                </a>
+            </div>
+        </div>
+        <div class="agent-reco-info">
+            <div class="a-r-title">————— 相似小区 —————</div>
+            <div class="a-r-house">
+                <a href="" target="_blank"><img src="http://dummyimage.com/165x125/000/fff">
+                <p class="a-r-house-p"><i class="blue">天地华城赔本娄江双学区</i><br /><i class="red">55万</i><br /><i>1室2厅，66平米</i><br /><i>天地华城</i></p></a>
+            </div>
+            <div class="a-r-house">
+                <a href="" target="_blank"><img src="http://dummyimage.com/165x125/000/fff">
+                <p class="a-r-house-p"><i class="blue">天地华城赔本娄江双学区</i><br /><i class="red">55万</i><br /><i>1室2厅，66平米</i><br /><i>天地华城</i></p></a>
+            </div>
+        </div>
+        -->
+        <div class="agent-reco-info">
+            <div class="a-r-title">————— 推荐楼盘 —————</div>
+            {{foreach from=$recommend_list item=row}}
+	            <div class="a-r-house">
+	                <a href="{{site_url url='house/second_hand_detail'}}/{{$row['id']}}" target="_blank">
+	                	<img width="165" height="125" src="/uploadfiles/pics/{{$row['bg_pic']}}">
+	                	<p class="a-r-house-p">
+	                	<i class="blue">{{$row['name']|truncate_cn:26}}</i><br />
+	                	<i class="red">售价：{{$row['total_price']}}万元</i><br />
+	                	<i>{{$row['room']}}室{{$row['lounge']}}厅，{{$row['acreage']}}平米</i><br />
+	                	<i>{{$row['xq_name']}}</i></p>
+	                </a>
+	            </div>
+	        {{/foreach}}
+        </div>
+    </div>
+</div>
+{include file="footer.html"}
+<form action="/house/second_hand_list" method="POST" id="second_hand_detail_form">
+	<input type="hidden" id="search_region" name="search_region" value="{{$house['region_id']|default:''}}">
+</form>
+<script>
+$(function(){
+	//图片展示
+    new Slide({
+        target: $('#bigPic li'),
+        control: $('#pic_control li'),
+        type:'click'
+    });
+    $('.a-r-house').mouseenter(function(){
+        $(this).addClass('over-bg');
+    }).mouseleave(function(){
+        $(this).removeClass('over-bg');
+    });
+    
+    $('.ks-select em').text("二手房");
+})
+</script>
+</body>
+</html>

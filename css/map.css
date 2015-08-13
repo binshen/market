@@ -1,0 +1,20 @@
+/*---地图--*/
+.detail-map-main{ margin-bottom:20px; width: 1138px; height: 342px;}
+.mapbox{width:810px;}
+.mapbox a{font-size: 14px;font-weight: bold;color: #19667b;text-decoration: none;}
+.tab_menu{overflow:hidden;height: 43px; border-bottom-width: 3px;border-bottom-style: solid;border-bottom-color: #01a1ff;}
+.tab_menu li{width:80px;float:left;height:40px;line-height:40px;color:#999999;text-align:center;cursor:pointer;font-size: 14px;background-repeat: no-repeat;background-position: right 12px;}
+.tab_menu li.current{color:#FFFFFF;background-color: #01a1ff;}
+.tab_box{font-size: 12px;line-height: 35px;color: #999999;}
+.tab_box b{color: #01a1ff;font-weight: normal;font-size: 14px;}
+.tab_box .hide{display:none;}
+.tab_box h1{font-size: 14px;line-height: 40px;font-weight: bold;margin-top: 5px;color: #333333;}
+.tab-fg{border-bottom-width: 1px;border-bottom-style: dotted;border-bottom-color: #CCCCCC;padding-bottom: 10px;}
+.tab-main{height: 300px;overflow-x: hidden; overflow-y:scroll;}
+.tab-traffic{background-image: url(../images/map-icon3.png);background-repeat: no-repeat;padding-left: 32px;background-position: left 13px;}
+.tab-school{background-image: url(../images/map-icon4.png);background-repeat: no-repeat;padding-left: 32px;background-position: left 9px;}
+.tab-hospital{background-image: url(../images/map-icon5.png);background-repeat: no-repeat;padding-left: 32px;background-position: left 9px;}
+.tab-trade{	background-image: url(../images/map-icon6.png);background-repeat: no-repeat;padding-left: 32px;background-position: left 9px;}	
+.tab_box ul{width: 950px;margin-top: 10px;}
+.tab_box li{border-bottom-width: 1px;border-bottom-style: dotted;border-bottom-color: #CCCCCC;}
+

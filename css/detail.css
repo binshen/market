@@ -1,0 +1,55 @@
+@charset "utf-8";
+@import url('block/reset.css');
+@import url('block/other.css');
+@import url('block/common.css');
+
+
+.housedetail{margin-bottom: 55px; width: 900px; float: left;}
+.house-d-top{margin-bottom: 55px;}
+.photoshow{width:420px; float: left;}
+#bigPic {position:relative;margin-bottom: 20px; width:420px; }
+#pic_control {margin:0 auto;width:400px; height:60px;}
+#pic_control li {margin-right: 25px; float:left; width:60px; height: 60px; cursor: pointer;} 
+#pic_control .last{margin-right: 0;}
+
+.detail-txt{width:450px; float: right;}
+.d-p-txt1{font-size: 14px;font-weight: bold;}
+.d-p-txt2{font-size: 12px; color: #ff4400;}
+.ev-prices{margin:12px 0;padding:10px 15px; width: 420px; height: 70px; background:#f0efef; }
+.ev-prices span{margin-right: 40px; display:inline-block; line-height: 34px;}
+.ev-prices .color1{ color: #bab5b5;}
+.ev-prices .iNum{ color: #ff4f12; font-size: 26px;}
+.d-other-info{position: relative;}
+.other-dl{width: 200px; float: left;margin-left: 20px; display: inline; color: #161515; line-height: 26px;}
+.other-dl dt{float: left; color: #bab5b5;}
+.other-dl .color2,.other-dl .color2 a{ color: #3388b4;}
+.key-word{margin: 15px 0 20px 15px;}
+.key-word span{border: 1px solid #ccc; display: inline-block;padding: 0 5px; background: #f7ffec; margin-right:5px; color: #333;}
+
+.detail-tel{margin-bottom: 10px; background: #efeeee;padding:12px 25px;line-height: 35px; height: 35px; overflow:hidden; }
+.tel-icon{ width: 40px;height: 35px; float: left; background: url(../images/icon3_1.png) no-repeat 0 -265px;}
+.tel-txt{ font-size: 26px; color: #ff4f12; padding-left:18px; font-weight:bold;}
+.other-dl1{width:420px;}
+.other-dl2{position: absolute;top:0;left:220px;}
+
+.house-d-title{margin:10px 0;border:1px solid #ffe3b8; background:#fff1dc;padding: 0 20px; height: 38px; line-height: 38px; font-size: 16px; color: #e05313; font-weight: bold;}
+.house-d-by{padding:0 20px;}
+
+.house-d-fr{width: 205px; float: right; }
+.agent-peo-info{margin-bottom: 50px; border: 1px solid #ececec;padding: 20px 15px; background: #fbfdfa;}
+.agent-head{border: 1px solid #eee;margin-bottom: 15px;}
+
+.agent-position{text-align: center;}
+.agent-position .p-name{margin-bottom: 10px; line-height: 20px;}
+.agent-position .p-name .fz14{font-weight: bold;}
+.agent-position .agent-icon i{margin:0 5px;width:22px; height: 15px; display: inline-block; background: url(../images/icon3_1.png) no-repeat;}
+.agent-position .agent-icon .i_identifuy{ background-position: -18px -306px;}
+.agent-position .agent-icon .i_company_verify{ background-position: -18px -323px;}
+.agent-area{margin-bottom: 20px;}
+.agent-more-link{margin:0 auto 10px;padding:0 2px; width: 62px; height: 20px; display: block;border:1px solid #bcbbbb; border-radius: 2px; line-height:20px;}
+.agent-tel { line-height: 20px; height: 20px; color:#ff4f12;font-weight: bold; font-size: 14px;}
+.agent-tel em {padding-right: 5px; width: 16px; height: 14px; display: inline-block;  background: url(../images/icon3_1.png) no-repeat -24px -242px;vertical-align:middle;}
+.a-r-title{margin-bottom: 20px; text-align: center;color: #999;}
+.a-r-house{padding:5px;width: 165px; margin: 0 auto 20px; color: #999;}
+.a-r-house .a-r-house-p{margin-top: 10px; line-height:20px;}
+.a-r-house a:hover { color: #999;};

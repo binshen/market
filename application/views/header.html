@@ -1,0 +1,95 @@
+   <!------------广告start-------------->
+	<div class="ivy-1180">
+		<!-- <img src="http://dummyimage.com/1180x80/000/fff" alt="" width="1180" height="80" />-->
+		<embed type="application/x-shockwave-flash" src="{{$base_url}}/uploadfiles/ads/1397096488799714200.swf" width="1180" height="80" id="top_ad" name="top_ad" quality="high" wmode="transparent" pluginspage="http://www.macromedia.com/go/getflashplayer">
+	</div>
+   <!------------广告end---------------->
+   <!------------头部start-------------->
+    <div class="header clearfix">
+    	<h1 class="logo">
+        	<a href="/" title="房猫">房猫</a>
+        </h1>
+        <div class="ks">
+        	<form action="#" method="get">
+            	<div class="ks-select">
+                	<span class="item">
+                    	<em>新房</em>
+                        <i class="trag1"></i>
+                    </span>
+                    <div class="ks-select-pop hidden">
+						<a href="javascript:" target="_self" class="item current">新房</a>
+                        <a href="javascript:" target="_self" class="item">二手房</a>
+                        <a href="javascript:" target="_self" class="item">租房</a>
+                    </div>
+                </div>
+                <div class="ks-input">
+                	<div class="ks-label">
+                		<input type="text" name="question" id="question" class="ks-q focus" value="" />
+                        <div class="ks-pop hidden">
+                        	<ul>
+                            	<li><span>10000结果</span>周市</li>
+                                <li><span>1300结果</span>陆家镇</li>
+                                <li><span>10000结果</span>陆家镇</li>
+                                <li><span>10000结果</span>陆家镇</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <input type="submit" class="ks-submit" value="搜索" id="btnSearchText" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--------------头部end---------------->
+    <form method="POST" id="searchHouseForm">
+    	<input type="hidden" id="search_key" name="search_key" value="{{$search_key|default:1}}">
+    	<input type="hidden" id="search_text" name="search_text" value="{{$search_text|default:''}}">
+    	
+    	<input type="hidden" id="search_region" name="search_region" value="{{$search_region|default:''}}">
+		<input type="hidden" id="search_style" name="search_style" value="{{$search_style|default:''}}">
+		<input type="hidden" id="search_price" name="search_price" value="{{$search_price|default:''}}">
+		<input type="hidden" id="search_acreage" name="search_acreage" value="{{$search_acreage|default:''}}">
+		<input type="hidden" id="search_type" name="search_type" value="{{$search_type|default:''}}">
+		<input type="hidden" id="search_feature" name="search_feature" value="{{$search_feature|default:''}}">
+		<input type="hidden" id="search_rent_style" name="search_rent_style" value="{{$search_rent_style|default:''}}">
+		
+		<input type="hidden" id="search_order" name="search_order" value="{{$search_order|default:''}}">
+		<input type="hidden" id="order_price_dir" name="order_price_dir" value="{{$order_price_dir|default:''}}">
+    </form>
+    
+<script type="text/javascript">
+$(function(){
+	//快搜左侧下拉
+	$('.ks-select').mouseenter(function(){
+		$('.ks-select-pop').show();
+	}).mouseleave(function(){
+		$('.ks-select-pop').hide();
+	});
+	$('.ks-select-pop a').click(function(){
+		$('.ks-select-pop a').removeClass('current');
+		$(this).addClass('current');
+		$('.ks-select em').text($(this).text());
+		$('.ks-select-pop').hide();
+		if($(this).text() == '新房') {
+			$("#search_key").val(1);
+		} else if($(this).text() == '二手房') {
+			$("#search_key").val(2);
+		} else {
+			$("#search_key").val(3);
+		}
+	});
+	
+	$("#btnSearchText").click(function(event) {
+		event.preventDefault();
+		$("#search_text").val($("#question").val());
+		var key = $("#search_key").val();
+		if(key == 1) {
+			$("#searchHouseForm").attr('action', '/house/new_house_list');
+		} else if(key == 2) {
+			$("#searchHouseForm").attr('action', '/house/second_hand_list');
+		} else {
+			$("#searchHouseForm").attr('action', '/house/rent_house_list');
+		}
+		$("#searchHouseForm").submit();
+	});
+});
+</script>    

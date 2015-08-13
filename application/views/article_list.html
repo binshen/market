@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>房猫</title>
+<meta name="keywords" content="房猫,昆山" />
+<meta name="description" content="" />
+<link href="/css/news.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/js/jquery-1.8.3.min.js" ></script>
+</head>
+<body>
+<div class="wraper">
+   {include file="header.html"}
+    <!--------------头部end---------------->
+    <!--------------头部导航start---------------->
+    <div class="gobal-nav">
+    	<span class="nav-search"><em>搜索分类</em><i class="trag2 trag1-gray-t"></i></span>
+        <ul class="ul-nav">
+        	<li><a href="" class="headline"><em></em>头条<!-- <i class="arrow"></i> --></a></li>
+            <li class="current"><a href="" class="housesource"><em></em>房源<!-- <i class="arrow"></i> --></a></li>
+            <li><a href="" class="housefav"><em></em>房猫惠购</a><!-- <i class="arrow"></i> --></li>
+            <li><a href="" class="housemedia"><em></em>自媒体</a><!-- <i class="arrow"></i> --></li>
+        </ul>
+        <div class="user-info">
+        	<em class="login-logo"></em>
+        	<a href="" target="_blank">登录</a>
+            <a href="" target="_blank">注册</a>
+        </div>
+    </div>
+    <!--------------头部导航end---------------->
+   <div class="p_crumbs">
+   		<form action="/house/new_house_list" method="POST" >
+    	<input type="hidden" id="search_region" name="search_region" value="{{$tag['region_id']}}">
+    	</form>
+        <a href="{{site_url url='house/new_house_list'}}" target="_blank">全部房源</a>&gt;<a href="javascript:$('form').submit();" >{{$tag['region_name']}}</a>&gt;<a href="{{site_url url='house/new_house_detail'}}/{{$tag['id']}}" >{{$tag['name']}}</a>
+    </div>
+    <div class="dynamic-box clearfix">
+        <div class="dynamicL">
+            <div class="dy-tit">动态</div>
+            {{foreach from=$list item=row key=k}}
+            <dl class="dy-dl clearfix news_list" {{if $k gt 9}}style="display:none"{{/if}}>  
+                <dt><span>{{$row['cdate']|date_format:"%m-%d"}}<br />{{$row['cdate']|date_format:"%Y"}}</span></dt>
+                <dd>
+                    <span class="d-tit">{{$row['title']}}</span>
+                    <p>{{$row['content']}}... <a href="{{site_url url='house/article_detail'}}/{{$tag['id']}}/{{$row['id']}}" >详情>></a></p>
+                    <!-- <img src="http://dummyimage.com/145x95/000/fff"> -->
+                </dd>
+            </dl>
+            {{/foreach}}
+            {{if $list|@count gt 10}}
+           <a href="javascript:;" onclick="show_all_list(this)" class="check-more-news">查看更多</a>
+           {{/if}}
+        </div>
+        <div class="dynamicR">
+            <img src="http://dummyimage.com/365x260/000/fff" alt="" width="365" height="260" />
+            <div class="dy-tit">昆城景苑</div>
+            <dl class="dynamic-dl">
+                <dt>参考售价</dt>
+                <dd>住宅<i class="red">13000</i>元/㎡</dd>
+                <dt>楼盘地址</dt>
+                <dd>[ 玉山 - 城南 ] 衡山路与人民南路两侧</dd>
+                <dt>开盘时间 </dt>
+                <dd>2014年10月26日</dd>
+                <dt>户型面积</dt>
+                <dd>89.00-130.00㎡</dd>
+                <dt>优惠折扣</dt>
+                <dd>购房98折</dd>
+            </dl>
+            <a href="#"  class="dynamic-a-link">查看楼盘详情>></a>
+        </div>
+   </div>
+</div>
+<div class="footer">
+	<div class="ft-inner">
+        <ul class="ul-ft clearfix">
+            <li>
+                <span class="f-tit">优质房源</span>
+                <a href="#" target="_blank">特惠楼盘</a><br />
+                <a href="#" target="_blank">品牌地产合作</a><br />
+                <a href="#" target="_blank">专业服务团队</a>
+            </li>
+            <li>
+                <span class="f-tit">使用帮助</span>
+                <a href="#" target="_blank">帮助中心</a><br />
+                <a href="#" target="_blank">注册常见问题</a>
+            </li>
+            <li>
+                <span class="f-tit">特色服务</span>
+                <a href="#" target="_blank">房猫独家</a><br />
+                <a href="#" target="_blank">优惠楼盘</a>
+            </li>
+            <li>
+                <span class="f-tit f-tit-ewm">房猫微店</span>
+                <a href="#" target="_blank"><img src="images/erweima.jpg" alt="" width="80" height="87" /></a>
+            </li>
+            <li>
+                <span class="f-tit">联系我们</span>
+                <p>客服热线<br />
+              <strong class="fz16">0512-36699066</strong><br />（9:00-17:30）国定节假日除外<br />平台合作：<strong class="fz14">0512-36699066</strong></p>
+            </li>
+        </ul>	
+        <div class="copyright clearfix">
+        	<a href="" class="f_logo"></a>
+            <p class="ftr-p">&copy;2015 Funmall Co., Ltd. All rights reserved. 备案号：苏CP备13003602号-2</p>
+        </div>
+  </div>
+</div>
+<script>
+$('.houselist li').mouseenter(function(){
+    $('.houselist li').removeClass('over-bg');
+    $(this).addClass('over-bg');
+}).mouseleave(function(){
+    $('.houselist li').removeClass('over-bg');
+});
+
+function show_all_list(obj){
+	$(obj).hide();
+	$('.news_list').show();
+}
+</script>
+</body>
+</html>
