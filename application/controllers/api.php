@@ -40,7 +40,7 @@ class Api extends MY_Controller {
 						<FuncFlag>0</FuncFlag>
 					</xml>
 				";
-				if(!empty( $keyword )) {
+				if(!empty($keyword)) {
 					$msgType = "text";
 					$contentStr = "Welcome to wechat world!";
 					$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
