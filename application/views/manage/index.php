@@ -107,7 +107,7 @@ $(function(){
 						</div>
 						<div class="accordionContent">
 							<ul class="tree">
-								<li><a href="<?php echo site_url('manage/list_xiaoqu');?>" target="navTab" rel="list_xiaoqu">开发商</a></li>
+								<li><a href="<?php echo site_url('manage/list_customer');?>" target="navTab" rel="list_customer">开发商管理</a></li>
 							</ul>
 						</div>
 						<div class="accordionHeader">

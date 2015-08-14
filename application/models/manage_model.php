@@ -66,5 +66,70 @@ class Manage_model extends MY_Model
         }
     }
     
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * 开发商管理
+     */
+    public function list_customer(){
+    	// 每页显示的记录条数，默认20条
+    	$numPerPage = $this->input->post('numPerPage') ? $this->input->post('numPerPage') : 20;
+    	$pageNum = $this->input->post('pageNum') ? $this->input->post('pageNum') : 1;
     
+    	//获得总记录数
+    	$this->db->select('count(1) as num');
+    	$this->db->from('customer');
+    	if($this->input->post('rel_name'))
+    		$this->db->like('rel_name',$this->input->post('rel_name'));
+    	$this->db->where('id >', 1);
+    
+    	$rs_total = $this->db->get()->row();
+    	//总记录数
+    	$data['countPage'] = $rs_total->num;
+    
+    	$data['name'] = null;
+    	//list
+    	$this->db->select('*');
+    	$this->db->from('customer');
+    	if($this->input->post('name')){
+    		$this->db->like('name',$this->input->post('name'));
+    		$data['name'] = $this->input->post('name');
+    	}
+    	$this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
+    	$this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
+    	$data['res_list'] = $this->db->get()->result();
+    	$data['pageNum'] = $pageNum;
+    	$data['numPerPage'] = $numPerPage;
+    	return $data;
+    }
+    
+    public function save_customer() {
+    	$data = array(
+    		'name' => $this->input->post('name'),
+    		'address' => $this->input->post('address'),
+    		'tel' => $this->input->post('tel')
+    	);
+    	$this->db->trans_start();//--------开始事务
+    
+    	if($this->input->post('id')){//修改
+    		$this->db->where('id', $this->input->post('id'));
+    		$this->db->update('customer', $data);
+    	} else {
+    		$this->db->insert('customer', $data);
+    	}
+    	$this->db->trans_complete();//------结束事务
+    	if ($this->db->trans_status() === FALSE) {
+    		return -1;
+    	} else {
+    		return 1;
+    	}
+    }
+    
+    public function get_customer($id) {
+    	return $this->db->get_where('customer', array('id' => $id))->row_array();
+    }
+    
+    public function delete_customer($id) {
+    	$this->db->where('id', $id);
+    	return $this->db->delete('customer');
+    }
 }
