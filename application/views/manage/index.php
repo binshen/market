@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="renderer" content="webkit" />
-<title>sdbb</title>
+<title>宜居花桥房产超市</title>
 
 <link href="<?php echo base_url();?>dwz/themes/default/style.css" rel="stylesheet" type="text/css" media="screen"/>
 <link href="<?php echo base_url();?>dwz/themes/css/core.css" rel="stylesheet" type="text/css" media="screen"/>
@@ -107,21 +107,7 @@ $(function(){
 						</div>
 						<div class="accordionContent">
 							<ul class="tree">
-								<li><a href="<?php echo site_url('manage/list_xiaoqu');?>" target="navTab" rel="list_xiaoqu">小区信息</a></li>
-								<li><a href="<?php echo site_url('manage/list_house_style');?>" target="navTab" rel="list_house_style">楼盘类型</a></li>
-								<li><a href="<?php echo site_url('manage/list_house_substyle');?>" target="navTab" rel="list_house_substyle">楼盘类型(二级)</a></li>
-								<li><a href="<?php echo site_url('manage/list_house_region');?>" target="navTab" rel="list_house_region">所在区域</a></li>
-								<li><a href="<?php echo site_url('manage/list_house_orientation');?>" target="navTab" rel="list_house_orientation">楼盘朝向</a></li>
-								<li><a href="<?php echo site_url('manage/list_house_decoration');?>" target="navTab" rel="list_house_decoration">装修状况</a></li>
-								<li><a href="<?php echo site_url('manage/list_house_feature');?>" target="navTab" rel="list_house_feature">房源特色</a></li>
-							</ul>
-						</div>
-						<div class="accordionHeader">
-							<h2><span>Folder</span>经纪人管理</h2>
-						</div>
-						<div class="accordionContent">
-							<ul class="tree">
-								<li><a href="<?php echo site_url('manage/list_broker');?>" target="navTab" rel="list_broker">经纪人列表</a></li>
+								<li><a href="<?php echo site_url('manage/list_xiaoqu');?>" target="navTab" rel="list_xiaoqu">开发商</a></li>
 							</ul>
 						</div>
 						<div class="accordionHeader">
@@ -129,12 +115,9 @@ $(function(){
 						</div>
 						<div class="accordionContent">
 							<ul class="tree">
-								<li><a href="<?php echo site_url('manage/list_new_house');?>" target="navTab" rel="list_new_house">新房管理</a></li>
-								<li><a href="<?php echo site_url('manage/list_sd_house');?>" target="navTab" rel="list_sd_house">二手房管理</a></li>
-								<li><a href="<?php echo site_url('manage/list_rent_house');?>" target="navTab" rel="list_rent_house">租房管理</a></li>
+								<li><a href="<?php echo site_url('manage/list_new_house');?>" target="navTab" rel="list_new_house">楼盘</a></li>
 							</ul>
 						</div>
-						
 						<div class="accordionHeader">
 							<h2><span>Folder</span>最新动态</h2>
 						</div>
@@ -160,7 +143,6 @@ $(function(){
 						<div class="accordionContent">
 							<ul class="tree">
 								<li><a href="<?php echo site_url('manage/list_sd_house');?>" target="navTab" rel="list_sd_house">二手房管理</a></li>
-								<li><a href="<?php echo site_url('manage/list_rent_house');?>" target="navTab" rel="list_rent_house">租房管理</a></li>
 							</ul>
 						</div>
 					<?php endif; ?>
