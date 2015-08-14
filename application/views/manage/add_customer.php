@@ -31,7 +31,7 @@
         </div>
         <div class="formBar">
     		<ul>
-    			<li><div class="buttonActive"><div class="buttonContent"><button type="submit" class="icon-save" onclick="save_customer();">保存</button></div></div></li>
+    			<li><div class="buttonActive"><div class="buttonContent"><button type="submit" class="icon-save">保存</button></div></div></li>
     			<li><div class="button"><div class="buttonContent"><button type="button" class="close icon-close">取消</button></div></div></li>
     		</ul>
         </div>

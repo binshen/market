@@ -18,8 +18,8 @@
 	<table class="list" width="100%" targetType="navTab" asc="asc" desc="desc">
 		<thead>
 			<tr>
-				<th>名称</th>
-				<th>地址</th>
+				<th style="width:30%">名称</th>
+				<th style="width:50%">地址</th>
 				<th>联系电话</th>
 			</tr>
 		</thead>
@@ -29,7 +29,6 @@
             	    foreach ($res_list as $row):		               
             ?>		            
             			<tr target="id" rel=<?php echo $row->id; ?>>
-            				<td><?php echo $row->id;?></td>
             				<td><?php echo $row->name;?></td>
             				<td><?php echo $row->address;?></td>
             				<td><?php echo $row->tel;?></td>

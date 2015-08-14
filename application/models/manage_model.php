@@ -111,11 +111,33 @@ class Manage_model extends MY_Model
     	$this->db->trans_start();//--------开始事务
     
     	if($this->input->post('id')){//修改
-    		$this->db->where('id', $this->input->post('id'));
+    		$customer_id = $this->input->post('id');
+    		$this->db->where('id', $customer_id);
     		$this->db->update('customer', $data);
     	} else {
     		$this->db->insert('customer', $data);
+    		$customer_id = $this->db->insert_id();
     	}
+    	
+    	$admin = $this->db->from('admin')->where('customer_id', $customer_id)->get()->row_array();
+    	if(empty($admin)) {
+    		$admin = array(
+    			'username' => $data['name'],
+    			'passwd' => sha1('888888'),
+    			'rel_name' => $data['name'],
+    			'admin_group' => 2,
+    			'customer_id' => $customer_id
+    		);
+    		$this->db->insert('admin', $admin);
+    	} else {
+    		$admin['username'] = $data['name'];
+    		$admin['passwd'] = sha1('888888');
+    		$admin['rel_name'] = $data['name'];
+    		$admin['admin_group'] = 2;
+    		$this->db->where('id', $admin['id']);
+    		$this->db->update('admin', $admin);
+    	}
+    	
     	$this->db->trans_complete();//------结束事务
     	if ($this->db->trans_status() === FALSE) {
     		return -1;
