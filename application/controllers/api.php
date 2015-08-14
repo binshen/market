@@ -102,6 +102,12 @@ class Api extends MY_Controller {
 /////////////////
 // 测试代码	
 ////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	public function test() {
+		$a = '北京';
+		$cityCode = $this->api_model->get_city_code($a);
+		echo $cityCode;
+	}
+	
 	private function receiveText($object) {
 		$keyword = trim($object->Content);
 		$result = "";

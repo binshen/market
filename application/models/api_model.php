@@ -52,6 +52,7 @@ class Api_model extends MY_Model {
 		$this->db->select('cityCode');
 		$this->db->from('city');
 		$this->db->where('cityName', $name);
-		return $this->db->get()->row_array();
+		$city_data = $this->db->get()->row_array();
+		return $city_data['cityCode'];
 	}
 }
