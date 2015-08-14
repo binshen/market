@@ -50,7 +50,7 @@ class Manage_login extends MY_Controller {
             
             if ($this->form_validation->run() == FALSE)
             {
-                $this->load->view('login/login');
+                $this->load->view('manage/login');
             }else{
                 if($this->manage_model->check_login()){
                     redirect(site_url('manage/index'));
