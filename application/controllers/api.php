@@ -105,7 +105,11 @@ class Api extends MY_Controller {
 	public function test() {
 		$a = '北京';
 		$cityCode = $this->api_model->get_city_code($a);
-		echo $cityCode;
+		$content = $this->getWeatherInfo($cityCode);
+		@$object->FromUserName = 'aaaa';
+		@$object->ToUserName = 'bbbb';
+		$result = $this->transmitNews($object, $content);
+		var_dump($result);
 	}
 	
 	private function receiveText($object) {
@@ -334,7 +338,7 @@ class Api extends MY_Controller {
 		$weather = json_decode($output, true);
 		$info = $weather['weatherinfo'];
 		
-		if (!emptyempty($info['index_d'])){
+		if (!empty($info['index_d'])){
 			$weatherArray[] = array("Title" =>$info['index_d'], "Description" =>"", "PicUrl" =>"", "Url" =>"");
 		}
 		
