@@ -131,7 +131,9 @@ class Manage_model extends MY_Model
     		$this->db->insert('admin', $admin);
     	} else {
     		$admin['username'] = $data['name'];
-    		$admin['passwd'] = sha1('888888');
+    		if(empty($admin['passwd'])) {
+    			$admin['passwd'] = sha1('888888');
+    		}
     		$admin['rel_name'] = $data['name'];
     		$admin['admin_group'] = 2;
     		$this->db->where('id', $admin['id']);
