@@ -112,14 +112,12 @@ class Api extends MY_Controller {
 		$keyword = trim($object->Content);
 		$result = "";
 		if (preg_match('/^笑话[0-9]{8}$/',$keyword)){
-			//include("jokes.php");
 			$content = "这就是笑话:)"; //showContents($keyword);
 			$result = $this->transmitText($object, $content);
 		}elseif ($keyword == 'help' ||$keyword == '帮助') {
 			$content = "帮助：1.查人品，回复RP名字，如RP张三  2.笑话，则回复笑话+日期，如：笑话20140319 3.看天气，回复城市名称，如TQ北京";
 			$result = $this->transmitText($object, $content);
 		}elseif(preg_match('/^(TQ)|(tq)[\x{4e00}-\x{9fa5}]+$/iu',$keyword)){
-			//include("weather.php");
 			$a = substr($keyword,2,strlen($keyword));
 			$cityCode = $this->api_model->get_city_code($a);
 			if ($cityCode==''){
