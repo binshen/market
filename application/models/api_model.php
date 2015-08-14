@@ -44,4 +44,14 @@ class Api_model extends MY_Model {
 		$response = file_get_contents($url);
 		return json_decode($response)->access_token;
 	}
+	
+//////////////////////////////////////////////////////////////
+// Test code
+//////////////////////////////////////////////////////////////
+	public function get_city_code($name) {
+		$this->db->select('cityCode');
+		$this->db->from('city');
+		$this->db->where('cityName', $name);
+		return $this->db->get()->row_array();
+	}
 }

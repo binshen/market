@@ -115,17 +115,17 @@ class Api extends MY_Controller {
 		}elseif(preg_match('/^(TQ)|(tq)[\x{4e00}-\x{9fa5}]+$/iu',$keyword)){
 			//include("weather.php");
 			$a = substr($keyword,2,strlen($keyword));
-			$cityName = fromNameToCode($a);
-			if ($cityName==''){
+			$cityCode = $this->api_model->get_city_code($a);
+			if ($cityCode==''){
 				$content = "帮助：1.查人品，回复RP名字，如RP张三  2.笑话，则回复笑话+日期，如：笑话20140319 3.看天气，回复城市名称，如TQ北京";
 				$result = $this->transmitText($object, $content);
 			}else{
-				$content = "正在查询天气预报，请等待"; //getWeatherInfo($a);
+				$content = $this->getWeatherInfo($cityCode);
 				$result = $this->transmitNews($object, $content);
 			}
 		}elseif(preg_match('/^RP[\x{4e00}-\x{9fa5}a-zA-Z0-9]+$/iu',$keyword)){
 			$a = substr($keyword,2,strlen($keyword));
-			$content=$this->getMoralInfo($a);
+			$content=$this->getMoralInfo($cityCode);
 			$result = $this->transmitText($object, $content);
 		}else {
 			$content = "帮助：1.查人品，回复RP名字，如RP张三  2.笑话，则回复笑话+日期，如：笑话20140319 3.看天气，回复城市名称，如TQ北京";
@@ -295,5 +295,53 @@ class Api extends MY_Controller {
 			$addd ="你的人品竟然负溢出了...我对你无语..";
 		}
 		return $name."的人品分数为：".$n."\n".$addd;
+	}
+	
+	function httpRequest($url) {
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		$output = curl_exec($ch);
+		curl_close($ch);
+		if ($output === FALSE){
+			return "cURL Error: ". curl_error($ch);
+		}
+		return $output;
+	}
+	
+	function getWeatherInfo($cityCode) {
+		
+		//获取实时天气
+		$url = "http://www.weather.com.cn/data/sk/".$cityCode.".html";
+		$output = $this->httpRequest($url);
+		$weather = json_decode($output, true);
+		$info = $weather['weatherinfo'];
+		
+		$weatherArray = array();
+		$weatherArray[] = array("Title"=>$info['city']."天气预报", "Description"=>"", "PicUrl"=>"", "Url" =>"");
+		if ((int)$cityCode < 101340000){
+			$result = "实况 温度：".$info['temp']."℃ 湿度：".$info['SD']." 风速：".$info['WD'].$info['WSE']."级";
+			$weatherArray[] = array("Title"=>str_replace("%", "﹪", $result), "Description"=>"", "PicUrl"=>"", "Url" =>"");
+		}
+		
+		//获取六日天气
+		$url = "http://m.weather.com.cn/data/".$cityCode.".html";
+		$output = $this->httpRequest($url);
+		$weather = json_decode($output, true);
+		$info = $weather['weatherinfo'];
+		
+		if (!emptyempty($info['index_d'])){
+			$weatherArray[] = array("Title" =>$info['index_d'], "Description" =>"", "PicUrl" =>"", "Url" =>"");
+		}
+		
+		$weekArray = array("日","一","二","三","四","五","六");
+		$maxlength = 3;
+		for ($i = 1; $i <= $maxlength; $i++) {
+			$offset = strtotime("+".($i-1)." day");
+			$subTitle = date("m月d日",$offset)." 周".$weekArray[date('w',$offset)]." ".$info['temp'.$i]." ".$info['weather'.$i]." ".$info['wind'.$i];
+			$weatherArray[] = array("Title" =>$subTitle, "Description" =>"", "PicUrl" =>"http://discuz.comli.com/weixin/weather/"."d".sprintf("%02u",$info['img'.(($i *2)-1)]).".jpg", "Url" =>"");
+		}
+		
+		return $weatherArray;
 	}
 }
