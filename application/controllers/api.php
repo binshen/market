@@ -106,11 +106,11 @@ class Api extends MY_Controller {
 		$a = '上海';
 		$cityCode = $this->api_model->get_city_code($a);
 		$content = $this->getWeatherInfo($cityCode);
-		var_dump($content);
+		//var_dump($content);
 		@$object->FromUserName = 'aaaa';
 		@$object->ToUserName = 'bbbb';
 		$result = $this->transmitNews($object, $content);
-		var_dump($result);
+		echo($result);
 	}
 	
 	private function receiveText($object) {
@@ -306,26 +306,13 @@ class Api extends MY_Controller {
 		return $name."的人品分数为：".$n."\n".$addd;
 	}
 	
-	function httpRequest($url) {
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		$output = curl_exec($ch);
-		curl_close($ch);
-		if ($output === FALSE){
-			return "cURL Error: ". curl_error($ch);
-		}
-		return $output;
-	}
-	
 	function getWeatherInfo($cityCode) {
 		
 		//获取实时天气
 		$url = "http://www.weather.com.cn/data/sk/".$cityCode.".html";
-		$output = $this->httpRequest($url);
+		$output = file_get_contents($url);
 		$weather = json_decode($output, true);
 		$info = $weather['weatherinfo'];
-		
 		$weatherArray = array();
 		$weatherArray[] = array("Title"=>$info['city']."天气预报", "Description"=>"", "PicUrl"=>"", "Url" =>"");
 		if ((int)$cityCode < 101340000){
@@ -335,7 +322,7 @@ class Api extends MY_Controller {
 		
 		//获取六日天气
 		$url = "http://m.weather.com.cn/data/".$cityCode.".html";
-		$output = $this->httpRequest($url);
+		$output = file_get_contents($url);
 		$weather = json_decode($output, true);
 		$info = $weather['weatherinfo'];
 		
