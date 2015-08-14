@@ -18,13 +18,13 @@
         		<dl>
         			<dt>地址：</dt>
         			<dd>
-        				<input name="address" type="text" class="required" value="<?php if(!empty($address)) echo $address; ?>" style="width:360px;" />
+        				<input name="address" type="text" value="<?php if(!empty($address)) echo $address; ?>" style="width:354px;" />
         			</dd>
         		</dl>
         		<dl>
         			<dt>联系电话：</dt>
         			<dd>
-        				<input name="tel" type="text" class="required" value="<?php if(!empty($tel)) echo $tel; ?>" />
+        				<input name="tel" type="text" value="<?php if(!empty($tel)) echo $tel; ?>" />
         			</dd>
         		</dl>
         	</fieldset>
