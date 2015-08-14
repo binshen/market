@@ -103,9 +103,10 @@ class Api extends MY_Controller {
 // 测试代码	
 ////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	public function test() {
-		$a = '北京';
+		$a = '上海';
 		$cityCode = $this->api_model->get_city_code($a);
 		$content = $this->getWeatherInfo($cityCode);
+		var_dump($content);
 		@$object->FromUserName = 'aaaa';
 		@$object->ToUserName = 'bbbb';
 		$result = $this->transmitNews($object, $content);
