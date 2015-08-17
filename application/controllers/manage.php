@@ -45,7 +45,7 @@ class Manage extends MY_Controller {
 	}
 
 	/**
-	 * 客户信息
+	 * 开发商管理
 	 */
 	public function list_customer() {
 		$data = $this->manage_model->list_customer();
@@ -74,6 +74,78 @@ class Manage extends MY_Controller {
 		$ret = $this->manage_model->delete_customer($id);
 		if($ret == 1) {
 			form_submit_json("200", "操作成功", 'list_customer', '', '');
+		} else {
+			form_submit_json("300", "删除失败");
+		}
+	}
+	
+	/**
+	 * 装修状况
+	 */
+	public function list_decoration() {
+		$data = $this->manage_model->list_decoration();
+		$this->load->view('manage/list_decoration.php', $data);
+	}
+	
+	public function add_decoration() {
+		$this->load->view('manage/add_decoration.php');
+	}
+	
+	public function save_decoration() {
+		$ret = $this->manage_model->save_decoration();
+		if($ret == 1){
+			form_submit_json("200", "操作成功", 'list_decoration');
+		} else {
+			form_submit_json("300", "保存失败");
+		}
+	}
+	
+	public function edit_decoration($id) {
+		$data = $this->manage_model->get_decoration($id);
+		$this->load->view('manage/add_decoration.php', $data);
+	}
+	
+	public function delete_decoration($id) {
+		$ret = $this->manage_model->delete_decoration($id);
+		if($ret == 1) {
+			form_submit_json("200", "操作成功", 'list_decoration', '', '');
+		} else {
+			form_submit_json("300", "删除失败");
+		}
+	}
+	
+	/**
+	 * 楼盘管理
+	 */
+	public function list_house() {
+		$data = $this->manage_model->list_house();
+		$this->load->view('manage/list_house.php', $data);
+	}
+	
+	public function add_house() {
+		$data['decoration_list'] = $this->manage_model->get_decoration_list();
+		$this->load->view('manage/add_house.php', $data);
+	}
+	
+	public function save_house() {
+		$ret = $this->manage_model->save_house();
+		if($ret == 1){
+			form_submit_json("200", "操作成功", 'list_house');
+		} else {
+			form_submit_json("300", "保存失败");
+		}
+	}
+	
+	public function edit_house($id) {
+		$data = $this->manage_model->get_house($id);
+		$data['decoration_list'] = $this->manage_model->get_decoration_list();
+		$this->load->view('manage/add_house.php', $data);
+	}
+	
+	public function delete_house($id) {
+		$ret = $this->manage_model->delete_house($id);
+		if($ret == 1) {
+			form_submit_json("200", "操作成功", 'list_house', '', '');
 		} else {
 			form_submit_json("300", "删除失败");
 		}
