@@ -17,7 +17,6 @@ class Index extends MY_Controller {
 	}
 	
 	public function index() {
-		
 		$this->display('index.html');
 	}
 }
