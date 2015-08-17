@@ -16,6 +16,7 @@ span.error { width: 50px; left: 416px; }
         			<dt>名称：</dt>
         			<dd>
         				<input type="hidden" name="id" value="<?php if(!empty($id)) echo $id;?>">
+        				<input type="hidden" size="22" name="is_bg" value="<?php if(!empty($bg_pic)) echo $bg_pic;?>">
         				<input name="name" type="text" class="required" value="<?php if(!empty($name)) echo $name; ?>" />
         			</dd>
         		</dl>
@@ -214,5 +215,74 @@ span.error { width: 50px; left: 416px; }
 	</form>
 </div>
 <script>
+$(function() {
+	$(".tpsc",navTab.getCurrentPanel()).button().click(function( event ) {
+		event.preventDefault();
+	});
 
+    a = $('[name="is_bg"]').val();
+    b = a.split("/");
+    $('.pic_short').each(function(){
+		if($(this).val() == b[2]){
+			html_img = '<img src="<?php echo base_url().'images/fengmian.png';?>" style=" position:absolute; top:0px;">';
+			$(this).parent().find('.fengmian').html(html_img);
+		}
+    });
+});
+
+
+function callbacktime(time,is_back, type_id){
+	id = $("[name='id']",navTab.getCurrentPanel()).val();
+	if (id == ''){
+		$("#folder",navTab.getCurrentPanel()).val(time);		
+	}
+	$.getJSON("<?php echo site_url('manage/get_pics')?>"+"/"+time + "/" + type_id + "?_=" +Math.random(),function(data){
+		html = '';
+		now_pic = [];
+		$('input[name="pic_short'+type_id+'[]"]').each(function(index){
+			now_pic[index] = $(this).val();
+		});
+		$.each(data.img,function(index,item){
+			path = "<?php echo base_url().'uploadfiles/pics/';?>"+data.time + "/" + type_id +"/"+item;
+			if($.inArray(item, now_pic) < 0){
+				html+='<dt style="width: 250px; position:relative; margin-top:20px">';
+				html+='<div style="position:absolute;filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity:0.5;opacity:0.5; top:95px; width:200px; height:24px; line-height:24px; left:6px; background:#000; font-size:12px; font-family:宋体; font-weight:lighter; text-align:center; ">';
+				html+='<a href="javascript:void(0);" onclick="del_pic(this,'+type_id+');" style="text-decoration:none; color:#fff">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="set_bg(this,'+type_id+');" style="text-decoration:none; color:#fff">设为封面</a></div>';
+				html+='<div class="fengmian"></div>';
+				html+='<img height="118" width="200" src="'+path +'" style="border:1px solid #666;">';
+				html+='<input type="hidden" size="22" name="pic_short'+type_id+'[]" value="'+item+'" class="pic_short"></dt>';
+			}
+		});
+		$("#append"+type_id,navTab.getCurrentPanel()).append(html); 
+	});
+
+	//兼容chrome
+	var isChrome = navigator.userAgent.toLowerCase().match(/chrome/) != null;
+	if (isChrome)
+		event.returnValue=false;
+}
+
+function set_bg(obj,type_id){
+	pic = $("#folder",navTab.getCurrentPanel()).val() + '/' + type_id + '/' + $(obj).parent().parent().find('.pic_short').val();
+	$(".fengmian",navTab.getCurrentPanel()).html('');
+	$("[name='is_bg']").val(pic);
+	html_img = '<img src="<?php echo base_url().'images/fengmian.png';?>" style=" position:absolute; top:0px;">';
+	$(obj).parent().parent().find('.fengmian').html(html_img);
+}
+function del_pic(obj,type_id){
+	id = $("[name='id']",navTab.getCurrentPanel()).val();
+	folder = $("[name='folder']",navTab.getCurrentPanel()).val();
+	current_pic = $(obj).parent().parent().find('input[name="pic_short'+type_id+'[]"]').val();
+	$.getJSON("<?php echo site_url('manage/del_pic')?>"+"/"+ folder + "/" + type_id + "/" + current_pic + "/" + id,function(data){
+		if(data.flag == 1){
+			$("#append"+type_id,navTab.getCurrentPanel()).find('input[name="pic_short'+type_id+'[]"]').each(function(){
+				if($(this).val() == data.pic){
+					$(this).parent().remove();
+				}
+			});
+		}else{
+			alertMsg.warn("删除图片失败，请清理图片缓存并刷新标签页");
+		}
+	});
+}
 </script>
