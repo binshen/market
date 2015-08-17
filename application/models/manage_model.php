@@ -250,9 +250,19 @@ class Manage_model extends MY_Model
     
     public function save_house() {
     	$data = array(
-    			'name' => $this->input->post('name'),
-    			'address' => $this->input->post('address'),
-    			'tel' => $this->input->post('tel')
+    		'name' => $this->input->post('name'),
+    		'avg_price' => $this->input->post('avg_price'),
+    		'kp_date' => $this->input->post('kp_date'),
+    		'address' => $this->input->post('address'),
+    		'tel' => $this->input->post('tel'),
+    		'decoration_id' => $this->input->post('decoration_id'),
+    		'property_right' => $this->input->post('property_right'),
+    		'covered_area' => $this->input->post('covered_area'),
+    		'developer' => $this->input->post('developer'),
+    		'rz_date' => $this->input->post('rz_date'),
+    		'plot_rate' => $this->input->post('plot_rate'),
+    		'greening_rate' => $this->input->post('greening_rate'),
+    		'floor_area' => $this->input->post('floor_area')
     	);
     	$this->db->trans_start();//--------开始事务
     
@@ -260,32 +270,28 @@ class Manage_model extends MY_Model
     		$house_id = $this->input->post('id');
     		$this->db->where('id', $house_id);
     		$this->db->update('house', $data);
+    		
+    		$this->db->where('h_id', $house_id);
+    		$this->db->delete('house_img');
     	} else {
     		$this->db->insert('house', $data);
     		$house_id = $this->db->insert_id();
     	}
     	 
-    	$admin = $this->db->from('admin')->where('house_id', $house_id)->get()->row_array();
-    	if(empty($admin)) {
-    		$admin = array(
-    				'username' => $data['name'],
-    				'passwd' => sha1('888888'),
-    				'rel_name' => $data['name'],
-    				'admin_group' => 2,
-    				'house_id' => $house_id
-    		);
-    		$this->db->insert('admin', $admin);
-    	} else {
-    		$admin['username'] = $data['name'];
-    		if(empty($admin['passwd'])) {
-    			$admin['passwd'] = sha1('888888');
+    	for($i=1;$i<=3;$i++){
+    		if($this->input->post('pic_short'.$i)){
+    			foreach($this->input->post('pic_short'.$i) as $k=>$v){
+    				$data_line[] = array(
+    					'h_id'=>$house_id,
+    					'type_id'=>$i,
+    					'pic'=>str_replace('_thumb', '', $v),
+    					'pic_short'=>$v
+    				);
+    			}
     		}
-    		$admin['rel_name'] = $data['name'];
-    		$admin['admin_group'] = 2;
-    		$this->db->where('id', $admin['id']);
-    		$this->db->update('admin', $admin);
     	}
-    	 
+    	$this->db->insert_batch('house_img', $data_line);
+    	
     	$this->db->trans_complete();//------结束事务
     	if ($this->db->trans_status() === FALSE) {
     		return -1;
