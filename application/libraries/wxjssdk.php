@@ -8,7 +8,7 @@ class wxjssdk {
 	public function __construct(){
     	$this->appId = "wxc4acc7c89e33b506";
    	 	$this->appSecret = "7b00f11e95115271e8f6de6b2823693d";
-		$this->wxjssdk_config_file_path = BASEPATH.'../'.APPPATH.'config';
+		$this->wxjssdk_config_file_path = '/web/market';
 	}
 	
 	public function wxgetSignPackage() {
