@@ -22,4 +22,11 @@ class Index extends MY_Controller {
 		$this->assign('projects', $data);
 		$this->display('index.html');
 	}
+	
+	public function get_project($id){
+		$data = $this->sysconfig_model->get_project($id);
+		$this->assign('detail', $data['detail']);
+		$this->assign('pics', $data['pics']);
+		$this->display('detail.html');
+	}
 }

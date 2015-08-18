@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>花桥房产超市</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<meta content="telephone=no" name="format-detection"/>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body id="detail">
+<div class="g-doc">
+    <div class="swiper-container" id="Jm-slider">
+        <div class="swiper-wrapper">
+        	<div class="swiper-slide swiper-slide-outer" style="display:block">
+                <div class="swiper-container" id="Jm-slider-inner1">
+                    <div class="swiper-wrapper">
+                    	{{foreach from=$pics[1] item=row name=foo}}
+                    	{{if $smarty.foreach.foo.index == 0}}
+                        <div class="swiper-slide"><a href="" title=""><img src="/uploadfiles/pics/{{$row.pic}}"/></a></div>
+                        {{else}}
+                        <div class="swiper-slide"><a href="" title=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAANBAMAAAA6ZnEvAAAAMFBMVEX///8BAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw+j3JH3AAAAEHRSTlP///////////////////8A4CNdGQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA9JREFUCNdj+I8GGIaRAAB0TM8xY/9xnAAAAABJRU5ErkJggg==" src1="/uploadfiles/pics/{{$row.pic}}"/></a></div>
+                        {{/if}}
+                        {{/foreach}}
+                    </div>
+                    <div class="pagination-inner pagination-inner1"></div>
+               </div>
+            </div>
+        	<div class="swiper-slide swiper-slide-outer" style="display:none;">
+                <div class="swiper-container" id="Jm-slider-inner2">
+                    <div class="swiper-wrapper">
+                    	{{foreach from=$pics[2] item=row name=foo}}
+                        <div class="swiper-slide"><a href="" title=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAANBAMAAAA6ZnEvAAAAMFBMVEX///8BAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw+j3JH3AAAAEHRSTlP///////////////////8A4CNdGQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA9JREFUCNdj+I8GGIaRAAB0TM8xY/9xnAAAAABJRU5ErkJggg==" src1="/uploadfiles/pics/{{$row.pic}}"/></a></div>
+                        {{/foreach}}
+                    </div>
+                    <div class="pagination-inner pagination-inner2"></div>
+               </div>
+            </div>
+        	<div class="swiper-slide swiper-slide-outer" style="display:none;">
+                <div class="swiper-container" id="Jm-slider-inner3">
+                    <div class="swiper-wrapper">
+                    	{{foreach from=$pics[3] item=row name=foo}}
+                        <div class="swiper-slide"><a href="" title=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAANBAMAAAA6ZnEvAAAAMFBMVEX///8BAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw+j3JH3AAAAEHRSTlP///////////////////8A4CNdGQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA9JREFUCNdj+I8GGIaRAAB0TM8xY/9xnAAAAABJRU5ErkJggg==" src1="/uploadfiles/pics/{{$row.pic}}"/></a></div>
+                        {{/foreach}}
+                    </div>
+                    <div class="pagination-inner pagination-inner3"></div>
+               </div>
+            </div>
+            
+        </div>
+	</div>
+    <div class="tabs"><span class="active">效果图</span><span>实景图</span><span>户型图</span> </div>
+    <div class="f-news">
+        <p class="f-p-name">{{$detail.name}}</p>
+        <p class="f-p-price">均价{{$detail.avg_price}}元/平方米</p>
+        <p class="f-p-time"><span>开盘时间：</span> {{$detail.kp_date}}<br />
+        <span>地址：</span> {{$detail.address}}</p>
+    </div>
+    <div class="f-phone">
+        <p>电话：<br /><span class="tel">{{$detail.tel}}</span></p>
+        <p>免费咨询售楼处，了解楼盘详情，最新动态及更多优惠信息</p>
+        <span class="am-icon-phone-square"></span>
+    </div>
+    <div class="f-item-detail">
+        <div class="f-item-th"><span>项目详情</span></div>
+        <dl class="dl-list">
+            <dt>项目信息</dt>
+            <dd class="clearfix">
+                <span><em>装修情况：</em>{{$detail.zhuangxiu}}</span>           
+                <span><em>建筑面积：</em>{{$detail.covered_area}}平方米</span>    
+                <span><em>容 积 率：</em>{{$detail.plot_rate}}</span>               
+                <span><em>占地面积：</em>{{$detail.floor_area}}平</span>  
+                <span><em>产　　权：</em>{{$detail.property_right}}</span> 
+                <span><em>开 发 商：</em>{{$detail.developer}}</span> 
+                <span><em>绿 化 率：</em>{{$detail.greening_rate}}%</span> 
+                <span><em>入住时间：</em>{{$detail.rz_date}}</span> 
+            </dd>
+        </dl>   
+    </div>
+     <div class="f-item-detail">
+        <div class="f-item-th"><span>最新动态</span></div>
+        <ul class="ul-new-list">
+            <li>
+                <span class="s-img">
+                    <img src="http://dummyimage.com/100x100/ccc/fff" />
+                </span>
+                <p><span>双联国际商务中心目前购房可享受5万抵8万的优惠</span>
+                    双联国际商务中心现目前在售的有商铺、办公楼。1-2楼商铺在售16套..</p>
+            </li>  
+            <li>&middot; 双联国际商务中心幕墙工程开工建设 <em class="e-date">2014-07-15</em></li>  
+        </ul>   
+    </div>
+</div>
+<p class="footer">©宜居花桥房产超市</p>
+<div class="amz-toolbar" id="amz-toolbar">
+    <a href="#top" title="回到顶部" class="am-icon-btn am-icon-arrow-up" id="amz-go-top"></a>
+    <a href="/getting-started/faq" title="回到首页" class="am-icon-btn am-icon-home"></a>
+    <a href="/getting-started/faq" title="地图导航" class="am-icon-btn am-icon-send-o"></a>
+</div>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/idangerous.swiper-2.1.min.js" ></script>
+<script type="text/javascript" src="/js/detail.js" ></script>
+<script type="text/javascript">
+//右侧导航
+$(window).scroll(function(){
+	$(window).scrollTop()>10?$('#amz-go-top').addClass('am-active'):$('#amz-go-top').removeClass('am-active');
+});
+</script>
+</body>
+</html>
+
+

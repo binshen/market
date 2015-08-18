@@ -24,7 +24,7 @@
     <ul class="m-pic-list" id="Jm-pic-list">
     {{foreach from=$projects item=row}}
         <li>
-            <a href="" target="_blank">
+            <a href="{{site_url url='index/get_project'}}/{{$row.id}}" target="_blank">
                 <div class="m-build-pic">
                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAANBAMAAAA6ZnEvAAAAMFBMVEX///8BAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw+j3JH3AAAAEHRSTlP///////////////////8A4CNdGQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA9JREFUCNdj+I8GGIaRAAB0TM8xY/9xnAAAAABJRU5ErkJggg==" src1="/uploadfiles/{{$row.bg_pic}}" />
                     <span class="building-name">{{$row.name}}</span>

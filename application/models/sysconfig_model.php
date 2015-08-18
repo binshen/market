@@ -29,6 +29,14 @@ class Sysconfig_model extends MY_Model
     	return $this->db->select('id,name,title,avg_price,bg_pic')->from('house')->order_by('is_top','desc')->order_by('rand()')->get()->result_array();
     }
     
+    public function get_project($id){
+    	$data['detail'] = $this->db->select('a.*,b.name zhuangxiu')->from('house a')->join('decoration b','a.id=b.id','left')->where('a.id',$id)->get()->row_array();
+    	$pics = $this->db->select()->from('house_img')->where('h_id',$id)->get()->result_array();
+    	foreach($pics as $k=>$v){
+    		$data['pics'][$v['type_id']][] = $v;
+    	}
+    	return $data;
+    }
 }
 
 /* End of file sysconfig_model.php */
