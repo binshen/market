@@ -261,7 +261,8 @@ class Manage_model extends MY_Model
     		'rz_date' => $this->input->post('rz_date'),
     		'plot_rate' => $this->input->post('plot_rate'),
     		'greening_rate' => $this->input->post('greening_rate'),
-    		'floor_area' => $this->input->post('floor_area')
+    		'floor_area' => $this->input->post('floor_area'),
+    		'description' => $this->input->post('description')
     	);
     	$this->db->trans_start();//--------开始事务
     
@@ -310,6 +311,10 @@ class Manage_model extends MY_Model
     
     public function get_decoration_list() {
     	return $this->db->get('decoration')->result();
+    }
+    
+    public function get_house_pics($id) {
+    	return $this->db->select()->from('house_img')->where('h_id',$id)->get()->result();
     }
     
     

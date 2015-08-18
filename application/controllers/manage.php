@@ -217,6 +217,7 @@ class Manage extends MY_Controller {
 	
 	public function edit_house($id) {
 		$data = $this->manage_model->get_house($id);
+		$data['pics'] = $this->manage_model->get_house_pics($id);
 		$data['decoration_list'] = $this->manage_model->get_decoration_list();
 		$this->load->view('manage/add_house.php', $data);
 	}

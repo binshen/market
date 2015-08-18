@@ -202,7 +202,7 @@ span.error { width: 50px; left: 416px; }
         	<fieldset>
 	    	    <legend>项目简介</legend>
 	    	    <dl class="nowrap">
-	    			<dd><textarea class="editor" name="description" rows="22" cols="100" upImgUrl="<?php echo site_url('manage/upload_pic')?>" upImgExt="jpg,jpeg,gif,png"  tools="simple"><?php if(!empty($description)) echo $description;?></textarea></dd>
+	    			<dd><textarea class="editor" name="description" rows="22" cols="100" upImgUrl="<?php echo site_url('manage/upload_pic')?>" upImgExt="jpg,jpeg,gif,png" tools="simple"><?php if(!empty($description)) echo $description;?></textarea></dd>
 	    		</dl>
 	    	</fieldset>
         </div>

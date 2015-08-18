@@ -116,7 +116,7 @@ $(function(){
 						</div>
 						<div class="accordionContent">
 							<ul class="tree">
-								<li><a href="<?php echo site_url('manage/list_house');?>" target="navTab" rel="list_new_house">楼盘管理</a></li>
+								<li><a href="<?php echo site_url('manage/list_house');?>" target="navTab" rel="list_house">楼盘管理</a></li>
 							</ul>
 						</div>
 						<div class="accordionHeader">
@@ -133,7 +133,7 @@ $(function(){
 						</div>
 						<div class="accordionContent">
 							<ul class="tree">
-								<li><a href="<?php echo site_url('manage/list_house');?>" target="navTab" rel="list_new_house">楼盘管理</a></li>
+								<li><a href="<?php echo site_url('manage/list_house');?>" target="navTab" rel="list_house">楼盘管理</a></li>
 							</ul>
 						</div>
 						<div class="accordionHeader">
