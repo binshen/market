@@ -20,7 +20,7 @@
 			<tr>
 				<th>楼盘名称</th>
 				<th width="120px">均价</th>
-				<th width="180px">开盘时间</th>
+				<th width="200px">开盘时间</th>
 				<th>地址</th>
 				<th width="180px">联系电话</th>
 			</tr>
