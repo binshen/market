@@ -255,7 +255,7 @@ class Manage extends MY_Controller {
 			$data = $this->input->post();
 			unset($data['ajax']);
 			unset($data['old_img']);
-			unset($data['customer_name']);
+			unset($data['h_name']);
 			$rs = $this->manage_model->save_news($data);
 		}else{
 			$config['upload_path'] = './././uploadfiles/news';
@@ -269,7 +269,7 @@ class Manage extends MY_Controller {
 				$data['pic'] = $img_info['file_name'];
 				unset($data['ajax']);
 				unset($data['old_img']);
-				unset($data['customer_name']);
+				unset($data['h_name']);
 				$rs = $this->manage_model->save_news($data);
 			}else{
 				form_submit_json("300", $this->upload->display_errors('<b>','</b>'));
