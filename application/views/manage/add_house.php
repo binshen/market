@@ -219,25 +219,25 @@ $(function() {
 	$(".tpsc",navTab.getCurrentPanel()).button().click(function( event ) {
 		event.preventDefault();
 	});
-    a = $('[name="is_bg"]').val();
-    b = a.split("/");
+    var a = $('[name="is_bg"]').val();
+    var b = a.split("/");
     $('.pic_short').each(function(){
 		if($(this).val() == b[2]){
-			html_img = '<img src="<?php echo base_url().'images/fengmian.png';?>" style=" position:absolute; top:0px;">';
+			var html_img = '<img src="<?php echo base_url().'images/fengmian.png';?>" style=" position:absolute; top:0px;">';
 			$(this).parent().find('.fengmian').html(html_img);
 		}
     });
 });
 
 
-function callbacktime(time,is_back, type_id){
-	id = $("[name='id']", navTab.getCurrentPanel()).val();
+function callbacktime(time, is_back, type_id){
+	var id = $("[name='id']", navTab.getCurrentPanel()).val();
 	if (id == ''){
-		$("#folder",navTab.getCurrentPanel()).val(time);		
+		$("#folder", navTab.getCurrentPanel()).val(time);		
 	}
 	$.getJSON("<?php echo site_url('manage/get_pics')?>"+"/"+time + "/" + type_id + "?_=" +Math.random(),function(data){
-		html = '';
-		now_pic = [];
+		var html = '';
+		var now_pic = [];
 		$('input[name="pic_short'+type_id+'[]"]').each(function(index){
 			now_pic[index] = $(this).val();
 		});
@@ -262,17 +262,17 @@ function callbacktime(time,is_back, type_id){
 }
 
 function set_bg(obj,type_id){
-	pic = $("#folder",navTab.getCurrentPanel()).val() + '/' + type_id + '/' + $(obj).parent().parent().find('.pic_short').val();
+	var pic = $("#folder",navTab.getCurrentPanel()).val() + '/' + type_id + '/' + $(obj).parent().parent().find('.pic_short').val();
 	$(".fengmian",navTab.getCurrentPanel()).html('');
 	$("[name='is_bg']").val(pic);
-	html_img = '<img src="<?php echo base_url().'images/fengmian.png';?>" style=" position:absolute; top:0px;">';
+	var html_img = '<img src="<?php echo base_url().'images/fengmian.png';?>" style=" position:absolute; top:0px;">';
 	$(obj).parent().parent().find('.fengmian').html(html_img);
 }
 
 function del_pic(obj,type_id){
-	id = $("[name='id']",navTab.getCurrentPanel()).val();
-	folder = $("[name='folder']",navTab.getCurrentPanel()).val();
-	current_pic = $(obj).parent().parent().find('input[name="pic_short'+type_id+'[]"]').val();
+	var id = $("[name='id']", navTab.getCurrentPanel()).val();
+	var folder = $("[name='folder']", navTab.getCurrentPanel()).val();
+	var current_pic = $(obj).parent().parent().find('input[name="pic_short'+type_id+'[]"]').val();
 	$.getJSON("<?php echo site_url('manage/del_pic')?>"+"/"+ folder + "/" + type_id + "/" + current_pic + "/" + id,function(data){
 		if(data.flag == 1){
 			$("#append"+type_id,navTab.getCurrentPanel()).find('input[name="pic_short'+type_id+'[]"]').each(function(){

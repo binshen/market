@@ -201,7 +201,7 @@ class Manage_model extends MY_Model
     
     public function save_decoration() {
     	$data = array(
-    			'name' => $this->input->post('name')
+    		'name' => $this->input->post('name')
     	);
     	$this->db->trans_start();//--------开始事务
     
@@ -296,7 +296,8 @@ class Manage_model extends MY_Model
     		$this->db->insert('house', $data);
     		$house_id = $this->db->insert_id();
     	}
-    	 
+    	
+    	$data_line = array();
     	for($i=1;$i<=3;$i++){
     		if($this->input->post('pic_short'.$i)){
     			foreach($this->input->post('pic_short'.$i) as $k=>$v){
@@ -309,7 +310,9 @@ class Manage_model extends MY_Model
     			}
     		}
     	}
-    	$this->db->insert_batch('house_img', $data_line);
+    	if(!empty($data_line)) {
+    		$this->db->insert_batch('house_img', $data_line);
+    	}
     	
     	$this->db->trans_complete();//------结束事务
     	if ($this->db->trans_status() === FALSE) {
