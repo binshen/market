@@ -41,10 +41,10 @@
             			<tr>
             				<td><?php echo $row->name; ?></td>
             				<td><?php echo $row->title;?></td>
-            				<td><?php echo $row->name;?></td>
+            				<td><?php echo $row->customer_name; ?></td>
             				<td><?php echo $row->tel;?></td>
             				<td>
-            					<a class="btnSelect" href="javascript:$.bringBack({house_id:'<?php echo $row->id;?>', house_name:'<?php echo $row->rel_name;?>'})" >选择</a>
+            					<a class="btnSelect" href="javascript:$.bringBack({house_id:'<?php echo $row->id;?>', house_name:'<?php echo $row->name;?>'})" >选择</a>
             				</td>
             			</tr>
             <?php 

@@ -385,11 +385,13 @@ class Manage_model extends MY_Model
     
     public function save_news() {
     	$data = array(
-    		'house_id' => $this->input->post('house_id'),
+    		'h_id' => $this->input->post('h_id'),
     		'pic' => $this->input->post('pic'),
     		'title' => $this->input->post('title'),
     		'content' => $this->input->post('content'),
-    		'created' => date('Y-m-d H:i:s')
+    		'created' => date('Y-m-d H:i:s'),
+    		'customer_id' => $this->session->userdata('customer_id'),
+    		'recommend' => $this->input->post('recommend')
     	);
     	$this->db->trans_start();//--------开始事务
     
@@ -398,7 +400,6 @@ class Manage_model extends MY_Model
     		$this->db->update('news', $data);
     	} else {
     		$this->db->insert('news', $data);
-    		$this->db->insert_id();
     	}
     	   	 
     	$this->db->trans_complete();//------结束事务
@@ -438,8 +439,9 @@ class Manage_model extends MY_Model
     
     	$data['name'] = null;
     	//list
-    	$this->db->select();
-    	$this->db->from('house');
+    	$this->db->select('a.*, b.name AS customer_name');
+    	$this->db->from('house a');
+    	$this->db->join('customer b', 'a.customer_id = b.id', 'left');
     	if($this->input->post('name')){
     		$this->db->like('name',$this->input->post('name'));
     		$data['name'] = $this->input->post('name');
