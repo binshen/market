@@ -21,4 +21,8 @@ class Index extends MY_Controller {
 		$this->assign('projects', $data);
 		$this->display('index.html');
 	}
+	public function map(){
+		//微信数据
+		$this->buildWxData();
+	}
 }

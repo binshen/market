@@ -112,6 +112,15 @@ class MY_Controller extends CI_Controller
     	return array('lng'=>$lng,'lat'=>$lat);
     }
     
+    public function buildWxData(){
+    	$signPackage = $this->wxjssdk->wxgetSignPackage();
+    	//变量
+    	$this->cismarty->assign('wxappId',$signPackage["appId"]);
+    	$this->cismarty->assign('wxtimestamp',$signPackage["timestamp"]);
+		$this->cismarty->assign('wxnonceStr',$signPackage["nonceStr"]);
+		$this->cismarty->assign('wxsignature',$signPackage["signature"]);
+	}
+    
 
 }
 
