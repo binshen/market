@@ -17,6 +17,8 @@ class Index extends MY_Controller {
 	}
 	
 	public function index() {
+		$data = $this->sysconfig_model->get_index_info();
+		$this->assign('projects', $data);
 		$this->display('index.html');
 	}
 }
