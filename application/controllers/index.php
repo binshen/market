@@ -17,12 +17,9 @@ class Index extends MY_Controller {
 	}
 	
 	public function index() {
+		$this->buildWxData();
 		$data = $this->sysconfig_model->get_index_info();
 		$this->assign('projects', $data);
 		$this->display('index.html');
-	}
-	public function map(){
-		//微信数据
-		$this->buildWxData();
 	}
 }
