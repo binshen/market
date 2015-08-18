@@ -107,7 +107,7 @@ span.error { width: 50px; left: 416px; }
         		<dl>
         			<dt>开发商：</dt>
         			<dd>
-        				<input name="developer" type="text" class="required" value="<?php if(!empty($developer)) echo $developer; ?>" />
+        				<input name="developer" type="text" class="required" value="<?php if(!empty($developer)) { echo $developer; } else { echo $this->session->userdata('customer_name'); } ?>" />
         			</dd>
         		</dl>
         		<dl>
