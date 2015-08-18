@@ -229,4 +229,47 @@ class Manage extends MY_Controller {
 			form_submit_json("300", "删除失败");
 		}
 	}
+	
+	/**
+	 * 动态管理
+	 */
+	public function list_news() {
+		$data = $this->manage_model->list_news();
+		$this->load->view('manage/list_news.php', $data);
+	}
+	
+	public function add_news() {
+		$data['decoration_list'] = $this->manage_model->get_decoration_list();
+		$this->load->view('manage/add_news.php', $data);
+	}
+	
+	public function save_news() {
+		$ret = $this->manage_model->save_news();
+		if($ret == 1){
+			form_submit_json("200", "操作成功", 'list_news');
+		} else {
+			form_submit_json("300", "保存失败");
+		}
+	}
+	
+	public function edit_news($id) {
+		$data = $this->manage_model->get_news($id);
+		$data['decoration_list'] = $this->manage_model->get_decoration_list();
+		$this->load->view('manage/add_news.php', $data);
+	}
+	
+	public function delete_news($id) {
+		$ret = $this->manage_model->delete_news($id);
+		if($ret == 1) {
+			form_submit_json("200", "操作成功", 'list_news', '', '');
+		} else {
+			form_submit_json("300", "删除失败");
+		}
+	}
+	
+	public function list_house_dialog(){
+		
+		$data = $this->manage_model->list_house_dialog();
+		$this->load->view('manage/list_house_dialog.php', $data);
+	}
 }
