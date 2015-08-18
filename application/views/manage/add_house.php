@@ -8,7 +8,7 @@
 span.error { width: 50px; left: 416px; }
 </style>
 <div class="pageContent">
-    <form method="post" enctype="multipart/form-data" action="<?php echo site_url('manage/save_house');?>" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+    <form method="post" enctype="multipart/form-data" action="<?php echo site_url('manage/save_house');?>" class="pageForm required-validate" onsubmit="return iframeCallback(this, navTabAjaxDone);">
         <div class="pageFormContent" layoutH="55">
         	<fieldset>
         		<legend>楼盘信息</legend>
@@ -219,7 +219,6 @@ $(function() {
 	$(".tpsc",navTab.getCurrentPanel()).button().click(function( event ) {
 		event.preventDefault();
 	});
-
     a = $('[name="is_bg"]').val();
     b = a.split("/");
     $('.pic_short').each(function(){
@@ -232,7 +231,7 @@ $(function() {
 
 
 function callbacktime(time,is_back, type_id){
-	id = $("[name='id']",navTab.getCurrentPanel()).val();
+	id = $("[name='id']", navTab.getCurrentPanel()).val();
 	if (id == ''){
 		$("#folder",navTab.getCurrentPanel()).val(time);		
 	}
@@ -269,6 +268,7 @@ function set_bg(obj,type_id){
 	html_img = '<img src="<?php echo base_url().'images/fengmian.png';?>" style=" position:absolute; top:0px;">';
 	$(obj).parent().parent().find('.fengmian').html(html_img);
 }
+
 function del_pic(obj,type_id){
 	id = $("[name='id']",navTab.getCurrentPanel()).val();
 	folder = $("[name='folder']",navTab.getCurrentPanel()).val();

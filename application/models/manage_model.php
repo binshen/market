@@ -66,6 +66,22 @@ class Manage_model extends MY_Model
         }
     }
     
+    //ajax删除图片
+    public function del_pic($folder,$type_id,$pic,$id){
+    	//echo $id;die;
+    	if($id){
+    		$this->db->where('pic_short',$pic);
+    		$this->db->delete('house_img');
+    	}
+    	@unlink('./././uploadfiles/pics/'.$folder.'/'.$type_id.'/'.$pic);
+    	@unlink('./././uploadfiles/pics/'.$folder.'/'.$type_id.'/'.str_replace('_thumb', '', $pic));
+    	$data = array(
+    			'flag'=>1,
+    			'pic'=>$pic
+    	);
+    	return $data;
+    }
+    
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
     /**
      * 开发商管理
@@ -262,7 +278,10 @@ class Manage_model extends MY_Model
     		'plot_rate' => $this->input->post('plot_rate'),
     		'greening_rate' => $this->input->post('greening_rate'),
     		'floor_area' => $this->input->post('floor_area'),
-    		'description' => $this->input->post('description')
+    		'description' => $this->input->post('description'),
+    		'folder' => $this->input->post('folder'),
+    		'bg_pic' => $this->input->post('bg_pic'),
+    		'created' => date('Y-m-d H:i:s')
     	);
     	$this->db->trans_start();//--------开始事务
     
