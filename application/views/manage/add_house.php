@@ -110,6 +110,15 @@ span.error { width: 50px; left: 416px; }
         				<input name="developer" type="text" class="required" value="<?php if(!empty($developer)) echo $developer; ?>" />
         			</dd>
         		</dl>
+        		<dl>
+        			<dt>是否置顶：</dt>
+        			<dd>
+        				<select class="combox" name='is_top'>
+        					<option value="-1" <?php if(!empty($is_top) && $is_top == '-1') echo 'selected="selected";'?>>否</option>
+        					<option value="1" <?php if(!empty($is_top) && $is_top == '1') echo 'selected="selected";'?>>是</option>
+        				</select>
+        			</dd>
+        		</dl>
         	</fieldset>
         	
         	<fieldset>

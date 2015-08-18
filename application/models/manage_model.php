@@ -280,6 +280,7 @@ class Manage_model extends MY_Model
     		'greening_rate' => $this->input->post('greening_rate'),
     		'floor_area' => $this->input->post('floor_area'),
     		'description' => $this->input->post('description'),
+    		'is_top' => $this->input->post('is_top'),
     		'folder' => $this->input->post('folder'),
     		'bg_pic' => $this->input->post('is_bg'),
     		'created' => date('Y-m-d H:i:s')
