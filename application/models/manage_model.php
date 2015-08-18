@@ -42,6 +42,7 @@ class Manage_model extends MY_Model
             $user_info['username'] = $this->input->post('username');
             $user_info['group_id'] = $res->admin_group;
             $user_info['rel_name'] = $res->rel_name;
+            $user_info['customer_id'] = $res->customer_id;
             $this->session->set_userdata($user_info);
             return true;
         } else {
@@ -138,7 +139,7 @@ class Manage_model extends MY_Model
     	$admin = $this->db->from('admin')->where('customer_id', $customer_id)->get()->row_array();
     	if(empty($admin)) {
     		$admin = array(
-    			'username' => $data['name'],
+    			'username' => $data['tel'],
     			'passwd' => sha1('888888'),
     			'rel_name' => $data['name'],
     			'admin_group' => 2,
@@ -146,7 +147,7 @@ class Manage_model extends MY_Model
     		);
     		$this->db->insert('admin', $admin);
     	} else {
-    		$admin['username'] = $data['name'];
+    		$admin['username'] = $data['tel'];
     		if(empty($admin['passwd'])) {
     			$admin['passwd'] = sha1('888888');
     		}

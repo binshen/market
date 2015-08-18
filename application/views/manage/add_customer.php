@@ -9,22 +9,22 @@
         	<fieldset>
         		<legend>开发商信息</legend>
         	    <dl>
-        			<dt>名称：</dt>
+        			<dt>开发商：</dt>
         			<dd>
         				<input type="hidden" name="id" value="<?php if(!empty($id)) echo $id;?>">
-        				<input name="name" type="text" class="required" value="<?php if(!empty($name)) echo $name; ?>" />
+        				<input name="name" type="text" class="required" value="<?php if(!empty($name)) echo $name; ?>" style="width:354px;" />
+        			</dd>
+        		</dl>
+        		<dl>
+        			<dt>联系电话：</dt>
+        			<dd>
+        				<input name="tel" type="text" value="<?php if(!empty($tel)) echo $tel; ?>" style="width:354px;" />
         			</dd>
         		</dl>
         		<dl>
         			<dt>地址：</dt>
         			<dd>
         				<input name="address" type="text" value="<?php if(!empty($address)) echo $address; ?>" style="width:354px;" />
-        			</dd>
-        		</dl>
-        		<dl>
-        			<dt>联系电话：</dt>
-        			<dd>
-        				<input name="tel" type="text" value="<?php if(!empty($tel)) echo $tel; ?>" />
         			</dd>
         		</dl>
         	</fieldset>

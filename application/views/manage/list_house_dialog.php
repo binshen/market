@@ -27,8 +27,9 @@
 		<thead>
 			<tr>
 				<th>楼盘名称</th>
-				<th width="80">开发商</th>
-				<th width="80">联系电话</th>
+				<th>副标题</th>
+				<th>开发商</th>
+				<th>联系电话</th>
 				<th width="30">选择</th>
 			</tr>
 		</thead>
@@ -39,6 +40,7 @@
             ?>		            
             			<tr>
             				<td><?php echo $row->name; ?></td>
+            				<td><?php echo $row->title;?></td>
             				<td><?php echo $row->name;?></td>
             				<td><?php echo $row->tel;?></td>
             				<td>

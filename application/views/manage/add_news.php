@@ -17,7 +17,7 @@
         		<dl>
         			<dt>相关楼盘：</dt>
         			<dd>
-	        			<input name="house_id" type="hidden" class="required" value="<?php if(!empty($house_id)) echo $xq_id;?>" />
+	        			<input name="house_id" type="hidden" class="required" value="<?php if(!empty($house_id)) echo $house_id;?>" />
 	        			<input type="text" name="house_name" value="<?php if(!empty($house_name)) echo $house_name;?>" readonly>
 	        			<a lookupgroup="" href="<?php echo site_url('manage/list_house_dialog');?>" class="btnLook">查找带回</a>
         			</dd>
