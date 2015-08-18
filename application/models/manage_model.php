@@ -414,7 +414,7 @@ class Manage_model extends MY_Model
     }
     
     public function get_news($id) {
-    	$this->db->select('a.*, b.name AS h_name')->from('news a')->join('customer b', 'a.h_id=b.id', 'left')->where('a.id', $id);
+    	$this->db->select('a.*, b.name AS h_name')->from('news a')->join('house b', 'a.h_id=b.id', 'left')->where('a.id', $id);
 		$data = $this->db->get()->row_array();
 		return $data;
     }
