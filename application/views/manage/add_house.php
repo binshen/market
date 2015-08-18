@@ -21,31 +21,29 @@ span.error { width: 50px; left: 416px; }
         			</dd>
         		</dl>
         		<dl>
-        			<dt>均价：</dt>
+        			<dt>均价 (元 / 平方米)：</dt>
         			<dd>
-        				<input name="avg_price" type="text" value="<?php if(!empty($avg_price)) echo $avg_price; ?>" />
+        				<input name="avg_price" type="text" class="required" value="<?php if(!empty($avg_price)) echo $avg_price; ?>" />
         			</dd>
         		</dl>
         		<dl>
         			<dt>开盘时间：</dt>
         			<dd>
-        				<input name="kp_date" type="text" value="<?php if(!empty($kp_date)) echo $kp_date; ?>" />
+        				<input name="kp_date" type="text" class="required" value="<?php if(!empty($kp_date)) echo $kp_date; ?>" />
         			</dd>
         		</dl>
         		<dl>
         			<dt>地址：</dt>
         			<dd>
-        				<input name="address" type="text" value="<?php if(!empty($address)) echo $address; ?>" />
+        				<input name="address" type="text" class="required" value="<?php if(!empty($address)) echo $address; ?>" />
         			</dd>
         		</dl>
         		<dl>
         			<dt>联系电话：</dt>
         			<dd>
-        				<input name="tel" type="text" value="<?php if(!empty($tel)) echo $tel; ?>" />
+        				<input name="tel" type="text" class="required" value="<?php if(!empty($tel)) echo $tel; ?>" />
         			</dd>
         		</dl>
-        		
-        		
         		<dl>
         			<dt>装修情况：</dt>
         			<dd>
@@ -55,7 +53,7 @@ span.error { width: 50px; left: 416px; }
 			            	    foreach ($decoration_list as $row):
 			            	    	$selected = !empty($decoration_id) && $row->id == $decoration_id ? "selected" : "";          
 			            ?>
-	        								<option value="<?php echo $row->id; ?>" <?php echo $selected; ?>><?php echo $row->name; ?></option>
+	        						<option value="<?php echo $row->id; ?>" <?php echo $selected; ?>><?php echo $row->name; ?></option>
 	        					<?php 
 			            		endforeach;
 			            	endif;
@@ -66,46 +64,46 @@ span.error { width: 50px; left: 416px; }
         		<dl>
         			<dt>产权：</dt>
         			<dd>
-        				<input name="property_right" type="text" value="<?php if(!empty($property_right)) echo $property_right; ?>" />
+        				<input name="property_right" type="text" class="required" value="<?php if(!empty($property_right)) echo $property_right; ?>" />
         			</dd>
         		</dl>
         		<dl>
-        			<dt>建筑面积：</dt>
+        			<dt>建筑面积 (平方米)：</dt>
         			<dd>
-        				<input name="covered_area" type="text" value="<?php if(!empty($covered_area)) echo $covered_area; ?>" />
-        			</dd>
-        		</dl>
-        		<dl>
-        			<dt>开发商：</dt>
-        			<dd>
-        				<input name="developer" type="text" value="<?php if(!empty($developer)) echo $developer; ?>" />
+        				<input name="covered_area" type="text" class="required" value="<?php if(!empty($covered_area)) echo $covered_area; ?>" />
         			</dd>
         		</dl>
         		<dl>
         			<dt>入住时间：</dt>
         			<dd>
-        				<input name="rz_date" type="text" value="<?php if(!empty($rz_date)) echo $rz_date; ?>" />
+        				<input name="rz_date" type="text" class="date required" dateFmt="yyyy-MM-dd" readonly="true" value="<?php if(!empty($rz_date)) echo $rz_date; ?>" />
+        				<a class="inputDateButton" href="javascript:;"></a>
         			</dd>
         		</dl>
         		<dl>
         			<dt>容积率：</dt>
         			<dd>
-        				<input name="plot_rate" type="text" value="<?php if(!empty($plot_rate)) echo $plot_rate; ?>" />
+        				<input name="plot_rate" type="text" class="required" value="<?php if(!empty($plot_rate)) echo $plot_rate; ?>" />
         			</dd>
         		</dl>
         		<dl>
         			<dt>绿化率：</dt>
         			<dd>
-        				<input name="greening_rate" type="text" value="<?php if(!empty($greening_rate)) echo $greening_rate; ?>" />
+        				<input name="greening_rate" type="text" class="required" value="<?php if(!empty($greening_rate)) echo $greening_rate; ?>" />
         			</dd>
         		</dl>
         		<dl>
-        			<dt>占地面积：</dt>
+        			<dt>占地面积 (平方米)：</dt>
         			<dd>
-        				<input name="floor_area" type="text" value="<?php if(!empty($floor_area)) echo $floor_area; ?>" />
+        				<input name="floor_area" type="text" class="required" value="<?php if(!empty($floor_area)) echo $floor_area; ?>" />
         			</dd>
         		</dl>
-        		
+        		<dl>
+        			<dt>开发商：</dt>
+        			<dd>
+        				<input name="developer" type="text" class="required" value="<?php if(!empty($developer)) echo $developer; ?>" />
+        			</dd>
+        		</dl>
         	</fieldset>
         	
         	<fieldset>
