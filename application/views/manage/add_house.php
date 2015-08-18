@@ -21,6 +21,12 @@ span.error { width: 50px; left: 416px; }
         			</dd>
         		</dl>
         		<dl>
+        			<dt>副标题：</dt>
+        			<dd>
+        				<input name="title" type="text" class="required" value="<?php if(!empty($title)) echo $title; ?>" />
+        			</dd>
+        		</dl>
+        		<dl>
         			<dt>均价 (元 / 平方米)：</dt>
         			<dd>
         				<input name="avg_price" type="text" class="required" value="<?php if(!empty($avg_price)) echo $avg_price; ?>" />

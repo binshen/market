@@ -19,10 +19,11 @@
 		<thead>
 			<tr>
 				<th>楼盘名称</th>
-				<th width="120px">均价</th>
-				<th width="200px">开盘时间</th>
+				<th>副标题</th>
+				<th>均价(元/平)</th>
+				<th>开盘时间</th>
 				<th>地址</th>
-				<th width="180px">联系电话</th>
+				<th>联系电话</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -32,6 +33,7 @@
             ?>		            
             			<tr target="id" rel=<?php echo $row->id; ?>>
             				<td><?php echo $row->name;?></td>
+            				<td><?php echo $row->title;?></td>
             				<td><?php echo $row->avg_price;?></td>
             				<td><?php echo $row->kp_date;?></td>
             				<td><?php echo $row->address;?></td>

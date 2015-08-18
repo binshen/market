@@ -266,6 +266,7 @@ class Manage_model extends MY_Model
     public function save_house() {
     	$data = array(
     		'name' => $this->input->post('name'),
+    		'title' => $this->input->post('title'),
     		'avg_price' => $this->input->post('avg_price'),
     		'kp_date' => $this->input->post('kp_date'),
     		'address' => $this->input->post('address'),
