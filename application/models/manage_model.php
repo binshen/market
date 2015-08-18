@@ -32,9 +32,11 @@ class Manage_model extends MY_Model
     {
         $login_id = $this->input->post('username');
         $passwd = $this->input->post('password');
-        $this->db->from('admin');
-        $this->db->where('username', $login_id);
-        $this->db->where('passwd', sha1($passwd));
+        $this->db->select('a.*, b.name AS customer_name');
+        $this->db->from('admin a');
+        $this->db->join('customer b', 'a.customer_id = b.id', 'left');
+        $this->db->where('a.username', $login_id);
+        $this->db->where('a.passwd', sha1($passwd));
         $rs = $this->db->get();
         if ($rs->num_rows() > 0) {
         	$res = $rs->row();
@@ -43,6 +45,7 @@ class Manage_model extends MY_Model
             $user_info['group_id'] = $res->admin_group;
             $user_info['rel_name'] = $res->rel_name;
             $user_info['customer_id'] = $res->customer_id;
+            $user_info['customer_name'] = $res->customer_name;
             $this->session->set_userdata($user_info);
             return true;
         } else {
@@ -411,7 +414,7 @@ class Manage_model extends MY_Model
     }
     
     public function get_news($id) {
-    	$this->db->select('a.*, b.name AS customer_name')->from('news a')->join('customer b','a.customer_id=b.id','left')->where('a.id', $id);
+    	$this->db->select('a.*, b.name AS h_name')->from('news a')->join('customer b', 'a.h_id=b.id', 'left')->where('a.id', $id);
 		$data = $this->db->get()->row_array();
 		return $data;
     }

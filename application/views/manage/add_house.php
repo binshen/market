@@ -107,18 +107,20 @@ span.error { width: 50px; left: 416px; }
         		<dl>
         			<dt>开发商：</dt>
         			<dd>
-        				<input name="developer" type="text" class="required" value="<?php if(!empty($developer)) echo $developer; ?>" />
+        				<input name="developer" type="text" class="required" value="<?php if(!empty($developer)) { echo $developer; } else { echo $this->session->userdata('customer_name'); } ?>" />
         			</dd>
         		</dl>
-        		<dl>
-        			<dt>是否置顶：</dt>
-        			<dd>
-        				<select class="combox" name='is_top'>
-        					<option value="-1" <?php if(!empty($is_top) && $is_top == '-1') echo 'selected="selected";'?>>否</option>
-        					<option value="1" <?php if(!empty($is_top) && $is_top == '1') echo 'selected="selected";'?>>是</option>
-        				</select>
-        			</dd>
-        		</dl>
+        		<?php if($this->session->userdata('group_id') == 1): ?>
+	        		<dl>
+	        			<dt>是否置顶：</dt>
+	        			<dd>
+	        				<select class="combox" name='is_top'>
+	        					<option value="-1" <?php if(!empty($is_top) && $is_top == '-1') echo 'selected="selected";'?>>否</option>
+	        					<option value="1" <?php if(!empty($is_top) && $is_top == '1') echo 'selected="selected";'?>>是</option>
+	        				</select>
+	        			</dd>
+	        		</dl>
+        		<?php endif; ?>
         	</fieldset>
         	
         	<fieldset>
