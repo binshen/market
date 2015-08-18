@@ -7,19 +7,19 @@
 </form>
 <div class="pageHeader">
 	<form onsubmit="return navTabSearch(this);" action="<?php site_url('manage/list_news')?>" method="post">
-	<div class="searchBar">
-		<table class="searchContent" id="search_purchase_order">
-			<tr>
-				<td><label>新闻标题：</label><input type="text" size="16" name="title" value="<?php echo $title;?>" /></td>
-			</tr>
-		</table>
-		<div class="subBar">
-			<ul>
-			    <li><div class="button"><div class="buttonContent"><button id="clear_search">清除查询</button></div></div></li>
-				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">执行查询</button></div></div></li>
-			</ul>
+		<div class="searchBar">
+			<table class="searchContent" id="search_purchase_order">
+				<tr>
+					<td><label>标题：</label><input type="text" size="16" name="title" value="<?php echo $title;?>" /></td>
+				</tr>
+			</table>
+			<div class="subBar">
+				<ul>
+				    <li><div class="button"><div class="buttonContent"><button id="clear_search">清除查询</button></div></div></li>
+					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">执行查询</button></div></div></li>
+				</ul>
+			</div>
 		</div>
-	</div>
 	</form>
 </div>
 
@@ -37,8 +37,8 @@
 		<thead>
 			<tr>
 				<th orderField="a.title" <?php echo $this->input->post('orderField')=='a.title'?'class="'.$this->input->post('orderDirection').'"':'';?>>新闻标题</th>
-				<th width="180" orderField="type_id" <?php echo $this->input->post('orderField')=='type_id'?'class="'.$this->input->post('orderDirection').'"':'';?>>相关小区</th>
-				<th width="140" orderField="cdate" <?php echo $this->input->post('orderField')=='cdate'?'class="'.$this->input->post('orderDirection').'"':'';?>>创建时间</th>
+				<th width="180" orderField="type_id" <?php echo $this->input->post('orderField')=='a.customer_id'?'class="'.$this->input->post('orderDirection').'"':'';?>>开发商</th>
+				<th width="140" orderField="cdate" <?php echo $this->input->post('orderField')=='a.created'?'class="'.$this->input->post('orderDirection').'"':'';?>>创建时间</th>
 			</tr>
 		</thead>
 		<tbody>

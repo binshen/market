@@ -40,15 +40,17 @@ span.error { width: 50px; left: 416px; }
         			<dt>图片预览：</dt>
         			<dd id="img"><?php if(!empty($pic)):?><img height="100px" src="<?php echo base_url().'uploadfiles/news/'.$pic;?>" /><?php endif;?></dd>
         		</dl>
-        		<dl class="nowrap">
-        			<dt>是否推荐：</dt>
-        			<dd>
-        				<select class="combox" name='recommend'>
-        					<option value="-1" <?php if(!empty($recommend) && $recommend == '-1') echo 'selected="selected";'?>>否</option>
-        					<option value="1" <?php if(!empty($recommend) && $recommend == '1') echo 'selected="selected";'?>>是</option>
-        				</select>
-        			</dd>
-        		</dl>
+        		<?php if($this->session->userdata('group_id') == 1): ?>
+	        		<dl class="nowrap">
+	        			<dt>是否推荐：</dt>
+	        			<dd>
+	        				<select class="combox" name='recommend'>
+	        					<option value="-1" <?php if(!empty($recommend) && $recommend == '-1') echo 'selected="selected";'?>>否</option>
+	        					<option value="1" <?php if(!empty($recommend) && $recommend == '1') echo 'selected="selected";'?>>是</option>
+	        				</select>
+	        			</dd>
+	        		</dl>
+	        	<?php endif; ?>
         	</fieldset>
     	<fieldset>
     	    <legend>最新动态</legend>

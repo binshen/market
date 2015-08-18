@@ -376,7 +376,7 @@ class Manage_model extends MY_Model
     	$this->db->from('news a');
     	$this->db->join('customer b', 'a.customer_id = b.id', 'left');
     	if($this->input->post('title')){
-    		$this->db->like('title',$this->input->post('title'));
+    		$this->db->like('title', $this->input->post('title'));
     		$data['title'] = $this->input->post('title');
     	}
     	if($this->session->userdata('group_id') == 2) {
