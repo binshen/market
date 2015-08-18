@@ -53,6 +53,7 @@ class Manage_login extends MY_Controller {
                 $this->load->view('manage/login');
             }else{
                 if($this->manage_model->check_login()){
+                	
                     redirect(site_url('manage/index'));
                 }else{
                     $data['login_errors'] = '登录失败,请核实登录信息!';

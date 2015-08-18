@@ -42,6 +42,7 @@ class Manage_model extends MY_Model
             $user_info['username'] = $this->input->post('username');
             $user_info['group_id'] = $res->admin_group;
             $user_info['rel_name'] = $res->rel_name;
+            $user_info['customer_id'] = $res->customer_id;
             $this->session->set_userdata($user_info);
             return true;
         } else {
@@ -96,7 +97,6 @@ class Manage_model extends MY_Model
     	$this->db->from('customer');
     	if($this->input->post('rel_name'))
     		$this->db->like('rel_name',$this->input->post('rel_name'));
-    	$this->db->where('id >', 1);
     
     	$rs_total = $this->db->get()->row();
     	//总记录数
@@ -138,7 +138,7 @@ class Manage_model extends MY_Model
     	$admin = $this->db->from('admin')->where('customer_id', $customer_id)->get()->row_array();
     	if(empty($admin)) {
     		$admin = array(
-    			'username' => $data['name'],
+    			'username' => $data['tel'],
     			'passwd' => sha1('888888'),
     			'rel_name' => $data['name'],
     			'admin_group' => 2,
@@ -146,7 +146,7 @@ class Manage_model extends MY_Model
     		);
     		$this->db->insert('admin', $admin);
     	} else {
-    		$admin['username'] = $data['name'];
+    		$admin['username'] = $data['tel'];
     		if(empty($admin['passwd'])) {
     			$admin['passwd'] = sha1('888888');
     		}
@@ -242,7 +242,10 @@ class Manage_model extends MY_Model
     	$this->db->from('house');
     	if($this->input->post('name'))
     		$this->db->like('name',$this->input->post('name'));
-    
+    	if($this->session->userdata('group_id') == 2) {
+    		$this->db->where('customer_id', $this->session->userdata('customer_id'));
+    	}
+    	
     	$rs_total = $this->db->get()->row();
     	//总记录数
     	$data['countPage'] = $rs_total->num;
@@ -254,6 +257,9 @@ class Manage_model extends MY_Model
     	if($this->input->post('name')){
     		$this->db->like('name',$this->input->post('name'));
     		$data['name'] = $this->input->post('name');
+    	}
+    	if($this->session->userdata('group_id') == 2) {
+    		$this->db->where('customer_id', $this->session->userdata('customer_id'));
     	}
     	$this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
     	$this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
@@ -283,7 +289,8 @@ class Manage_model extends MY_Model
     		'is_top' => $this->input->post('is_top'),
     		'folder' => $this->input->post('folder'),
     		'bg_pic' => $this->input->post('is_bg'),
-    		'created' => date('Y-m-d H:i:s')
+    		'created' => date('Y-m-d H:i:s'),
+    		'customer_id' => $this->session->userdata('customer_id')
     	);
     	$this->db->trans_start();//--------开始事务
     
@@ -355,18 +362,25 @@ class Manage_model extends MY_Model
     	$this->db->from('news');
     	if($this->input->post('title'))
     		$this->db->like('title',$this->input->post('title'));
-    
+    	if($this->session->userdata('group_id') == 2) {
+    		$this->db->where('customer_id', $this->session->userdata('customer_id'));
+    	}
+    	
     	$rs_total = $this->db->get()->row();
     	//总记录数
     	$data['countPage'] = $rs_total->num;
     
     	$data['title'] = null;
     	//list
-    	$this->db->select('*');
-    	$this->db->from('news');
+    	$this->db->select('a.*, b.name AS customer_name');
+    	$this->db->from('news a');
+    	$this->db->join('customer b', 'a.customer_id = b.id', 'left');
     	if($this->input->post('title')){
     		$this->db->like('title',$this->input->post('title'));
     		$data['title'] = $this->input->post('title');
+    	}
+    	if($this->session->userdata('group_id') == 2) {
+    		$this->db->where('customer_id', $this->session->userdata('customer_id'));
     	}
     	$this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
     	$this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
@@ -378,11 +392,13 @@ class Manage_model extends MY_Model
     
     public function save_news() {
     	$data = array(
-    		'house_id' => $this->input->post('house_id'),
+    		'h_id' => $this->input->post('h_id'),
     		'pic' => $this->input->post('pic'),
     		'title' => $this->input->post('title'),
     		'content' => $this->input->post('content'),
-    		'created' => date('Y-m-d H:i:s')
+    		'created' => date('Y-m-d H:i:s'),
+    		'customer_id' => $this->session->userdata('customer_id'),
+    		'recommend' => $this->input->post('recommend')
     	);
     	$this->db->trans_start();//--------开始事务
     
@@ -391,7 +407,6 @@ class Manage_model extends MY_Model
     		$this->db->update('news', $data);
     	} else {
     		$this->db->insert('news', $data);
-    		$this->db->insert_id();
     	}
     	   	 
     	$this->db->trans_complete();//------结束事务
@@ -421,18 +436,25 @@ class Manage_model extends MY_Model
     	$this->db->from('house');
     	if($this->input->post('name'))
     		$this->db->like('name',$this->input->post('name'));
-    
+    	if($this->session->userdata('group_id') == 2) {
+    		$this->db->where('customer_id', $this->session->userdata('customer_id'));
+    	}
+    	
     	$rs_total = $this->db->get()->row();
     	//总记录数
     	$data['countPage'] = $rs_total->num;
     
     	$data['name'] = null;
     	//list
-    	$this->db->select();
-    	$this->db->from('house');
+    	$this->db->select('a.*, b.name AS customer_name');
+    	$this->db->from('house a');
+    	$this->db->join('customer b', 'a.customer_id = b.id', 'left');
     	if($this->input->post('name')){
     		$this->db->like('name',$this->input->post('name'));
     		$data['name'] = $this->input->post('name');
+    	}
+    	if($this->session->userdata('group_id') == 2) {
+    		$this->db->where('customer_id', $this->session->userdata('customer_id'));
     	}
     	$this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
     	$this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
