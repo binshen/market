@@ -25,6 +25,9 @@ class Sysconfig_model extends MY_Model
         parent::__destruct();
     }
     
+    public function get_index_info(){
+    	return $this->db->select('id,name,title,avg_price,bg_pic')->from('house')->order_by('is_top','desc')->order_by('rand()')->get()->result_array();
+    }
     
 }
 
