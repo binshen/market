@@ -48,8 +48,8 @@
             ?>		            
             			<tr target="id" rel=<?php echo $row->id; ?>>
             				<td><?php echo $row->title;?></td>
-            				<td><?php echo $row->xq_name;?></td>
-            				<td><?php echo $row->cdate;?></td>
+            				<td><?php echo $row->customer_name;?></td>
+            				<td><?php echo $row->created;?></td>
             			</tr>
             <?php 
             		endforeach;

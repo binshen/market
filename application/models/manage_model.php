@@ -362,18 +362,25 @@ class Manage_model extends MY_Model
     	$this->db->from('news');
     	if($this->input->post('title'))
     		$this->db->like('title',$this->input->post('title'));
-    
+    	if($this->session->userdata('group_id') == 2) {
+    		$this->db->where('customer_id', $this->session->userdata('customer_id'));
+    	}
+    	
     	$rs_total = $this->db->get()->row();
     	//总记录数
     	$data['countPage'] = $rs_total->num;
     
     	$data['title'] = null;
     	//list
-    	$this->db->select('*');
-    	$this->db->from('news');
+    	$this->db->select('a.*, b.name AS customer_name');
+    	$this->db->from('news a');
+    	$this->db->join('customer b', 'a.customer_id = b.id', 'left');
     	if($this->input->post('title')){
     		$this->db->like('title',$this->input->post('title'));
     		$data['title'] = $this->input->post('title');
+    	}
+    	if($this->session->userdata('group_id') == 2) {
+    		$this->db->where('customer_id', $this->session->userdata('customer_id'));
     	}
     	$this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
     	$this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
