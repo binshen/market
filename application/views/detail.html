@@ -18,7 +18,7 @@
                     <div class="swiper-wrapper">
                     	{{foreach from=$pics[1] item=row name=foo}}
                     	{{if $smarty.foreach.foo.index == 0}}
-                        <div class="swiper-slide"><a href="" title=""><img src="/uploadfiles/pics/{{$row.pic}}"/></a></div>
+                        <div class="swiper-slide"><a href="" title=""><img src="/uploadfiles/pics/{{$detail.folder}}/1/{{$row.pic}}"/></a></div>
                         {{else}}
                         <div class="swiper-slide"><a href="" title=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAANBAMAAAA6ZnEvAAAAMFBMVEX///8BAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw+j3JH3AAAAEHRSTlP///////////////////8A4CNdGQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA9JREFUCNdj+I8GGIaRAAB0TM8xY/9xnAAAAABJRU5ErkJggg==" src1="/uploadfiles/pics/{{$row.pic}}"/></a></div>
                         {{/if}}
@@ -31,7 +31,7 @@
                 <div class="swiper-container" id="Jm-slider-inner2">
                     <div class="swiper-wrapper">
                     	{{foreach from=$pics[2] item=row name=foo}}
-                        <div class="swiper-slide"><a href="" title=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAANBAMAAAA6ZnEvAAAAMFBMVEX///8BAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw+j3JH3AAAAEHRSTlP///////////////////8A4CNdGQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA9JREFUCNdj+I8GGIaRAAB0TM8xY/9xnAAAAABJRU5ErkJggg==" src1="/uploadfiles/pics/{{$row.pic}}"/></a></div>
+                        <div class="swiper-slide"><a href="" title=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAANBAMAAAA6ZnEvAAAAMFBMVEX///8BAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw+j3JH3AAAAEHRSTlP///////////////////8A4CNdGQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA9JREFUCNdj+I8GGIaRAAB0TM8xY/9xnAAAAABJRU5ErkJggg==" src1="/uploadfiles/pics/{{$detail.folder}}/2/{{$row.pic}}"/></a></div>
                         {{/foreach}}
                     </div>
                     <div class="pagination-inner pagination-inner2"></div>
@@ -41,7 +41,7 @@
                 <div class="swiper-container" id="Jm-slider-inner3">
                     <div class="swiper-wrapper">
                     	{{foreach from=$pics[3] item=row name=foo}}
-                        <div class="swiper-slide"><a href="" title=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAANBAMAAAA6ZnEvAAAAMFBMVEX///8BAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw+j3JH3AAAAEHRSTlP///////////////////8A4CNdGQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA9JREFUCNdj+I8GGIaRAAB0TM8xY/9xnAAAAABJRU5ErkJggg==" src1="/uploadfiles/pics/{{$row.pic}}"/></a></div>
+                        <div class="swiper-slide"><a href="" title=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAANBAMAAAA6ZnEvAAAAMFBMVEX///8BAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw+j3JH3AAAAEHRSTlP///////////////////8A4CNdGQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA9JREFUCNdj+I8GGIaRAAB0TM8xY/9xnAAAAABJRU5ErkJggg==" src1="/uploadfiles/pics/{{$detail.folder}}/3/{{$row.pic}}"/></a></div>
                         {{/foreach}}
                     </div>
                     <div class="pagination-inner pagination-inner3"></div>
