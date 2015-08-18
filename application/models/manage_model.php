@@ -97,7 +97,6 @@ class Manage_model extends MY_Model
     	$this->db->from('customer');
     	if($this->input->post('rel_name'))
     		$this->db->like('rel_name',$this->input->post('rel_name'));
-    	$this->db->where('id >', 1);
     
     	$rs_total = $this->db->get()->row();
     	//总记录数
@@ -243,7 +242,10 @@ class Manage_model extends MY_Model
     	$this->db->from('house');
     	if($this->input->post('name'))
     		$this->db->like('name',$this->input->post('name'));
-    
+    	if($this->session->userdata('group_id') == 2) {
+    		$this->db->where('customer_id', $this->session->userdata('customer_id'));
+    	}
+    	
     	$rs_total = $this->db->get()->row();
     	//总记录数
     	$data['countPage'] = $rs_total->num;
@@ -255,6 +257,9 @@ class Manage_model extends MY_Model
     	if($this->input->post('name')){
     		$this->db->like('name',$this->input->post('name'));
     		$data['name'] = $this->input->post('name');
+    	}
+    	if($this->session->userdata('group_id') == 2) {
+    		$this->db->where('customer_id', $this->session->userdata('customer_id'));
     	}
     	$this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
     	$this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
@@ -284,7 +289,8 @@ class Manage_model extends MY_Model
     		'is_top' => $this->input->post('is_top'),
     		'folder' => $this->input->post('folder'),
     		'bg_pic' => $this->input->post('is_bg'),
-    		'created' => date('Y-m-d H:i:s')
+    		'created' => date('Y-m-d H:i:s'),
+    		'customer_id' => $this->session->userdata('customer_id')
     	);
     	$this->db->trans_start();//--------开始事务
     
@@ -422,7 +428,10 @@ class Manage_model extends MY_Model
     	$this->db->from('house');
     	if($this->input->post('name'))
     		$this->db->like('name',$this->input->post('name'));
-    
+    	if($this->session->userdata('group_id') == 2) {
+    		$this->db->where('customer_id', $this->session->userdata('customer_id'));
+    	}
+    	
     	$rs_total = $this->db->get()->row();
     	//总记录数
     	$data['countPage'] = $rs_total->num;
@@ -434,6 +443,9 @@ class Manage_model extends MY_Model
     	if($this->input->post('name')){
     		$this->db->like('name',$this->input->post('name'));
     		$data['name'] = $this->input->post('name');
+    	}
+    	if($this->session->userdata('group_id') == 2) {
+    		$this->db->where('customer_id', $this->session->userdata('customer_id'));
     	}
     	$this->db->limit($numPerPage, ($pageNum - 1) * $numPerPage );
     	$this->db->order_by($this->input->post('orderField') ? $this->input->post('orderField') : 'id', $this->input->post('orderDirection') ? $this->input->post('orderDirection') : 'desc');
