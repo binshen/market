@@ -280,7 +280,7 @@ class Manage_model extends MY_Model
     		'floor_area' => $this->input->post('floor_area'),
     		'description' => $this->input->post('description'),
     		'folder' => $this->input->post('folder'),
-    		'bg_pic' => $this->input->post('bg_pic'),
+    		'bg_pic' => $this->input->post('is_bg'),
     		'created' => date('Y-m-d H:i:s')
     	);
     	$this->db->trans_start();//--------开始事务
