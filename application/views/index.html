@@ -49,6 +49,38 @@
 <script type="text/javascript" src="/js/jquery.min.js"></script>
 <script type="text/javascript" src="/js/idangerous.swiper-2.1.min.js" ></script>
 <script type="text/javascript" src="/js/index.js" ></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+	wx.config({
+		debug: false,
+		appId: '{{$wxappId}}',
+		timestamp: '{{$wxtimestamp}}',
+		nonceStr: '{{$wxnonceStr}}',
+		signature: '{{$wxsignature}}',
+		jsApiList: [
+			'openLocation',
+			'getLocation'
+		]
+	});
+	
+	wx.error(function (res) {
+		alert(res.errMsg);
+	});
+
+	//调用微信内置地图显示
+	function wxNav(){
+		wx.openLocation({
+			latitude: 31.288860,
+			longitude: 121.145070,
+			name: '花桥房产超市',
+			address: '昆山花桥赛格',
+			scale: 15,
+			infoUrl: '/'
+		});
+	}
+
+	
+</script>
 <script type="text/javascript">
 $(function(){
 	var maxW=Math.max(document.documentElement.clientWidth,window.innerWidth),
