@@ -289,7 +289,6 @@ class Manage_model extends MY_Model
     		'is_top' => $this->input->post('is_top'),
     		'folder' => $this->input->post('folder'),
     		'bg_pic' => $this->input->post('is_bg'),
-    		'created' => date('Y-m-d H:i:s'),
     		'customer_id' => $this->session->userdata('customer_id')
     	);
     	$this->db->trans_start();//--------开始事务
@@ -302,6 +301,7 @@ class Manage_model extends MY_Model
     		$this->db->where('h_id', $house_id);
     		$this->db->delete('house_img');
     	} else {
+    		$data['created'] = date('Y-m-d H:i:s');
     		$this->db->insert('house', $data);
     		$house_id = $this->db->insert_id();
     	}
@@ -390,22 +390,15 @@ class Manage_model extends MY_Model
     	return $data;
     }
     
-    public function save_news() {
-    	$data = array(
-    		'h_id' => $this->input->post('h_id'),
-    		'pic' => $this->input->post('pic'),
-    		'title' => $this->input->post('title'),
-    		'content' => $this->input->post('content'),
-    		'created' => date('Y-m-d H:i:s'),
-    		'customer_id' => $this->session->userdata('customer_id'),
-    		'recommend' => $this->input->post('recommend')
-    	);
+    public function save_news($data) {
+    	$data['customer_id'] = $this->session->userdata('customer_id');
     	$this->db->trans_start();//--------开始事务
     
     	if($this->input->post('id')){//修改
     		$this->db->where('id', $this->input->post('id'));
     		$this->db->update('news', $data);
     	} else {
+    		$data['created'] = date('Y-m-d H:i:s');
     		$this->db->insert('news', $data);
     	}
     	   	 
@@ -418,12 +411,20 @@ class Manage_model extends MY_Model
     }
     
     public function get_news($id) {
-    	return $this->db->get_where('news', array('id' => $id))->row_array();
+    	$this->db->select('a.*, b.name AS customer_name')->from('news a')->join('customer b','a.customer_id=b.id','left')->where('a.id', $id);
+		$data = $this->db->get()->row_array();
+		return $data;
     }
     
     public function delete_news($id) {
-    	$this->db->where('id', $id);
-    	return $this->db->delete('news');
+    	$data = $this->get_news($id);
+		$rs = $this->db->delete('news', array('id' => $id));
+		if($rs){
+			@unlink('./././uploadfiles/news/'.$data['img']);//del old img
+			return 1;
+		}else{
+			return $this->db_error;
+		}
     }
     
     public function list_house_dialog(){

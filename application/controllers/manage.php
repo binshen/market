@@ -245,11 +245,42 @@ class Manage extends MY_Controller {
 	}
 	
 	public function save_news() {
-		$ret = $this->manage_model->save_news();
-		if($ret == 1){
-			form_submit_json("200", "操作成功", 'list_news');
+		if($_FILES["userfile"]['name'] and $this->input->post('old_img')){//修改上传的图片，需要先删除原来的图片
+			@unlink('./././uploadfiles/news/'.$this->input->post('old_img'));//del old img
+		}else if(!$_FILES["userfile"]['name'] and !$this->input->post('old_img')){//未上传图片
+			form_submit_json("300", "请添加图片");exit;
+		}
+		
+		if(!$_FILES["userfile"]['name'] and $this->input->post('old_img')){//不修改图片信息
+			$data = $this->input->post();
+			unset($data['ajax']);
+			unset($data['old_img']);
+			unset($data['h_name']);
+			$rs = $this->manage_model->save_news($data);
+		}else{
+			$config['upload_path'] = './././uploadfiles/news';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$config['max_size'] = '1000';
+			$config['encrypt_name'] = true;
+			$this->load->library('upload', $config);
+			if($this->upload->do_upload()){
+				$img_info = $this->upload->data();
+				$data = $this->input->post();
+				$data['pic'] = $img_info['file_name'];
+				unset($data['ajax']);
+				unset($data['old_img']);
+				unset($data['h_name']);
+				$rs = $this->manage_model->save_news($data);
+			}else{
+				form_submit_json("300", $this->upload->display_errors('<b>','</b>'));
+				exit;
+			}
+		}
+		
+		if ($rs === 1) {
+			form_submit_json("200", "操作成功", "list_news");
 		} else {
-			form_submit_json("300", "保存失败");
+			form_submit_json("300", $rs);
 		}
 	}
 	
