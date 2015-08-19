@@ -1,4 +1,3 @@
-// JavaScript Document
 
 function Swipe(E, w) {
     var O = function() {};
@@ -499,8 +498,7 @@ function swipe(c, o) {
     }
     return i;
 }
-
-var Lazy = {
+	var Lazy = {
     eCatch: {},
     eHandle: 0,
     isFunction: function(a) {
@@ -737,7 +735,7 @@ var Lazy = {
         }
     }
 };
-//焦点图片按需加载
+//鐒︾偣鍥剧墖鎸夐渶鍔犺浇
 var xx = Lazy.create({
     lazyId: "J_slideWrap",
     trueSrc: "src1",
@@ -748,7 +746,7 @@ var xx = Lazy.create({
 Lazy.init(xx);
 
 function lazyforselectbbs(){
-	//精选图片按需加载
+	//绮鹃�夊浘鐗囨寜闇�鍔犺浇
 	var xx = Lazy.create({
 	lazyId: "Jm-pic-list",
 	trueSrc: 'src1',

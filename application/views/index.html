@@ -11,18 +11,20 @@
 </head>
 <body id="index">
 <div class="g-doc" id="wrapper">
-    <div class="swiper-container" id="Jm-ind-slider">
-        <div class="swiper-wrapper">
-        {{foreach from=$news item=row key=k}}
-        {{if $k==0}}
-            <div class="swiper-slide"><a href="{{site_url url='index/get_news'}}/{{$row.id}}" title=""><img src="/uploadfiles/news/{{$row.pic}}"/><span class="txt">{{$row.title}}</span></a></div>
-        {{else}}
-        	<div class="swiper-slide"><a href="{{site_url url='index/get_news'}}/{{$row.id}}" title=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAANBAMAAAA6ZnEvAAAAMFBMVEX///8BAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw+j3JH3AAAAEHRSTlP///////////////////8A4CNdGQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA9JREFUCNdj+I8GGIaRAAB0TM8xY/9xnAAAAABJRU5ErkJggg==" src1="/uploadfiles/news/{{$row.pic}}"/><span class="txt">{{$row.title}}</span></a></div>
-        {{/if}}
-        {{/foreach}}
-        </div>
-        <div class="pagination-inner"></div>
-    </div>
+    <div class="m-slider">
+		<div class="m-slider-pic" id="J_slideWrap">
+			<ul class="">
+              {{foreach from=$news item=row key=k}}
+                {{if $k==0}}
+                    <li><a href="{{site_url url='index/get_news'}}/{{$row.id}}" title=""><img src="/uploadfiles/news/{{$row.pic}}"/><span class="txt">{{$row.title}}</span></a></li>
+                {{else}}
+                    <li><a href="{{site_url url='index/get_news'}}/{{$row.id}}" title=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAANBAMAAAA6ZnEvAAAAMFBMVEX///8BAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw+j3JH3AAAAEHRSTlP///////////////////8A4CNdGQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA9JREFUCNdj+I8GGIaRAAB0TM8xY/9xnAAAAABJRU5ErkJggg==" src1="/uploadfiles/news/{{$row.pic}}"/><span class="txt">{{$row.title}}</span></a></li>
+                {{/if}}
+        	  {{/foreach}}
+			</ul>
+		</div>
+		<div class="m-slider-doc" id="J_slideNav"></div>
+	</div>
     <div class="slider-tit">花桥精选楼盘</div>
     <ul class="m-pic-list" id="Jm-pic-list">
     {{foreach from=$projects item=row}}
@@ -50,8 +52,7 @@
     <a href="javascript:wxNav();" title="地图导航" class="am-icon-btn am-icon-send-o"></a>
 </div>
 <script type="text/javascript" src="/js/jquery.min.js"></script>
-<script type="text/javascript" src="/js/idangerous.swiper-2.1.min.js" ></script>
-<script type="text/javascript" src="/js/index.js" ></script>
+<script type="text/javascript" src="/js/swipe.js"></script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
 	wx.config({
@@ -85,20 +86,21 @@
 	
 </script>
 <script type="text/javascript">
-$(function(){
-	var maxW=Math.max(document.documentElement.clientWidth,window.innerWidth),
-	maxH=Math.max(document.documentElement.clientHeight,window.innerHeight);
-	var imgH =Math.floor(maxW*280/640);
-	$('.swiper-slide').height(imgH);
-
-	new Swiper('#Jm-ind-slider', {
-        pagination: '.pagination-inner',
-        paginationClickable: true
-    });
-})
+function $$(a){
+	return(typeof a=="object")?a:document.getElementById(a);
+	}
+//焦点图切换
+var Jwrap = $$("J_slideWrap"),
+Jnav = $$("J_slideNav");
+window.GfocusSlide = swipe(Jwrap, {
+    auto: 5000,
+    speed: 100,
+    continuous: true,
+    nav: Jnav
+});
 //右侧导航
 $(window).scroll(function(){
-	$(window).scrollTop()>10?$('#amz-go-top').addClass('am-active'):$('#amz-go-top').removeClass('am-active');
+	$(window).scrollTop()>100?$('#amz-go-top').addClass('am-active'):$('#amz-go-top').removeClass('am-active');
 });
 </script>
 </body>
