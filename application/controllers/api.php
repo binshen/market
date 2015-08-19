@@ -68,10 +68,10 @@ class Api extends MY_Controller {
 		$keyword = trim($object->Content);
 		$house = $this->api_model->get_house_by_keyword($keyword);
 		if(empty($house)) {
-			$content = "找不到对应的楼盘。可选的关键字有：" + $this->api_model->get_all_keywords();
+			$content = "找不到对应的楼盘。可选的关键字有：" . $this->api_model->get_all_keywords();
 			return $this->transmitText($object, $content);
 		} else {
-			$content = "找到楼盘，楼盘名称为：" + $house['name'];
+			$content = "找到楼盘，楼盘名称为：" . $house['name'];
 			return $this->transmitText($object, $content);
 		}
 	}
@@ -88,7 +88,7 @@ class Api extends MY_Controller {
 // 		@$object->ToUserName = 'bbbb';
 // 		$result = $this->transmitNews($object, $content);
 // 		echo($result);
-		$keywords = $this->api_model->get_all_keywords();
+		$keywords = $this->api_model->get_house_by_keyword("万科");
 		var_dump($keywords);
 	}
 	
