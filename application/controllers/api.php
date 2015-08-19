@@ -83,7 +83,7 @@ class Api extends MY_Controller {
  		@$post_data->action_name = $action_name;
  		@$post_data->action_info->scene->scene_id = $scene_id;
 
-  		return json_decode($this->post($url, $post_data));
+  		return json_decode($this->api_model->post($url, $post_data));
 	}
 	
 /////////////////
