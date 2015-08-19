@@ -110,6 +110,12 @@ span.error { width: 50px; left: 416px; }
         				<input name="developer" type="text" class="required" value="<?php if(!empty($developer)) { echo $developer; } else { echo $this->session->userdata('customer_name'); } ?>" />
         			</dd>
         		</dl>
+        		<dl>
+        			<dt>微信关键字：</dt>
+        			<dd>
+        				<input name="keyword" type="text" class="required" value="<?php if(!empty($keyword)) echo $keyword; ?>" />
+        			</dd>
+        		</dl>
         		<?php if($this->session->userdata('group_id') == 1): ?>
 	        		<dl>
 	        			<dt>是否置顶：</dt>

@@ -292,7 +292,8 @@ class Manage_model extends MY_Model
     		'is_top' => $this->input->post('is_top'),
     		'folder' => $this->input->post('folder'),
     		'bg_pic' => $this->input->post('is_bg'),
-    		'customer_id' => $this->session->userdata('customer_id')
+    		'customer_id' => $this->session->userdata('customer_id'),
+    		'keyword' => $this->input->post('keyword')
     	);
     	$this->db->trans_start();//--------开始事务
     
@@ -414,7 +415,7 @@ class Manage_model extends MY_Model
     }
     
     public function get_news($id) {
-    	$this->db->select('a.*, b.name AS h_name')->from('news a')->join('customer b', 'a.h_id=b.id', 'left')->where('a.id', $id);
+    	$this->db->select('a.*, b.name AS h_name')->from('news a')->join('house b', 'a.h_id=b.id', 'left')->where('a.id', $id);
 		$data = $this->db->get()->row_array();
 		return $data;
     }
