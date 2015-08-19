@@ -81,14 +81,21 @@
      <div class="f-item-detail">
         <div class="f-item-th"><span>最新动态</span></div>
         <ul class="ul-new-list">
+        {{foreach from=$news item=row key=k}}
+        {{if $k==0}}
             <li>
-                <span class="s-img">
-                    <img src="http://dummyimage.com/100x100/ccc/fff" />
-                </span>
-                <p><span>双联国际商务中心目前购房可享受5万抵8万的优惠</span>
-                    双联国际商务中心现目前在售的有商铺、办公楼。1-2楼商铺在售16套..</p>
-            </li>  
-            <li>&middot; 双联国际商务中心幕墙工程开工建设 <em class="e-date">2014-07-15</em></li>  
+            	<a href="{site_url url='index/get_news'}/{{$row.id}}">
+	                <span class="s-img">
+	                    <img src="/uploadfiles/news/{{$row.pic}}" />
+	                </span>
+	                <p><span>{{$row.title}}</span>
+	                    {{$row.content}}..</p>
+                </a>
+            </li>
+         {{else}}
+         	<li><a href="{site_url url='index/get_news'}/{{$row.id}}">&middot; {{$row.title}} <em class="e-date">{{$row.creeated|date_format:"%Y-%m-%d"}}</em></a></li>
+         {{/if}}
+         {{/foreach}}
         </ul>   
     </div>
 </div>

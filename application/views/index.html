@@ -13,10 +13,13 @@
 <div class="g-doc" id="wrapper">
     <div class="swiper-container" id="Jm-ind-slider">
         <div class="swiper-wrapper">
-            <div class="swiper-slide"><a href="" title=""><img src="http://dummyimage.com/640x280/000/fff"/><span class="txt">陆家嘴集团钜献 内环花木国际生活蓝</span></a></div>
-            <div class="swiper-slide"><a href="" title=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAANBAMAAAA6ZnEvAAAAMFBMVEX///8BAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw+j3JH3AAAAEHRSTlP///////////////////8A4CNdGQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA9JREFUCNdj+I8GGIaRAAB0TM8xY/9xnAAAAABJRU5ErkJggg==" src1="http://dummyimage.com/640x280/000/fff"/><span class="txt">陆家嘴集团钜献 内环花木国际生活蓝</span></a></div>
-            <div class="swiper-slide"><a href="" title=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAANBAMAAAA6ZnEvAAAAMFBMVEX///8BAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw+j3JH3AAAAEHRSTlP///////////////////8A4CNdGQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA9JREFUCNdj+I8GGIaRAAB0TM8xY/9xnAAAAABJRU5ErkJggg==" src1="http://dummyimage.com/640x280/000/fff"/><span class="txt">陆家嘴集团钜献 内环花木国际生活蓝</span></a></div>
-            <div class="swiper-slide"><a href="" title=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAANBAMAAAA6ZnEvAAAAMFBMVEX///8BAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw+j3JH3AAAAEHRSTlP///////////////////8A4CNdGQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA9JREFUCNdj+I8GGIaRAAB0TM8xY/9xnAAAAABJRU5ErkJggg==" src1="http://dummyimage.com/640x280/000/fff"/><span class="txt">陆家嘴集团钜献 内环花木国际生活蓝</span></a></div>
+        {{foreach from=$news item=row key=k}}
+        {{if $k==0}}
+            <div class="swiper-slide"><a href="{{site_url url='index/get_news'}}/{{$row.id}}" title=""><img src="/uploadfiles/news/{{$row.pic}}"/><span class="txt">{{$row.title}}</span></a></div>
+        {{else}}
+        	<div class="swiper-slide"><a href="{{site_url url='index/get_news'}}/{{$row.id}}" title=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAANBAMAAAA6ZnEvAAAAMFBMVEX///8BAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw+j3JH3AAAAEHRSTlP///////////////////8A4CNdGQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA9JREFUCNdj+I8GGIaRAAB0TM8xY/9xnAAAAABJRU5ErkJggg==" src1="/uploadfiles/news/{{$row.pic}}"/><span class="txt">{{$row.title}}</span></a></div>
+        {{/if}}
+        {{/foreach}}
         </div>
         <div class="pagination-inner"></div>
     </div>
