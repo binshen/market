@@ -19,14 +19,20 @@ class Index extends MY_Controller {
 	public function index() {
 		$this->buildWxData();
 		$data = $this->sysconfig_model->get_index_info();
-		$this->assign('projects', $data);
+		$this->assign('news', $data['news']);
+		$this->assign('projects', $data['projects']);
 		$this->display('index.html');
 	}
 	
 	public function get_project($id){
 		$data = $this->sysconfig_model->get_project($id);
 		$this->assign('detail', $data['detail']);
+		$this->assign('news', $data['news']);
 		$this->assign('pics', $data['pics']);
 		$this->display('detail.html');
+	}
+	
+	public function get_news($id){
+		die('aaaa');
 	}
 }
