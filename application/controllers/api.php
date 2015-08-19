@@ -1,8 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-if(!defined('APP_ID')) define('APP_ID', 'wxc4acc7c89e33b506');
-if(!defined('APP_SECRET')) define('APP_SECRET', '7b00f11e95115271e8f6de6b2823693d');
-if(!defined('TOKEN')) define('TOKEN', '8654b302d5100247d2acc6211664c6f2');
+// if(!defined('APP_ID')) define('APP_ID', 'wxc4acc7c89e33b506');
+// if(!defined('APP_SECRET')) define('APP_SECRET', '7b00f11e95115271e8f6de6b2823693d');
+// if(!defined('TOKEN')) define('TOKEN', '8654b302d5100247d2acc6211664c6f2');
  
 class Api extends MY_Controller {
 
