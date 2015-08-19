@@ -228,6 +228,22 @@ class MY_Model extends CI_Model{
     {
         $this->db->close();
     }
+    
+    ///////////////////////////////////////////////////////////////////////////////
+    // WeiXin API related
+    ///////////////////////////////////////////////////////////////////////////////
+    public function post($url, $post_data, $timeout = 300){
+    	$options = array(
+    		'http' => array(
+    			'method' => 'POST',
+    			'header' => 'Content-type:application/json',
+    			'content' => json_encode($post_data),
+    			'timeout' => 300
+    		)
+    	);
+    	$context = stream_context_create($options);
+    	return file_get_contents($url, false, $context);
+    }
 }
 
 /* End of file MY_Model.php */

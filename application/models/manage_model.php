@@ -331,7 +331,7 @@ class Manage_model extends MY_Model
     	if ($this->db->trans_status() === FALSE) {
     		return -1;
     	} else {
-    		return 1;
+    		return $house_id; //return 1;
     	}
     }
     

@@ -45,6 +45,30 @@ class Api_model extends MY_Model {
 		return json_decode($response)->access_token;
 	}
 	
+	public function get_or_create_ticket($h_id, $action_name = 'QR_LIMIT_SCENE') {
+		$this->db->from('house_ticket');
+		$this->db->where('h_id', $h_id);
+		$house_ticket = $this->db->get()->row_array();
+		if(empty($house_ticket)) {
+			$token_data = $this->get_or_create_token();
+			$access_token = $token_data['token'];
+			$url = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $access_token;
+			@$post_data->action_name = $action_name;
+			@$post_data->action_info->scene->scene_id = $scene_id;
+			$ticket_data = json_decode($this->post($url, $post_data));
+			$ticket = $ticket_data->ticket;
+			$data = array(
+				'h_id' => $h_id,
+				'ticket' => $ticket
+			);
+			$this->db->insert('house_ticket', $data);
+			return $data;
+		} else {
+			return $house_ticket;
+		}
+	}
+	
+	
 //////////////////////////////////////////////////////////////
 // Test code
 //////////////////////////////////////////////////////////////

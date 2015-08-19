@@ -1,8 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-if(!defined('APP_ID')) define('APP_ID', 'wx74ecabd9ee84aa89');
-if(!defined('APP_SECRET')) define('APP_SECRET', '03aae99bb72ec4fd2aa592e9716d762e');
-if(!defined('TOKEN')) define('TOKEN', '8654b302d5100247d2acc6211664c6f2');
+// if(!defined('APP_ID')) define('APP_ID', 'wxc4acc7c89e33b506');
+// if(!defined('APP_SECRET')) define('APP_SECRET', '7b00f11e95115271e8f6de6b2823693d');
+// if(!defined('TOKEN')) define('TOKEN', '8654b302d5100247d2acc6211664c6f2');
  
 class Api extends MY_Controller {
 
@@ -64,39 +64,26 @@ class Api extends MY_Controller {
 		}
 	}
 
-	public function get_qrcode($scene_id) {
+	public function get_qrcode($scene_id, $action_name = 'QR_SCENE') {
 		
-		$ticket_data = $this->get_ticket($scene_id);
+		$ticket_data = $this->get_ticket($scene_id, $action_name);
 		var_dump($ticket_data);
 		
 		$ticket = $ticket_data->ticket;
 		echo "<img src='https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=$ticket'>";
 	}
 	
-	private function get_ticket($scene_id) {
+	private function get_ticket($scene_id, $action_name = 'QR_LIMIT_SCENE') {
 	
 		$token_data = $this->api_model->get_or_create_token();
 		$access_token = $token_data['token'];
 		$url = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $access_token;
 
-		@$post_data->expire_seconds = 604800;
- 		@$post_data->action_name = "QR_SCENE";
+		//@$post_data->expire_seconds = 604800;
+ 		@$post_data->action_name = $action_name;
  		@$post_data->action_info->scene->scene_id = $scene_id;
 
-  		return json_decode($this->post($url, $post_data));
-	}
-	
-	private function post($url, $post_data, $timeout = 300){
-		$options = array(
-			'http' => array(
-				'method' => 'POST',
-				'header' => 'Content-type:application/json',
-				'content' => json_encode($post_data),
-				'timeout' => 300
-			)
-		);
-		$context = stream_context_create($options);
-		return file_get_contents($url, false, $context);
+  		return json_decode($this->api_model->post($url, $post_data));
 	}
 	
 /////////////////
