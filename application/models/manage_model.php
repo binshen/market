@@ -292,7 +292,8 @@ class Manage_model extends MY_Model
     		'is_top' => $this->input->post('is_top'),
     		'folder' => $this->input->post('folder'),
     		'bg_pic' => $this->input->post('is_bg'),
-    		'customer_id' => $this->session->userdata('customer_id')
+    		'customer_id' => $this->session->userdata('customer_id'),
+    		'keyword' => $this->input->post('keyword')
     	);
     	$this->db->trans_start();//--------开始事务
     

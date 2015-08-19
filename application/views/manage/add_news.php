@@ -5,6 +5,7 @@
 .pageFormContent dl { width: 480px; }
 .pageFormContent dl dd { width: 320px; }
 span.error { width: 50px; left: 416px; }
+.file-box span.error { width: 50px; left: 285px; }
 </style>
 <div class="pageContent">
     <form method="post" enctype="multipart/form-data" action="<?php echo site_url('manage/save_news');?>" class="pageForm required-validate" onsubmit="return iframeCallback(this, navTabAjaxDone);">
@@ -30,7 +31,7 @@ span.error { width: 50px; left: 416px; }
         			<dd>
 	        			<div class="file-box">
 		        			<input type="hidden" name="old_img" value="<?php if(!empty($pic)) echo $pic;?>" />
-		    				<input type='text' id='textfield' class='txt' value="<?php if(!empty($pic)) echo $pic;?>" style="width: 210px;" />  
+		    				<input type='text' id='textfield' class="required" class='txt' value="<?php if(!empty($pic)) echo $pic;?>" style="width: 210px;" />  
 					 		<input type='button' class='btn' value='浏览...' />
 							<input type="file" name="userfile" class="file" id="fileField"  onchange="document.getElementById('textfield').value=this.value" />
 						</div>
