@@ -43,6 +43,12 @@ class Sysconfig_model extends MY_Model
     	}
     	return $data;
     }
+    
+    public function get_news_detail($id){
+    	$data['detail'] = $this->db->select()->from('news')->where('id',$id)->get()->row_array();
+    	$data['list'] = $this->db->select('id,title,created')->from('news')->where('h_id',$data['detail']['h_id'])->where('id !=',$id)->order_by('created','desc')->limit(4,0)->get()->result_array();
+    	return $data;
+    }
 }
 
 /* End of file sysconfig_model.php */

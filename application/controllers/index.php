@@ -33,6 +33,9 @@ class Index extends MY_Controller {
 	}
 	
 	public function get_news($id){
-		die('aaaa');
+		$data = $this->sysconfig_model->get_news_detail($id);
+		$this->assign('detail', $data['detail']);
+		$this->assign('list', $data['list']);
+		$this->display('news_detail.html');
 	}
 }
