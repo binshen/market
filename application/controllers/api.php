@@ -71,9 +71,22 @@ class Api extends MY_Controller {
 			//return $this->transmitText($object, $content);
 			
 			$content = array();
-			$content[] = array('Title' => $keyword, 'Description' => $house['name'], 'PicUrl' => 'http://wx.ksls.com.cn/uploadfiles/pics/' . $house['bg_pic'], 'Url' => 'http://wx.ksls.com.cn/index/get_project/' . $house['id']);
+			$content[] = array(
+				'Title' => $keyword, 
+				'Description' => $house['name'], 
+				'PicUrl' => 'http://wx.ksls.com.cn/uploadfiles/pics/' . $house['bg_pic'], 
+				'Url' => 'http://wx.ksls.com.cn/index/get_project/' . $house['id']
+			);
 
-			
+			$newsList = $this->api_model->get_news_by_hid($house['id']);
+			foreach ($newsList as $news) {
+				$content[] = array(
+					'Title' => $news['title'],
+					'Description' => '',
+					'PicUrl' => 'http://wx.ksls.com.cn/uploadfiles/news/' . $news['pic'],
+					'Url' => 'http://wx.ksls.com.cn/index/get_news/' . $news['id']
+				);
+			}
 			return $this->transmitNews($object, $content);
 		}
 	}

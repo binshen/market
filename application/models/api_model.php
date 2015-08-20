@@ -86,6 +86,10 @@ class Api_model extends MY_Model {
 		return implode(',', $keywords);
 	}
 	
+	public function get_news_by_hid($h_id) {
+		$this->db->from('news')->where('h_id', $h_id)->limit(3)->order_by('created', 'desc');
+		return $this->db->get()->row_array();
+	}
 	
 //////////////////////////////////////////////////////////////
 // Test code
