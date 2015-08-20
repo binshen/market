@@ -127,6 +127,9 @@ class Api extends MY_Controller {
 			case "VIEW":
 				$content = "点击菜单跳转链接： " . $object->EventKey;
 				break;
+			case "LOCATION":
+				$content = "上传位置：纬度 " . $object->Latitude . ";经度 " . $object->Longitude;
+				break;
 		}
 		return $this->transmitText($object, $content);
 	}
