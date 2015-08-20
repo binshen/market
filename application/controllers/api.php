@@ -114,7 +114,7 @@ class Api extends MY_Controller {
 			case "SCAN":
 				$house = $this->api_model->get_house_by_id($object->EventKey);
 				if(empty($house)) {
-					$content = "该楼盘不存在，可输入关键字查找楼盘。可选的关键字有：" . $this->api_model->get_all_keywords();
+					$content = $object->EventKey . " 该楼盘不存在，可输入关键字查找楼盘。可选的关键字有：" . $this->api_model->get_all_keywords();
 				} else {
 					$content = $this->get_message($house);
 					return $this->transmitNews($object, $content);
