@@ -118,7 +118,7 @@ class Api extends MY_Controller {
 // 		@$object->ToUserName = 'bbbb';
 // 		$result = $this->transmitNews($object, $content);
 // 		echo($result);
-		$keywords = $this->api_model->get_house_by_keyword("万科");
+		$keywords = $this->api_model->get_news_by_hid(4);
 		var_dump($keywords);
 	}
 	
