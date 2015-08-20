@@ -1,8 +1,4 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
-// if(!defined('APP_ID')) define('APP_ID', 'wxc4acc7c89e33b506');
-// if(!defined('APP_SECRET')) define('APP_SECRET', '7b00f11e95115271e8f6de6b2823693d');
-// if(!defined('TOKEN')) define('TOKEN', '8654b302d5100247d2acc6211664c6f2');
  
 class Api extends MY_Controller {
 
@@ -71,8 +67,14 @@ class Api extends MY_Controller {
 			$content = "找不到对应的楼盘。可选的关键字有：" . $this->api_model->get_all_keywords();
 			return $this->transmitText($object, $content);
 		} else {
-			$content = "找到楼盘，楼盘名称为：" . $house['name'];
-			return $this->transmitText($object, $content);
+			//$content = "找到楼盘，楼盘名称为：" . $house['name'];
+			//return $this->transmitText($object, $content);
+			
+			$content = array();
+			$content[] = array('Title' => $keyword, 'Description' => $house['name'], 'PicUrl' => 'http://wx.ksls.com.cn/uploadfiles/pics/' . $house['bg_pic'], 'Url' => 'http://wx.ksls.com.cn/index/get_project/' . $house['id']);
+
+			
+			return $this->transmitNews($object, $content);
 		}
 	}
 	
