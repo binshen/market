@@ -45,11 +45,11 @@ class Api_model extends MY_Model {
 		return json_decode($response)->access_token;
 	}
 	
-	public function get_or_create_ticket($h_id, $action_name = 'QR_LIMIT_SCENE', $forceCreate = false) {
+	public function get_or_create_ticket($h_id, $action_name = 'QR_LIMIT_SCENE') {
 		$this->db->from('house_ticket');
 		$this->db->where('h_id', $h_id);
 		$house_ticket = $this->db->get()->row_array();
-		if(empty($house_ticket) || $forceCreate) {
+		if(empty($house_ticket)) {
 			$token_data = $this->get_or_create_token();
 			$access_token = $token_data['token'];
 			$url = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $access_token;

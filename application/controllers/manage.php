@@ -210,7 +210,7 @@ class Manage extends MY_Controller {
 	public function save_house() {
 		$h_id = $this->manage_model->save_house();
 		if($h_id > 0){
-			$this->api_model->get_or_create_ticket($h_id, 'QR_SCENE');
+			$this->api_model->get_or_create_ticket($h_id);
 			form_submit_json("200", "操作成功", 'list_house');
 		} else {
 			form_submit_json("300", "保存失败");

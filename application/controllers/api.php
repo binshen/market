@@ -139,7 +139,7 @@ class Api extends MY_Controller {
 	}
 	
 	public function get_qrcode($h_id) {
-		$ticket_data = $this->api_model->get_or_create_ticket($h_id, 'QR_SCENE', true);
+		$ticket_data = $this->api_model->get_or_create_ticket($h_id);
 		$ticket = $ticket_data['ticket'];
 		echo "<img src='https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=$ticket'>";
 	}
