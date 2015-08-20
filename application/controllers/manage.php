@@ -306,4 +306,10 @@ class Manage extends MY_Controller {
 		$data = $this->manage_model->list_house_dialog();
 		$this->load->view('manage/list_house_dialog.php', $data);
 	}
+	
+//////////////////////////////////////////////////////////////////////////
+	public function check_keyword() {
+		$result = $this->manage_model->check_keyword();
+		echo empty($result) ? -1 : 1;
+	}
 }

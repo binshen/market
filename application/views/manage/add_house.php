@@ -15,7 +15,7 @@ span.error { width: 50px; left: 416px; }
         	    <dl>
         			<dt>名称：</dt>
         			<dd>
-        				<input type="hidden" name="id" value="<?php if(!empty($id)) echo $id;?>">
+        				<input type="hidden" name="id" value="<?php if(!empty($id)) echo $id;?>" id="house_id">
         				<input type="hidden" name="is_bg" value="<?php if(!empty($bg_pic)) echo $bg_pic;?>" id="is_bg">
         				<input name="name" type="text" class="required" value="<?php if(!empty($name)) echo $name; ?>" />
         			</dd>
@@ -113,7 +113,7 @@ span.error { width: 50px; left: 416px; }
         		<dl>
         			<dt>微信关键字：</dt>
         			<dd>
-        				<input name="keyword" type="text" class="required" value="<?php if(!empty($keyword)) echo $keyword; ?>" />
+        				<input name="keyword" type="text" class="required" value="<?php if(!empty($keyword)) echo $keyword; ?>" id="keyword" />
         			</dd>
         		</dl>
         		<?php if($this->session->userdata('group_id') == 1): ?>
@@ -240,6 +240,18 @@ function iframeCallback(form, callback){
 	var $form = $(form), $iframe = $("#callbackframe");
 	if(!$form.valid()) {return false;}
 
+	var result = $.ajax({
+        type: "POST",
+        data: { keyword: $("#keyword").val(), id: $("#house_id").val() },
+       	url: "<?php echo site_url('manage/check_keyword/')?>",
+       	cache:false,
+       	async:false
+	}).responseText;
+	if(result > 0) {
+		alertMsg.warn("微信关键字已经被使用过");
+		return false;
+	}
+	
 	if($("#append1").children().length == 0) {
 		alertMsg.warn("请上传楼盘效果图");
 		return false;
