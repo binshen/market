@@ -124,6 +124,29 @@ class Manage extends MY_Controller {
 		}
 	}
 
+	public function upload_pic(){
+		$path = './././uploadfiles/others/';
+		$path_out = '/uploadfiles/others/';
+		$msg = '';
+	
+		//设置原图限制
+		$config['upload_path'] = $path;
+		$config['allowed_types'] = 'gif|jpg|png|jpeg';
+		$config['max_size'] = '1000';
+		$config['encrypt_name'] = true;
+		$this->load->library('upload', $config);
+	
+		if($this->upload->do_upload('filedata')){
+			$data = $this->upload->data();
+			$targetPath = $path_out.$data['file_name'];
+			$msg="{'url':'".$targetPath."','localname':'','id':'1'}";
+			$err = '';
+		}else{
+			$err = $this->upload->display_errors();
+		}
+		echo "{'err':'".$err."','msg':".$msg."}";
+	}
+	
 	/**
 	 * 开发商管理
 	 */
