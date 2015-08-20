@@ -345,6 +345,7 @@ function del_pic(obj,type_id){
 					$(this).parent().remove();
 				}
 			});
+//			$(obj).parent().parent().remove();
 		}else{
 			alertMsg.warn("删除图片失败，请清理图片缓存并刷新标签页");
 		}
