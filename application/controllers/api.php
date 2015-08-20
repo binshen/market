@@ -60,6 +60,27 @@ class Api extends MY_Controller {
 		}
 	}
 
+	private function get_message($house) {
+		$content = array();
+		$content[] = array(
+			'Title' => $house['name'],
+			'Description' => '',
+			'PicUrl' => 'http://wx.ksls.com.cn/uploadfiles/pics/' . $house['bg_pic'],
+			'Url' => 'http://wx.ksls.com.cn/index/get_project/' . $house['id']
+		);
+		
+		$newsList = $this->api_model->get_news_by_hid($house['id']);
+		foreach ($newsList as $news) {
+			$content[] = array(
+				'Title' => $news['title'],
+				'Description' => '',
+				'PicUrl' => 'http://wx.ksls.com.cn/uploadfiles/news/' . $news['pic'],
+				'Url' => 'http://wx.ksls.com.cn/index/get_news/' . $news['id']
+			);
+		}
+		return $content;
+	}
+	
 	private function receiveText($object) {
 		$keyword = trim($object->Content);
 		$house = $this->api_model->get_house_by_keyword($keyword);
@@ -67,28 +88,40 @@ class Api extends MY_Controller {
 			$content = "找不到对应的楼盘。可选的关键字有：" . $this->api_model->get_all_keywords();
 			return $this->transmitText($object, $content);
 		} else {
-			//$content = "找到楼盘，楼盘名称为：" . $house['name'];
-			//return $this->transmitText($object, $content);
-			
-			$content = array();
-			$content[] = array(
-				'Title' => $house['name'], 
-				'Description' => '', 
-				'PicUrl' => 'http://wx.ksls.com.cn/uploadfiles/pics/' . $house['bg_pic'], 
-				'Url' => 'http://wx.ksls.com.cn/index/get_project/' . $house['id']
-			);
-
-			$newsList = $this->api_model->get_news_by_hid($house['id']);
-			foreach ($newsList as $news) {
-				$content[] = array(
-					'Title' => $news['title'],
-					'Description' => '',
-					'PicUrl' => 'http://wx.ksls.com.cn/uploadfiles/news/' . $news['pic'],
-					'Url' => 'http://wx.ksls.com.cn/index/get_news/' . $news['id']
-				);
-			}
+			$content = $this->get_message($house);
 			return $this->transmitNews($object, $content);
 		}
+	}
+	
+	private function receiveEvent($object) {
+		$content = "";
+		switch ($object->Event) {
+			case "subscribe":
+				$content = "";
+				if (isset($object->EventKey)){
+					$content = "关注二维码场景： " . $object->EventKey;
+				}
+				break;
+			case "unsubscribe":
+				$content = "取消关注";
+				break;
+			case "SCAN":
+				$house = $this->api_model->get_house_by_keyword($object->EventKey);
+				if(empty($house)) {
+					$content = "该楼盘不存在，可输入关键字查找楼盘。可选的关键字有：" . $this->api_model->get_all_keywords();
+				} else {
+					$content = $this->get_message($house);
+					return $this->transmitNews($object, $content);
+				}
+				break;
+			case "CLICK":
+				$content = "点击菜单拉取消息： " . $object->EventKey;
+				break;
+			case "VIEW":
+				$content = "点击菜单跳转链接： " . $object->EventKey;
+				break;
+		}
+		return $this->transmitText($object, $content);
 	}
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -174,7 +207,7 @@ class Api extends MY_Controller {
 		return $result;
 	}
 	
-	private function receiveEvent($object) {
+	private function receiveEvent2($object) {
 		$content = "";
 		switch ($object->Event) {
 			case "subscribe":

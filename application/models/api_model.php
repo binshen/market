@@ -68,6 +68,12 @@ class Api_model extends MY_Model {
 		}
 	}
 	
+	function get_house_by_id($id) {
+		$this->db->from('house');
+		$this->db->where('id', $id);
+		return $this->db->get()->row_array();
+	}
+	
 	function get_house_by_keyword($keyword) {
 		$this->db->from('house');
 		$this->db->where('keyword', $keyword);
