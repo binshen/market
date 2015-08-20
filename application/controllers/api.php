@@ -109,27 +109,27 @@ class Api extends MY_Controller {
 		var_dump($keywords);
 	}
 	
-	public function get_qrcode($scene_id, $action_name = 'QR_SCENE') {
+// 	public function get_qrcode($scene_id, $action_name = 'QR_SCENE') {
 		
-		$ticket_data = $this->get_ticket($scene_id, $action_name);
-		var_dump($ticket_data);
+// 		$ticket_data = $this->get_ticket($scene_id, $action_name);
+// 		var_dump($ticket_data);
 		
-		$ticket = $ticket_data->ticket;
-		echo "<img src='https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=$ticket'>";
-	}
+// 		$ticket = $ticket_data->ticket;
+// 		echo "<img src='https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=$ticket'>";
+// 	}
 	
-	private function get_ticket($scene_id, $action_name = 'QR_LIMIT_SCENE') {
+// 	private function get_ticket($scene_id, $action_name = 'QR_LIMIT_SCENE') {
 	
-		$token_data = $this->api_model->get_or_create_token();
-		$access_token = $token_data['token'];
-		$url = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $access_token;
+// 		$token_data = $this->api_model->get_or_create_token();
+// 		$access_token = $token_data['token'];
+// 		$url = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $access_token;
 
-		//@$post_data->expire_seconds = 604800;
- 		@$post_data->action_name = $action_name;
- 		@$post_data->action_info->scene->scene_id = $scene_id;
+// 		//@$post_data->expire_seconds = 604800;
+//  		@$post_data->action_name = $action_name;
+//  		@$post_data->action_info->scene->scene_id = $scene_id;
 
-  		return json_decode($this->api_model->post($url, $post_data));
-	}
+//   		return json_decode($this->api_model->post($url, $post_data));
+// 	}
 		
 	private function receiveText2($object) {
 		$keyword = trim($object->Content);
