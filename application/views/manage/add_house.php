@@ -16,7 +16,7 @@ span.error { width: 50px; left: 416px; }
         			<dt>名称：</dt>
         			<dd>
         				<input type="hidden" name="id" value="<?php if(!empty($id)) echo $id;?>">
-        				<input type="hidden" size="22" name="is_bg" value="<?php if(!empty($bg_pic)) echo $bg_pic;?>">
+        				<input type="hidden" name="is_bg" value="<?php if(!empty($bg_pic)) echo $bg_pic;?>" id="is_bg">
         				<input name="name" type="text" class="required" value="<?php if(!empty($name)) echo $name; ?>" />
         			</dd>
         		</dl>
@@ -236,6 +236,39 @@ span.error { width: 50px; left: 416px; }
 	</form>
 </div>
 <script>
+function iframeCallback(form, callback){
+	var $form = $(form), $iframe = $("#callbackframe");
+	if(!$form.valid()) {return false;}
+
+	if($("#append1").children().length == 0) {
+		alertMsg.warn("请上传楼盘效果图");
+		return false;
+	}
+	if($("#append2").children().length == 0) {
+		alertMsg.warn("请上传楼盘实景图");
+		return false;
+	}
+	if($("#append3").children().length == 0) {
+		alertMsg.warn("请上传楼盘户型图");
+		return false;
+	}
+	var bg_pic = $("#is_bg").val();
+	if(bg_pic == "") {
+		alertMsg.warn("请选择楼盘图片封面");
+		return false;
+	}
+	
+	if ($iframe.size() == 0) {
+		$iframe = $("<iframe id='callbackframe' name='callbackframe' src='about:blank' style='display:none'></iframe>").appendTo("body");
+	}
+	if(!form.ajax) {
+		$form.append('<input type="hidden" name="ajax" value="1" />');
+	}
+	form.target = "callbackframe";
+	
+	_iframeResponse($iframe[0], callback || DWZ.ajaxDone);
+}
+
 $(function() {
 	$(".tpsc",navTab.getCurrentPanel()).button().click(function( event ) {
 		event.preventDefault();
@@ -249,7 +282,6 @@ $(function() {
 		}
     });
 });
-
 
 function callbacktime(time, is_back, type_id){
 	var id = $("[name='id']", navTab.getCurrentPanel()).val();
