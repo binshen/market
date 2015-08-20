@@ -54,7 +54,7 @@ class Api_model extends MY_Model {
 			$access_token = $token_data['token'];
 			$url = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $access_token;
 			@$post_data->action_name = $action_name;
-			@$post_data->action_info->scene->scene_id = $scene_id;
+			@$post_data->action_info->scene->scene_id = $h_id;
 			$ticket_data = json_decode($this->post($url, $post_data));
 			$ticket = $ticket_data->ticket;
 			$data = array(
