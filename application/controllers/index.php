@@ -13,11 +13,10 @@ class Index extends MY_Controller {
 
 	public function __construct() {
 		parent::__construct();
-
+		$this->buildWxData();
 	}
 	
 	public function index() {
-		$this->buildWxData();
 		$data = $this->sysconfig_model->get_index_info();
 		$this->assign('news', $data['news']);
 		$this->assign('projects', $data['projects']);
