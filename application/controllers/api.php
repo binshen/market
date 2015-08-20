@@ -75,7 +75,7 @@ class Api extends MY_Controller {
 				'Title' => $news['title'],
 				'Description' => '',
 				'PicUrl' => 'http://' . DOMAIN . '/uploadfiles/news/' . $news['pic'],
-				'Url' => 'http://' . DOMAIN .' /index/get_news/' . $news['id']
+				'Url' => 'http://' . DOMAIN .'/index/get_news/' . $news['id']
 			);
 		}
 		return $content;
