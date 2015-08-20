@@ -68,6 +68,24 @@ class Api_model extends MY_Model {
 		}
 	}
 	
+	function get_house_by_keyword($keyword) {
+		$this->db->from('house');
+		$this->db->where('keyword', $keyword);
+		return $this->db->get()->row_array();
+	}
+	
+	function get_all_keywords() {
+		$this->db->select('keyword');
+		$this->db->from('house');
+		$this->db->where('keyword IS NOT NULL');
+		$data = $this->db->get()->result_array();
+		$keywords = array();
+		foreach ($data as $d) {
+			$keywords[] = $d['keyword'];
+		}
+		return implode(',', $keywords);
+	}
+	
 	
 //////////////////////////////////////////////////////////////
 // Test code

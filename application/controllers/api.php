@@ -64,6 +64,49 @@ class Api extends MY_Controller {
 		}
 	}
 
+	private function receiveText($object) {
+		$keyword = trim($object->Content);
+		$house = $this->api_model->get_house_by_keyword($keyword);
+		if(empty($house)) {
+			$content = "找不到对应的楼盘。可选的关键字有：" . $this->api_model->get_all_keywords();
+			return $this->transmitText($object, $content);
+		} else {
+			$content = "找到楼盘，楼盘名称为：" . $house['name'];
+			return $this->transmitText($object, $content);
+		}
+	}
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// 以下是帮助用API
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public function get_token() {
+		$token_data = $this->api_model->get_or_create_token();
+		echo $token_data['token'];
+	}
+	
+	public function get_qrcode($h_id) {
+		$ticket_data = $this->api_model->get_or_create_ticket($h_id, 'QR_SCENE');
+		$ticket = $ticket_data['ticket'];
+		echo "<img src='https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=$ticket'>";
+	}
+	
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// 以下是测试代码
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public function test() {
+// 		$a = '上海';
+// 		$cityCode = $this->api_model->get_city_code($a);
+// 		$content = $this->getWeatherInfo($cityCode);
+// 		//var_dump($content);
+// 		@$object->FromUserName = 'aaaa';
+// 		@$object->ToUserName = 'bbbb';
+// 		$result = $this->transmitNews($object, $content);
+// 		echo($result);
+		$keywords = $this->api_model->get_house_by_keyword("万科");
+		var_dump($keywords);
+	}
+	
 	public function get_qrcode($scene_id, $action_name = 'QR_SCENE') {
 		
 		$ticket_data = $this->get_ticket($scene_id, $action_name);
@@ -85,22 +128,8 @@ class Api extends MY_Controller {
 
   		return json_decode($this->api_model->post($url, $post_data));
 	}
-	
-/////////////////
-// 测试代码	
-////////////////////////////////////////////////////////////////////////////////////////////////////////	
-	public function test() {
-		$a = '上海';
-		$cityCode = $this->api_model->get_city_code($a);
-		$content = $this->getWeatherInfo($cityCode);
-		//var_dump($content);
-		@$object->FromUserName = 'aaaa';
-		@$object->ToUserName = 'bbbb';
-		$result = $this->transmitNews($object, $content);
-		echo($result);
-	}
-	
-	private function receiveText($object) {
+		
+	private function receiveText2($object) {
 		$keyword = trim($object->Content);
 		$result = "";
 		if (preg_match('/^笑话[0-9]{8}$/',$keyword)){
