@@ -297,7 +297,8 @@ $(function() {
 
 function callbacktime(time, is_back, type_id){
 	var id = $("[name='id']", navTab.getCurrentPanel()).val();
-	if (id == ''){
+	var folder = $("#folder", navTab.getCurrentPanel()).val();
+	if (id == '' || folder == ''){
 		$("#folder", navTab.getCurrentPanel()).val(time);		
 	}
 	$.getJSON("<?php echo site_url('manage/get_pics')?>"+"/"+time + "/" + type_id + "?_=" +Math.random(),function(data){
@@ -340,12 +341,12 @@ function del_pic(obj,type_id){
 	var current_pic = $(obj).parent().parent().find('input[name="pic_short'+type_id+'[]"]').val();
 	$.getJSON("<?php echo site_url('manage/del_pic')?>"+"/"+ folder + "/" + type_id + "/" + current_pic + "/" + id,function(data){
 		if(data.flag == 1){
-			$("#append"+type_id,navTab.getCurrentPanel()).find('input[name="pic_short'+type_id+'[]"]').each(function(){
-				if($(this).val() == data.pic){
-					$(this).parent().remove();
-				}
-			});
-//			$(obj).parent().parent().remove();
+// 			$("#append"+type_id,navTab.getCurrentPanel()).find('input[name="pic_short'+type_id+'[]"]').each(function(){
+// 				if($(this).val() == data.pic){
+// 					$(this).parent().remove();
+// 				}
+// 			});
+			$(obj).parent().parent().remove();
 		}else{
 			alertMsg.warn("删除图片失败，请清理图片缓存并刷新标签页");
 		}
