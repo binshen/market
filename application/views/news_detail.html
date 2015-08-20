@@ -8,6 +8,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
 <meta content="telephone=no" name="format-detection"/>
 <link rel="stylesheet" href="/css/style.css">
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 </head>
 <body id="dynamic">
 <div class="g-doc">
@@ -30,12 +32,7 @@
     {{/if}}
      
 </div>
-<p class="footer">©宜居花桥房产超市</p>
-<div class="amz-toolbar" id="amz-toolbar">
-    <a href="#top" title="回到顶部" class="am-icon-btn am-icon-arrow-up" id="amz-go-top"></a>
-    <a href="/getting-started/faq" title="回到首页" class="am-icon-btn am-icon-home"></a>
-    <a href="/getting-started/faq" title="地图导航" class="am-icon-btn am-icon-send-o"></a>
-</div>
+{{include file="public.html"}}
 
 </body>
 </html>

@@ -8,6 +8,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
 <meta content="telephone=no" name="format-detection"/>
 <link rel="stylesheet" href="/css/style.css">
+<script type="text/javascript" src="/js/swipe.js"></script>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 </head>
 <body id="index">
 <div class="g-doc" id="wrapper">
@@ -31,7 +34,7 @@
         <li>
             <a href="{{site_url url='index/get_project'}}/{{$row.id}}" target="_blank">
                 <div class="m-build-pic">
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAANBAMAAAA6ZnEvAAAAMFBMVEX///8BAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw+j3JH3AAAAEHRSTlP///////////////////8A4CNdGQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA9JREFUCNdj+I8GGIaRAAB0TM8xY/9xnAAAAABJRU5ErkJggg==" src1="/uploadfiles/{{$row.bg_pic}}" />
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAANBAMAAAA6ZnEvAAAAMFBMVEX///8BAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw+j3JH3AAAAEHRSTlP///////////////////8A4CNdGQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA9JREFUCNdj+I8GGIaRAAB0TM8xY/9xnAAAAABJRU5ErkJggg==" src1="/uploadfiles/pics/{{$row.bg_pic}}" />
                     <span class="building-name">{{$row.name}}</span>
                 </div>
                 <div class="m-bulid-tit">
@@ -45,46 +48,8 @@
     <div id="pullUp">
     </div>
 </div>
-<p class="footer">©宜居花桥房产超市</p>
-<div class="amz-toolbar" id="amz-toolbar">
-    <a href="#top" title="回到顶部" class="am-icon-btn am-icon-arrow-up" id="amz-go-top"></a>
-    <a href="/" title="回到首页" class="am-icon-btn am-icon-home"></a>
-    <a href="javascript:wxNav();" title="地图导航" class="am-icon-btn am-icon-send-o"></a>
-</div>
-<script type="text/javascript" src="/js/jquery.min.js"></script>
-<script type="text/javascript" src="/js/swipe.js"></script>
-<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-<script>
-	wx.config({
-		debug: false,
-		appId: '{{$wxappId}}',
-		timestamp: '{{$wxtimestamp}}',
-		nonceStr: '{{$wxnonceStr}}',
-		signature: '{{$wxsignature}}',
-		jsApiList: [
-			'openLocation',
-			'getLocation'
-		]
-	});
-	
-	wx.error(function (res) {
-		alert(res.errMsg);
-	});
+{{include file="public.html"}}
 
-	//调用微信内置地图显示
-	function wxNav(){
-		wx.openLocation({
-			latitude: 31.288860,
-			longitude: 121.145070,
-			name: '花桥房产超市',
-			address: '昆山花桥赛格',
-			scale: 15,
-			infoUrl: '/'
-		});
-	}
-
-	
-</script>
 <script type="text/javascript">
 function $$(a){
 	return(typeof a=="object")?a:document.getElementById(a);
@@ -98,10 +63,7 @@ window.GfocusSlide = swipe(Jwrap, {
     continuous: true,
     nav: Jnav
 });
-//右侧导航
-$(window).scroll(function(){
-	$(window).scrollTop()>100?$('#amz-go-top').addClass('am-active'):$('#amz-go-top').removeClass('am-active');
-});
+
 </script>
 </body>
 </html>
