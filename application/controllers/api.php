@@ -72,8 +72,8 @@ class Api extends MY_Controller {
 			
 			$content = array();
 			$content[] = array(
-				'Title' => $keyword, 
-				'Description' => $house['name'], 
+				'Title' => $house['name'], 
+				'Description' => '', 
 				'PicUrl' => 'http://wx.ksls.com.cn/uploadfiles/pics/' . $house['bg_pic'], 
 				'Url' => 'http://wx.ksls.com.cn/index/get_project/' . $house['id']
 			);
