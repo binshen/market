@@ -99,7 +99,7 @@ class Api extends MY_Controller {
 			case "subscribe":
 				$content = "欢迎关注宜居花桥房产超市微信公众号。可输入关键字查找楼盘。可选的关键字有：" . $this->api_model->get_all_keywords();
 				if (isset($object->EventKey)){
-					$house = $this->api_model->get_house_by_keyword($object->EventKey);
+					$house = $this->api_model->get_house_by_id($object->EventKey);
 					if(empty($house)) {
 						$content = "该楼盘不存在，可输入关键字查找楼盘。可选的关键字有：" . $this->api_model->get_all_keywords();
 					} else {
@@ -112,7 +112,7 @@ class Api extends MY_Controller {
 				$content = "取消关注";
 				break;
 			case "SCAN":
-				$house = $this->api_model->get_house_by_keyword($object->EventKey);
+				$house = $this->api_model->get_house_by_id($object->EventKey);
 				if(empty($house)) {
 					$content = "该楼盘不存在，可输入关键字查找楼盘。可选的关键字有：" . $this->api_model->get_all_keywords();
 				} else {
