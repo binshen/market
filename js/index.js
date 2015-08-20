@@ -257,4 +257,3 @@ function lazyforselectbbs(){
 	});         
 	Lazy.init(xx);
 }
-lazyforselectbbs();
