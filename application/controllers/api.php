@@ -65,8 +65,8 @@ class Api extends MY_Controller {
 		$content[] = array(
 			'Title' => $house['name'],
 			'Description' => '',
-			'PicUrl' => 'http://wx.ksls.com.cn/uploadfiles/pics/' . $house['bg_pic'],
-			'Url' => 'http://wx.ksls.com.cn/index/get_project/' . $house['id']
+			'PicUrl' => 'http://' . DOMAIN . '/uploadfiles/pics/' . $house['bg_pic'],
+			'Url' => 'http://' . DOMAIN . '/index/get_project/' . $house['id']
 		);
 		
 		$newsList = $this->api_model->get_news_by_hid($house['id']);
@@ -74,8 +74,8 @@ class Api extends MY_Controller {
 			$content[] = array(
 				'Title' => $news['title'],
 				'Description' => '',
-				'PicUrl' => 'http://wx.ksls.com.cn/uploadfiles/news/' . $news['pic'],
-				'Url' => 'http://wx.ksls.com.cn/index/get_news/' . $news['id']
+				'PicUrl' => 'http://' . DOMAIN . '/uploadfiles/news/' . $news['pic'],
+				'Url' => 'http://' . DOMAIN .' /index/get_news/' . $news['id']
 			);
 		}
 		return $content;
