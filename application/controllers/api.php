@@ -1,8 +1,4 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
-// if(!defined('APP_ID')) define('APP_ID', 'wxc4acc7c89e33b506');
-// if(!defined('APP_SECRET')) define('APP_SECRET', '7b00f11e95115271e8f6de6b2823693d');
-// if(!defined('TOKEN')) define('TOKEN', '8654b302d5100247d2acc6211664c6f2');
  
 class Api extends MY_Controller {
 
@@ -64,6 +60,27 @@ class Api extends MY_Controller {
 		}
 	}
 
+	private function get_message($house) {
+		$content = array();
+		$content[] = array(
+			'Title' => $house['name'],
+			'Description' => '',
+			'PicUrl' => 'http://' . DOMAIN . '/uploadfiles/pics/' . $house['bg_pic'],
+			'Url' => 'http://' . DOMAIN . '/index/get_project/' . $house['id']
+		);
+		
+		$newsList = $this->api_model->get_news_by_hid($house['id']);
+		foreach ($newsList as $news) {
+			$content[] = array(
+				'Title' => $news['title'],
+				'Description' => '',
+				'PicUrl' => 'http://' . DOMAIN . '/uploadfiles/news/' . $news['pic'],
+				'Url' => 'http://' . DOMAIN .'/index/get_news/' . $news['id']
+			);
+		}
+		return $content;
+	}
+	
 	private function receiveText($object) {
 		$keyword = trim($object->Content);
 		$house = $this->api_model->get_house_by_keyword($keyword);
@@ -71,11 +88,53 @@ class Api extends MY_Controller {
 			$content = "找不到对应的楼盘。可选的关键字有：" . $this->api_model->get_all_keywords();
 			return $this->transmitText($object, $content);
 		} else {
-			$content = "找到楼盘，楼盘名称为：" . $house['name'];
-			return $this->transmitText($object, $content);
+			$content = $this->get_message($house);
+			return $this->transmitNews($object, $content);
 		}
 	}
 	
+	private function receiveEvent($object) {
+		$content = "";
+		switch ($object->Event) {
+			case "subscribe":
+				$content = "欢迎关注宜居花桥房产超市微信公众号。可输入关键字查找楼盘。可选的关键字有：" . $this->api_model->get_all_keywords();
+				if (isset($object->EventKey)){
+					$h_id = str_replace("qrscene_", "", $object->EventKey);
+					$house = $this->api_model->get_house_by_id($h_id);
+					if(empty($house)) {
+						$content = "该楼盘不存在，可输入关键字查找楼盘。可选的关键字有：" . $this->api_model->get_all_keywords();
+					} else {
+						$content = $this->get_message($house);
+						return $this->transmitNews($object, $content);
+					}
+				}
+				break;
+			case "unsubscribe":
+				$content = "取消关注";
+				break;
+			case "SCAN":
+				$house = $this->api_model->get_house_by_id($object->EventKey);
+				if(empty($house)) {
+					$content = "该楼盘不存在，可输入关键字查找楼盘。可选的关键字有：" . $this->api_model->get_all_keywords();
+				} else {
+					$content = $this->get_message($house);
+					return $this->transmitNews($object, $content);
+				}
+				break;
+			case "CLICK":
+				$content = "点击菜单拉取消息： " . $object->EventKey;
+				break;
+			case "VIEW":
+				$content = "点击菜单跳转链接： " . $object->EventKey;
+				break;
+			case "LOCATION":
+				$content = "上传位置：纬度 " . $object->Latitude . ";经度 " . $object->Longitude;
+				break;
+		}
+		return $this->transmitText($object, $content);
+	}
+	
+
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// 以下是帮助用API
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -85,7 +144,7 @@ class Api extends MY_Controller {
 	}
 	
 	public function get_qrcode($h_id) {
-		$ticket_data = $this->api_model->get_or_create_ticket($h_id, 'QR_SCENE');
+		$ticket_data = $this->api_model->get_or_create_ticket($h_id);
 		$ticket = $ticket_data['ticket'];
 		echo "<img src='https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=$ticket'>";
 	}
@@ -103,31 +162,31 @@ class Api extends MY_Controller {
 // 		@$object->ToUserName = 'bbbb';
 // 		$result = $this->transmitNews($object, $content);
 // 		echo($result);
-		$keywords = $this->api_model->get_house_by_keyword("万科");
+		$keywords = $this->api_model->get_news_by_hid(4);
 		var_dump($keywords);
 	}
 	
-	public function get_qrcode($scene_id, $action_name = 'QR_SCENE') {
+// 	public function get_qrcode($scene_id, $action_name = 'QR_SCENE') {
 		
-		$ticket_data = $this->get_ticket($scene_id, $action_name);
-		var_dump($ticket_data);
+// 		$ticket_data = $this->get_ticket($scene_id, $action_name);
+// 		var_dump($ticket_data);
 		
-		$ticket = $ticket_data->ticket;
-		echo "<img src='https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=$ticket'>";
-	}
+// 		$ticket = $ticket_data->ticket;
+// 		echo "<img src='https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=$ticket'>";
+// 	}
 	
-	private function get_ticket($scene_id, $action_name = 'QR_LIMIT_SCENE') {
+// 	private function get_ticket($scene_id, $action_name = 'QR_LIMIT_SCENE') {
 	
-		$token_data = $this->api_model->get_or_create_token();
-		$access_token = $token_data['token'];
-		$url = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $access_token;
+// 		$token_data = $this->api_model->get_or_create_token();
+// 		$access_token = $token_data['token'];
+// 		$url = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $access_token;
 
-		//@$post_data->expire_seconds = 604800;
- 		@$post_data->action_name = $action_name;
- 		@$post_data->action_info->scene->scene_id = $scene_id;
+// 		//@$post_data->expire_seconds = 604800;
+//  		@$post_data->action_name = $action_name;
+//  		@$post_data->action_info->scene->scene_id = $scene_id;
 
-  		return json_decode($this->api_model->post($url, $post_data));
-	}
+//   		return json_decode($this->api_model->post($url, $post_data));
+// 	}
 		
 	private function receiveText2($object) {
 		$keyword = trim($object->Content);
@@ -159,7 +218,7 @@ class Api extends MY_Controller {
 		return $result;
 	}
 	
-	private function receiveEvent($object) {
+	private function receiveEvent2($object) {
 		$content = "";
 		switch ($object->Event) {
 			case "subscribe":

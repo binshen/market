@@ -15,8 +15,8 @@ span.error { width: 50px; left: 416px; }
         	    <dl>
         			<dt>名称：</dt>
         			<dd>
-        				<input type="hidden" name="id" value="<?php if(!empty($id)) echo $id;?>">
-        				<input type="hidden" size="22" name="is_bg" value="<?php if(!empty($bg_pic)) echo $bg_pic;?>">
+        				<input type="hidden" name="id" value="<?php if(!empty($id)) echo $id;?>" id="house_id">
+        				<input type="hidden" name="is_bg" value="<?php if(!empty($bg_pic)) echo $bg_pic;?>" id="is_bg">
         				<input name="name" type="text" class="required" value="<?php if(!empty($name)) echo $name; ?>" />
         			</dd>
         		</dl>
@@ -113,7 +113,7 @@ span.error { width: 50px; left: 416px; }
         		<dl>
         			<dt>微信关键字：</dt>
         			<dd>
-        				<input name="keyword" type="text" class="required" value="<?php if(!empty($keyword)) echo $keyword; ?>" />
+        				<input name="keyword" type="text" class="required" value="<?php if(!empty($keyword)) echo $keyword; ?>" id="keyword" />
         			</dd>
         		</dl>
         		<?php if($this->session->userdata('group_id') == 1): ?>
@@ -236,6 +236,51 @@ span.error { width: 50px; left: 416px; }
 	</form>
 </div>
 <script>
+function iframeCallback(form, callback){
+	var $form = $(form), $iframe = $("#callbackframe");
+	if(!$form.valid()) {return false;}
+
+	var result = $.ajax({
+        type: "POST",
+        data: { keyword: $("#keyword").val(), id: $("#house_id").val() },
+       	url: "<?php echo site_url('manage/check_keyword/')?>",
+       	cache:false,
+       	async:false
+	}).responseText;
+	if(result > 0) {
+		alertMsg.warn("微信关键字已经被使用过");
+		return false;
+	}
+	
+	if($("#append1").children().length == 0) {
+		alertMsg.warn("请上传楼盘效果图");
+		return false;
+	}
+	if($("#append2").children().length == 0) {
+		alertMsg.warn("请上传楼盘实景图");
+		return false;
+	}
+	if($("#append3").children().length == 0) {
+		alertMsg.warn("请上传楼盘户型图");
+		return false;
+	}
+	var bg_pic = $("#is_bg").val();
+	if(bg_pic == "") {
+		alertMsg.warn("请选择楼盘图片封面");
+		return false;
+	}
+	
+	if ($iframe.size() == 0) {
+		$iframe = $("<iframe id='callbackframe' name='callbackframe' src='about:blank' style='display:none'></iframe>").appendTo("body");
+	}
+	if(!form.ajax) {
+		$form.append('<input type="hidden" name="ajax" value="1" />');
+	}
+	form.target = "callbackframe";
+	
+	_iframeResponse($iframe[0], callback || DWZ.ajaxDone);
+}
+
 $(function() {
 	$(".tpsc",navTab.getCurrentPanel()).button().click(function( event ) {
 		event.preventDefault();
@@ -250,10 +295,10 @@ $(function() {
     });
 });
 
-
 function callbacktime(time, is_back, type_id){
 	var id = $("[name='id']", navTab.getCurrentPanel()).val();
-	if (id == ''){
+	var folder = $("#folder", navTab.getCurrentPanel()).val();
+	if (id == '' || folder == ''){
 		$("#folder", navTab.getCurrentPanel()).val(time);		
 	}
 	$.getJSON("<?php echo site_url('manage/get_pics')?>"+"/"+time + "/" + type_id + "?_=" +Math.random(),function(data){
@@ -296,11 +341,12 @@ function del_pic(obj,type_id){
 	var current_pic = $(obj).parent().parent().find('input[name="pic_short'+type_id+'[]"]').val();
 	$.getJSON("<?php echo site_url('manage/del_pic')?>"+"/"+ folder + "/" + type_id + "/" + current_pic + "/" + id,function(data){
 		if(data.flag == 1){
-			$("#append"+type_id,navTab.getCurrentPanel()).find('input[name="pic_short'+type_id+'[]"]').each(function(){
-				if($(this).val() == data.pic){
-					$(this).parent().remove();
-				}
-			});
+// 			$("#append"+type_id,navTab.getCurrentPanel()).find('input[name="pic_short'+type_id+'[]"]').each(function(){
+// 				if($(this).val() == data.pic){
+// 					$(this).parent().remove();
+// 				}
+// 			});
+			$(obj).parent().parent().remove();
 		}else{
 			alertMsg.warn("删除图片失败，请清理图片缓存并刷新标签页");
 		}

@@ -54,7 +54,7 @@ class Api_model extends MY_Model {
 			$access_token = $token_data['token'];
 			$url = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $access_token;
 			@$post_data->action_name = $action_name;
-			@$post_data->action_info->scene->scene_id = $scene_id;
+			@$post_data->action_info->scene->scene_id = $h_id;
 			$ticket_data = json_decode($this->post($url, $post_data));
 			$ticket = $ticket_data->ticket;
 			$data = array(
@@ -66,6 +66,12 @@ class Api_model extends MY_Model {
 		} else {
 			return $house_ticket;
 		}
+	}
+	
+	function get_house_by_id($id) {
+		$this->db->from('house');
+		$this->db->where('id', $id);
+		return $this->db->get()->row_array();
 	}
 	
 	function get_house_by_keyword($keyword) {
@@ -86,6 +92,10 @@ class Api_model extends MY_Model {
 		return implode(',', $keywords);
 	}
 	
+	public function get_news_by_hid($h_id) {
+		$this->db->from('news')->where('h_id', $h_id)->limit(3)->order_by('created', 'desc');
+		return $this->db->get()->result_array();
+	}
 	
 //////////////////////////////////////////////////////////////
 // Test code

@@ -468,4 +468,18 @@ class Manage_model extends MY_Model
     	$data['numPerPage'] = $numPerPage;
     	return $data;
     }
+    
+/////////////////////////////////////////////////////////////////////////
+	public function check_keyword() {
+		$id = $this->input->post("id");
+		$keyword = $this->input->post("keyword");
+		$this->db->from('house');
+		$this->db->where('keyword', $keyword);
+		if(!empty($id)) {
+			$this->db->where('id <>', $id);
+		}
+		if($this->db->get()->num_rows() > 0)
+			return true;
+		return false;
+	}
 }
