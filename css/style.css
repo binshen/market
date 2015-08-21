@@ -125,7 +125,7 @@ body{background-color:#fff;}
 
 .ul-new-list{margin:0 1rem;padding:1rem 0;}
 .ul-new-list li{padding:1rem 0;overflow: hidden; zoom:1; border-bottom: 1px dotted #999;}
-.ul-new-list li .s-img{float: left;}
+.ul-new-list li .s-img{float: left; width:100px; height: 100px;}
 .ul-new-list li p{padding-left: 110px;}
 .ul-new-list li p span{ display: block; font-weight: bold;}
 .ul-new-list li:last-child{border:none;}
