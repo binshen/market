@@ -98,11 +98,11 @@ class Api extends MY_Controller {
 		switch ($object->Event) {
 			case "subscribe":
 				$content = "欢迎关注宜居花桥房产超市微信公众号。可输入关键字查找楼盘。可选的关键字有：" . $this->api_model->get_all_keywords();
-				if (isset($object->EventKey)){
+				if (!empty($object->EventKey)){
 					$h_id = str_replace("qrscene_", "", $object->EventKey);
 					$house = $this->api_model->get_house_by_id($h_id);
 					if(empty($house)) {
-						$content = $object->EventKey . " 该楼盘不存在，可输入关键字查找楼盘。可选的关键字有：" . $this->api_model->get_all_keywords();
+						$content = "该楼盘不存在，可输入关键字查找楼盘。可选的关键字有：" . $this->api_model->get_all_keywords();
 					} else {
 						$content = $this->get_message($house);
 						return $this->transmitNews($object, $content);
