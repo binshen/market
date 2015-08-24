@@ -10,7 +10,7 @@ i,em{font-style:normal;}
 table{border-collapse:collapse;border-spacing:0;}
 table th,table td{border:1px solid #ddd;padding:5px;}
 table th{font-weight:inherit;border-bottom-width:2px;border-bottom-color:#ccc;}
-img{border:0 none;width:auto\9;max-width:100%;vertical-align:top;}
+img{border:0 none;width:auto\9;width:100%;vertical-align:top;}
 button,input,select,textarea{font-family:inherit;font-size:100%;margin:0;vertical-align:baseline;}
 button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer;}
 button[disabled],input[disabled]{cursor:default;}
@@ -121,11 +121,11 @@ body{background-color:#fff;}
 .f-item-th span{border-left:2px solid #4f4f4f;padding-left: 0.5rem;}
 .dl-list{padding:1rem 1rem;}
 .dl-list dt{font-size: 1.6rem; margin-bottom:0.5rem;}
-.dl-list dd span{ float: left; width: 50%;}
+.dl-list dd span{ display:block;}.dl-list dd span em{ font-weight:bold;}
 
 .ul-new-list{margin:0 1rem;padding:1rem 0;}
 .ul-new-list li{padding:1rem 0;overflow: hidden; zoom:1; border-bottom: 1px dotted #999;}
-.ul-new-list li .s-img{float: left;}
+.ul-new-list li .s-img{float: left; width:100px; height: 100px;}
 .ul-new-list li p{padding-left: 110px;}
 .ul-new-list li p span{ display: block; font-weight: bold;}
 .ul-new-list li:last-child{border:none;}
@@ -135,4 +135,4 @@ body{background-color:#fff;}
 .f-dy-tb {padding:1rem;}
 .f-dy-tb .f-dy-tit{ font-size:1.6rem; display:block;margin-bottom:5px;}
 .f-dy-tb p{font-size:1.6rem; line-height:30px; color:#999;}
-.f-dy-img{margin:0.5rem 0;}
+.f-dy-img{margin:0.5rem 0; width:320px;}
