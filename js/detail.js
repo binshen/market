@@ -19,6 +19,7 @@ $(function(){
 		followFinger:false,
 		pagination: '.pagination-inner1',
 		paginationClickable: true,
+		loop:true,
 		onInit: function(swiper){
 		  $('#Jm-slider-inner1').height(imgH);
 		}
@@ -37,7 +38,8 @@ $(function(){
 					speed:500,
 					followFinger:false,
 					pagination: '.pagination-inner2',
-					paginationClickable: true
+					paginationClickable: true,
+					loop:true
 				});	
 			}
 		}
@@ -51,6 +53,7 @@ $(function(){
 					followFinger:false,
 					pagination: '.pagination-inner3',
 					paginationClickable: true,
+					loop:true,
 					onInit: function(swiper){
 					  $('#Jm-slider-inner3').height(imgH);
 					}
