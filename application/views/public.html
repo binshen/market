@@ -1,6 +1,6 @@
 <p class="footer">©宜居花桥房产超市</p>
 <div class="amz-toolbar" id="amz-toolbar">
-    <a href="#top" title="回到顶部" class="am-icon-btn am-icon-arrow-up" id="amz-go-top"></a>
+    <a href="javascript:;" title="回到顶部" class="am-icon-btn am-icon-arrow-up" id="amz-go-top"></a>
     <a href="/" title="回到首页" class="am-icon-btn am-icon-home"></a>
     <a href="javascript:wxNav();" title="地图导航" class="am-icon-btn am-icon-send-o"></a>
 </div>
@@ -36,4 +36,7 @@
 	$(window).scroll(function(){
 		$(window).scrollTop()>100?$('#amz-go-top').addClass('am-active'):$('#amz-go-top').removeClass('am-active');
 	});
+	$('#amz-go-top').click(function(){
+	    $('html,body').animate({scrollTop: 0}, '500');
+	});  
 </script>
