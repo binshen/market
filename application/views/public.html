@@ -37,6 +37,6 @@
 		$(window).scrollTop()>100?$('#amz-go-top').addClass('am-active'):$('#amz-go-top').removeClass('am-active');
 	});
 	$('#amz-go-top').click(function(){
-	    $('html,body').animate({scrollTop: 0}, '500');
+	    $('html,body').animate({literal}{scrollTop: 0}{/literal}, '500');
 	});  
 </script>
