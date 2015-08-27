@@ -735,15 +735,18 @@ function swipe(c, o) {
         }
     }
 };
-//焦点图片按需加载
-var xx = Lazy.create({
-    lazyId: "J_slideWrap",
-    trueSrc: "src1",
-    offset: 300,
-    delay: 100,
-    delay_tot: 5000
-});
-Lazy.init(xx);
+	
+function lazyforslide(){
+	//焦点图片按需加载
+	var xx = Lazy.create({
+	    lazyId: "J_slideWrap",
+	    trueSrc: "src1",
+	    offset: 300,
+	    delay: 100,
+	    delay_tot: 5000
+	});
+	Lazy.init(xx);
+}
 
 function lazyforselectbbs(){
 	//精选图片按需加载
@@ -756,4 +759,4 @@ function lazyforselectbbs(){
 	});         
 	Lazy.init(xx);
 }
-lazyforselectbbs();
+//lazyforselectbbs();
