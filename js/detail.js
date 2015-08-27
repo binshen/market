@@ -2,70 +2,56 @@
 
 $(function(){
 	window.loop2 = window.loop3 ='';
-	var maxW=Math.max(document.documentElement.clientWidth,window.innerWidth),
-	maxH=Math.max(document.documentElement.clientHeight,window.innerHeight);
-	var imgH =Math.floor(maxW*280/640);
-	$('.swiper-container','.swiper-slide').height(imgH);
-	window.loop= new Swiper('#Jm-slider',{
-		mode:'horizontal',
-		noSwiping:true,
-		speed:500,
-		followFinger:false
-	});
-	new Swiper('#Jm-slider-inner1',{
-		mode:'horizontal',
-		noSwiping:true,
-		speed:500,
-		followFinger:false,
-		pagination: '.pagination-inner1',
-		paginationClickable: true,
-		onInit: function(swiper){
-		  $('#Jm-slider-inner1').height(imgH);
-		}
-	});
-	
+	var maxW=Math.max(document.documentElement.clientWidth,window.innerWidth);
+    var imgH =Math.floor(maxW*2/3);
+    $('#m-detail-slider li img').height(imgH);
+    function $$(a){
+        return(typeof a=="object")?a:document.getElementById(a);
+    }
+    var Jwrap_inner1 = $$("J_slideWrap_inner1"),
+    Jnav_inner1 = $$("J_slideNav_inner1"),
+    Jwrap_inner2 = $$("J_slideWrap_inner2"),
+    Jnav_inner2 =  $$("J_slideNav_inner2"),
+    Jwrap_inner3 = $$("J_slideWrap_inner3"),
+    Jnav_inner3 = $$("J_slideNav_inner3");
+    swipe(Jwrap_inner1, {
+        auto: 3500,
+        speed: 100,
+        continuous: true,
+        nav:Jnav_inner1
+    });
+    
 	$(".tabs span").on('touchstart mousedown',function(e){
-		e.preventDefault();
-		$(".tabs .active").removeClass('active');
-		
-		if($(this).index()==1){
-			$("#Jm-slider .swiper-slide-outer").eq($(this).index()).show();
-			if(!loop2){
-				window.loop2 = new Swiper('#Jm-slider-inner2',{
-					mode:'horizontal',
-					noSwiping:true,
-					speed:500,
-					followFinger:false,
-					pagination: '.pagination-inner2',
-					paginationClickable: true
-				});	
-			}
-		}
-		if($(this).index()==2){
-			$("#Jm-slider .swiper-slide-outer").eq($(this).index()).show();
-			if(!loop3){
-				window.loop3 = new Swiper('#Jm-slider-inner3',{
-					mode:'horizontal',
-					noSwiping:true,
-					speed:500,
-					followFinger:false,
-					pagination: '.pagination-inner3',
-					paginationClickable: true,
-					onInit: function(swiper){
-					  $('#Jm-slider-inner3').height(imgH);
-					}
-				});
-			}
-			
-		}
-		$(this).addClass('active');
-		loop.swipeTo( $(this).index());
-	})
-	$(".tabs span").click(function(e){
-		e.preventDefault();
-	})
-	
-	
+        e.preventDefault();
+        $(".m-slider").hide();
+        $(".m-slider").eq($(this).index()).show();
+        if($(this).index() ==1){
+            if(!loop2){
+                loop2 = swipe(Jwrap_inner2, {
+                        auto: 3500,
+                        speed: 100,
+                        continuous: true,
+                        nav:Jnav_inner2
+                    });
+            }
+        }
+        if($(this).index() ==2){
+            if(!loop3){
+                 loop3 = swipe(Jwrap_inner3, {
+                    auto: 3500,
+                    speed: 100,
+                    continuous: true,
+                    nav:Jnav_inner3
+                });
+            }
+        }
+        $(".tabs .active").removeClass('active');
+        $(this).addClass('active');
+    })
+    $(".tabs span").click(function(e){
+        e.preventDefault();
+    })
+    
 	var Lazy = {
     eCatch: {},
     eHandle: 0,
@@ -304,14 +290,14 @@ $(function(){
     }
 };
 	//焦点图片按需加载
-	var xx = Lazy.create({
-		lazyId: "Jm-slider",
-		trueSrc: "src1",
-		offset: 300,
-		delay: 100,
-		delay_tot: 5000
-	});
-	Lazy.init(xx);
+    var xx = Lazy.create({
+        lazyId: "m-detail-slider",
+        trueSrc: "src1",
+        offset: 300,
+        delay: 100,
+        delay_tot: 5000
+    });
+    Lazy.init(xx);
 
 	
 }) ;		

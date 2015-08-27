@@ -9,51 +9,49 @@
 <meta content="telephone=no" name="format-detection"/>
 <link rel="stylesheet" href="/css/style.css">
 <script type="text/javascript" src="/js/jquery.min.js"></script>
-<script type="text/javascript" src="/js/idangerous.swiper-2.1.min.js" ></script>
+<script type="text/javascript" src="/js/swipe.js"></script>
 <script type="text/javascript" src="/js/detail.js" ></script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 </head>
 <body id="detail">
 <div class="g-doc">
-    <div class="swiper-container" id="Jm-slider">
-        <div class="swiper-wrapper">
-        	<div class="swiper-slide swiper-slide-outer" style="display:block">
-                <div class="swiper-container" id="Jm-slider-inner1">
-                    <div class="swiper-wrapper">
-                    	{{foreach from=$pics[1] item=row name=foo}}
-                    	{{if $smarty.foreach.foo.index == 0}}
-                        <div class="swiper-slide"><a href="" title=""><img src="/uploadfiles/pics/{{$detail.folder}}/1/{{$row.pic}}"/></a></div>
+    <div class="swiper-container" id="m-detail-slider">
+        <div class="m-slider" style="display:block;">
+            <div class="m-slider-pic" id="J_slideWrap_inner1">
+                <ul class="">
+                    {{foreach from=$pics[1] item=row name=foo}}
+                        {{if $smarty.foreach.foo.index == 0}}
+                        <li><a href="" title=""><img src="/uploadfiles/pics/{{$detail.folder}}/1/{{$row.pic}}"/></a></li>
                         {{else}}
-                        <div class="swiper-slide"><a href="" title=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAANBAMAAAA6ZnEvAAAAMFBMVEX///8BAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw+j3JH3AAAAEHRSTlP///////////////////8A4CNdGQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA9JREFUCNdj+I8GGIaRAAB0TM8xY/9xnAAAAABJRU5ErkJggg==" src1="/uploadfiles/pics/{{$row.pic}}"/></a></div>
+                        <li><a href="" title=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAANBAMAAAA6ZnEvAAAAMFBMVEX///8BAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw+j3JH3AAAAEHRSTlP///////////////////8A4CNdGQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA9JREFUCNdj+I8GGIaRAAB0TM8xY/9xnAAAAABJRU5ErkJggg==" src1="/uploadfiles/pics/{{$row.pic}}"/></a></li>
                         {{/if}}
-                        {{/foreach}}
-                    </div>
-                    <div class="pagination-inner pagination-inner1"></div>
-               </div>
+                    {{/foreach}}
+                </ul>
             </div>
-        	<div class="swiper-slide swiper-slide-outer" style="display:none;">
-                <div class="swiper-container" id="Jm-slider-inner2">
-                    <div class="swiper-wrapper">
-                    	{{foreach from=$pics[2] item=row name=foo}}
-                        <div class="swiper-slide"><a href="" title=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAANBAMAAAA6ZnEvAAAAMFBMVEX///8BAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw+j3JH3AAAAEHRSTlP///////////////////8A4CNdGQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA9JREFUCNdj+I8GGIaRAAB0TM8xY/9xnAAAAABJRU5ErkJggg==" src1="/uploadfiles/pics/{{$detail.folder}}/2/{{$row.pic}}"/></a></div>
-                        {{/foreach}}
-                    </div>
-                    <div class="pagination-inner pagination-inner2"></div>
-               </div>
-            </div>
-        	<div class="swiper-slide swiper-slide-outer" style="display:none;">
-                <div class="swiper-container" id="Jm-slider-inner3">
-                    <div class="swiper-wrapper">
-                    	{{foreach from=$pics[3] item=row name=foo}}
-                        <div class="swiper-slide"><a href="" title=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAANBAMAAAA6ZnEvAAAAMFBMVEX///8BAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw+j3JH3AAAAEHRSTlP///////////////////8A4CNdGQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA9JREFUCNdj+I8GGIaRAAB0TM8xY/9xnAAAAABJRU5ErkJggg==" src1="/uploadfiles/pics/{{$detail.folder}}/3/{{$row.pic}}"/></a></div>
-                        {{/foreach}}
-                    </div>
-                    <div class="pagination-inner pagination-inner3"></div>
-               </div>
-            </div>
-            
+            <div class="m-slider-doc" id="J_slideNav_inner1"></div>
         </div>
-	</div>
+        <div class="m-slider" style=" display:none;">
+            <div class="m-slider-pic" id="J_slideWrap_inner2">
+                <ul class="">
+                    {{foreach from=$pics[2] item=row name=foo}}
+                        <li><a href="" title=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAANBAMAAAA6ZnEvAAAAMFBMVEX///8BAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw+j3JH3AAAAEHRSTlP///////////////////8A4CNdGQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA9JREFUCNdj+I8GGIaRAAB0TM8xY/9xnAAAAABJRU5ErkJggg==" src1="/uploadfiles/pics/{{$detail.folder}}/2/{{$row.pic}}"/></a></li>
+                    {{/foreach}}
+                </ul>
+            </div>
+            <div class="m-slider-doc" id="J_slideNav_inner2"></div>
+        </div>
+        <div class="m-slider" style=" display:none;">
+            <div class="m-slider-pic" id="J_slideWrap_inner3">
+                <ul class="">
+                    {{foreach from=$pics[3] item=row name=foo}}
+                        <li><a href="" title=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAANBAMAAAA6ZnEvAAAAMFBMVEX///8BAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw+j3JH3AAAAEHRSTlP///////////////////8A4CNdGQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA9JREFUCNdj+I8GGIaRAAB0TM8xY/9xnAAAAABJRU5ErkJggg==" src1="/uploadfiles/pics/{{$detail.folder}}/3/{{$row.pic}}"/></a></li>
+                     {{/foreach}}
+                </ul>
+            </div>
+            <div class="m-slider-doc" id="J_slideNav_inner3"></div>
+        </div>
+
+    </div>
     <div class="tabs"><span class="active">效果图</span><span>实景图</span><span>户型图</span> </div>
     <div class="f-news">
         <p class="f-p-name">{{$detail.name}}</p>
