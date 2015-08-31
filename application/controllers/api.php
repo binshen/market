@@ -60,7 +60,7 @@ class Api extends MY_Controller {
 		}
 	}
 
-	private function get_message($house) {
+	private function get_house_message($house) {
 		$content = array();
 		$content[] = array(
 			'Title' => $house['name'],
@@ -81,14 +81,29 @@ class Api extends MY_Controller {
 		return $content;
 	}
 	
+	private function get_guajiang_message() {
+		$content = array();
+		$content[] = array(
+			'Title' => '刮刮卡 ',
+			'Description' => '刮刮卡活动测试',
+			'PicUrl' => 'http://' . DOMAIN . '/css/guajiang/images/ggk.jpg',
+			'Url' => 'http://' . DOMAIN .'/guajiang/'
+		);
+		return $content;
+	}
+	
 	private function receiveText($object) {
 		$keyword = trim($object->Content);
+		if($keyword == '刮刮卡') {
+			$content = $this->get_guajiang_message();
+			return $this->transmitNews($object, $content);
+		}
 		$house = $this->api_model->get_house_by_keyword($keyword);
 		if(empty($house)) {
 			$content = "找不到对应的楼盘。可选的关键字有：" . $this->api_model->get_all_keywords();
 			return $this->transmitText($object, $content);
 		} else {
-			$content = $this->get_message($house);
+			$content = $this->get_house_message($house);
 			return $this->transmitNews($object, $content);
 		}
 	}
