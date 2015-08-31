@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta name="description" content="">
+<title>刮刮卡</title>
+<link href="/css/guajiang/css/activity-style.css?<?php echo date('Y-m-d',time());?>" rel="stylesheet" type="text/css">
+<script src="/css/guajiang/js/guajiang.js" type="text/javascript"></script>
+<script src="/css/guajiang/js/jquery.js" type="text/javascript"></script>
+<script src="/css/guajiang/js/alert.js" type="text/javascript"></script>
+
+<if condition="$memberNotice eq NULL">
+	<script src="/css/guajiang/js/wScratchPad.js" type="text/javascript"></script>
+</if>
+</head>
+
+<body data-role="page" class="activity-scratch-card-winning">
+
+	<div class="main">
+		<div class="banner"><img src="/css/guajiang/images/activity-scratch-card-end2.jpg"></div>
+		<div class="content" style="margin-top:-5px">
+			<div class="boxcontent boxwhite">
+				<div class="box">
+					<div class="title-brown">活动结束说明：</div>
+					<div class="Detail">
+						<p>111111111111111122334455.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="main">
+
+<a href="#memberNoticeBox" id="modaltrigger_notice">
+<div class="cover">
+	<img src="/css/guajiang/images/activity-scratch-card-bannerbg.png">
+	<div id="prize">点击关注/注册</div>
+	<div id="scratchpad"></div>
+</div>
+</a>
+
+<div class="content">
+	<!--zjl start-->
+	<eastsiif where="$wecha_id neq ''">
+	<div id="zjl" style="display:none" class="boxcontent boxwhite">
+		<div class="box">
+			<div class="title-red"><span><if condition="$Guajiang['usenums'] neq 2">恭喜你中奖了<else/>您已经中过奖了</if></span></div>
+			<div class="Detail">
+				<p>您中了：<span class="red">111</span></p>
+				<p class="red"> 222 </p>
+				<if condition="$record.phone eq ''">
+            <p>
+            <input name=""  class="px" id="tel" value="aaa" type="text" placeholder="请输入您的123123">
+            <input name=""  class="px" id="wechaname" value="bbb" type="text" placeholder="请输入您的微信号">
+            <input name=""  id="wechaid" value="ccc" type="hidden">
+            <input name=""  id="lid" value="ddd" type="hidden">
+            <input name=""  id="winprize" value="" type="hidden">
+            <input name=""  id="rid" value="eee" type="hidden">
+            </p>
+            <p>
+            <input class="pxbtn" name="提 交"  id="save-btn" type="button" value="用户提交">
+            </p>
+            <else/>
+            5678909
+            </if>
+            <if condition="$record.sendstutas eq 0">
+            <p><input name="" class="px" id="parssword" value="" placeholder="商家输入兑奖密码" type="password"></p>
+            <p><input class="pxbtn" name="提 交" id="save-btnn" value="商家提交" type="button"></p>
+            <else/>
+            <p>已于123456兑奖</p>
+            </if>
+			</div>
+		</div>
+	</div>
+	</eastsiif>
+	<!--zjl end-->
+			
+	<div class="boxcontent boxwhite">
+		<div class="box">
+			<div class="title-brown"><span>奖项说明：</span></div>
+			<div class="Detail">
+			<p class="red">打开不刮奖视为作废</p>
+			<p>每人最多有666a次机会<if condition="$Guajiang.daynums neq 0">，每天只能抽777u次</if></p>
+			<p>这是您第 <span class="red" id="usenums">888k</span> 次刮奖</p>
+			 asdasdsad1
+			</div>
+		</div>
+	</div>
+	<div class="boxcontent boxwhite">
+		<div class="box">
+			<div class="title-brown">活动说明：</div>
+			
+			<div class="Detail">
+			<p style="color:red">活动还没有开始 :(</p>
+			adsasdasdasdsadasdasdas123123
+				<p>活动时间:asd34asd至234sfrwer</p>
+				<p>123123213213213</p>				
+							
+			</div>
+		</div>
+	</div>
+</div>
+<div style="clear:both;"></div>
+</div>	
+
+<div style="height:60px;"></div>
+<div class="footFix" id="footReturn"><a href="javascript:void(0)" onClick="location.href='///////';"><span>返回3G网站</span></a></div>
+<link href="/css/guajiang/css/guajiang.css?<?php echo date('Y-m-d',time());?>" rel="stylesheet" type="text/css">
+
+<div class="window" id="windowcenter">
+	<div id="title" class="title">消息提醒<span class="close" id="alertclose"></span></div>
+	<div class="content">
+	 <div id="txt"></div>
+	 <input type="button" value="确定" id="windowclosebutton" name="确定" class="txtbtn">	
+	</div>
+</div>
+ 
+<eastsiif where="$wecha_id neq ''">
+<script type="text/javascript">
+
+        var zjl ="";
+        var num = 0;
+        var goon = true;
+var winprize  = "";
+
+$(function () {
+		var useragent = window.navigator.userAgent.toLowerCase();
+            $("#scratchpad").wScratchPad({
+                width: 150,
+                height: 40,
+                color: "#a9a9a7",
+                scratchMove: function () {
+                    num++;
+                    if (num == 2) {
+                        document.getElementById('prize').innerHTML ="";
+                    }
+                    if (zjl>0 && num > 5 && goon) {
+                        //$("#zjl").fadeIn();
+                        goon = false; 
+                        $("#zjl").slideToggle(500);
+                        //$("#outercont").slideUp(500)
+                    }
+					if (useragent.indexOf("android 4") > 0) {
+                        if ($("#scratchpad").css("color").indexOf("51") > 0) {
+                            $("#scratchpad").css("color", "rgb(50,50,50)");
+                        } else if ($("#scratchpad").css("color").indexOf("50") > 0) {
+                            $("#scratchpad").css("color", "rgb(51,51,51)");
+                        }
+                    }
+
+                }
+            });
+        });
+        
+      
+
+$("#save-btn").bind("click",
+	function() {
+		var btn 	= $(this);
+		var tel 	= $("#tel").val();
+		var wxname	= $("#wechaname").val();
+		var wechaid = $("#wechaid").val();
+		var lid 	= $("#lid").val();
+		 
+		if (tel == '') {
+	        alert("请认真输入123123");
+	        return
+    	}
+		if(wxname == ''){
+			alert("请认真输入微信号");
+			return;
+		}
+
+		var submitData = {
+			/*code: $("#sncode").text(),*/
+			tel 	: tel,
+			wxname	: wxname,
+			wechaid : wechaid,
+			lid 	: 111,
+			rid 	: 222,
+			action 	: "add"
+		};
+		$.post('index.php?g=Wap&m=Guajiang&a=add', submitData,
+			function(data) {
+				if (data.success == true) {
+					alert(data.msg);
+					$("#zjl").hide("slow");
+					setTimeout("window.location.href = location.href",2000);
+					return
+				} else { 
+					//alert('失败'+data);
+					return
+				}
+			},"json")
+});
+
+
+
+$("#save-btnn").bind("click",
+function () {
+	var submitData = {
+		id: 1111,
+		rid: 22222,
+		parssword: $("#parssword").val()
+	};
+	$.post('index.php?g=Wap&m=Guajiang&a=exchange', submitData,
+	function (data) {
+		if (data.success == true) {
+			alert(data.msg);
+			if (data.changed == true) {
+				setTimeout("window.location.href = location.href",2000);
+			}
+			return
+		} else { alert(data.msg); }
+	},
+	"json")
+});
+
+</script>
+</eastsiif>
+<script type="text/javascript">
+window.shareData = {  
+            "moduleName":"Guajiang",
+            "moduleID":"111",
+            "imgUrl": "2222", 
+            "sendFriendLink": "//////////////",
+            "tTitle": "3333",
+            "tContent": ""
+};
+</script>
+
+</body></html>
