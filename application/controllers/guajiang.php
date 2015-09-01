@@ -11,10 +11,10 @@ class Guajiang extends MY_Controller {
 		
 		$code = $_GET['code'];
 		if(empty($code)){
-			$redirect_uri = 'http://' . DOMAIN .'/guajiang/';
 			$state = 'ggk_1';
+			$redirect_uri = urlencode('http://' . DOMAIN .'/guajiang/');
 			$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.APP_ID.'&redirect_uri='.$redirect_uri.'&response_type=code&scope=snsapi_base&state='.$state.'#wechat_redirect';
-			redirect(urlencode($url));
+			redirect($url);
 		} else {
 			$url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='.APP_ID.'&secret='.APP_SECRET.'&code='.$code.'&grant_type=authorization_code';
 			$result = file_get_contents($url);
