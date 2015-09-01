@@ -97,6 +97,27 @@ class Api_model extends MY_Model {
 		return $this->db->get()->result_array();
 	}
 	
+	public function get_or_create_wx_user($jsonInfo) {
+		$open_id = $jsonInfo["openid"];
+		$this->db->from('wx_user');
+		$this->db->where('open_id', $open_id);
+		$wx_user = $this->db->get()->row_array();
+		if(empty($wx_user)) {
+			$data = array(
+				'open_id' => $open_id,
+				'access_token' => $jsonInfo["access_token"],
+				'refresh_token' => $jsonInfo["refresh_token"],
+				'expires_in' => $jsonInfo["expires_in"],
+				'created' => date('Y-m-d H:i:s')
+			);
+			$this->db->insert('house_ticket', $data);
+			return $data;
+		} else {
+			return $wx_user;
+		}
+	}
+	
+	
 //////////////////////////////////////////////////////////////
 // Test code
 //////////////////////////////////////////////////////////////
