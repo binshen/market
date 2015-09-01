@@ -119,7 +119,7 @@ class Api_model extends MY_Model {
 				$wx_user['refresh_token'] = $jsonInfo["refresh_token"];
 				$wx_user['expires_in'] = $jsonInfo["expires_in"];
 				$this->db->where('id', $wx_user['id']);
-				$this->db->update('wx_user', $data);
+				$this->db->update('wx_user', $wx_user);
 			}
 			return $wx_user;
 		}
