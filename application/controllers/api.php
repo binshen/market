@@ -82,12 +82,17 @@ class Api extends MY_Controller {
 	}
 	
 	private function get_guajiang_message() {
+		
+		$redirect_uri = 'http://' . DOMAIN .'/guajiang';
+		$state = 'ggk_1';
+		$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.APP_ID.'&redirect_uri='.$redirect_uri.'&response_type=code&scope=snsapi_base&state='.$state.'#wechat_redirect';
+		
 		$content = array();
 		$content[] = array(
 			'Title' => '刮刮卡 ',
 			'Description' => '刮刮卡活动测试',
 			'PicUrl' => 'http://' . DOMAIN . '/css/guajiang/images/ggk.jpg',
-			'Url' => 'http://' . DOMAIN .'/guajiang/'
+			'Url' => $url//'http://' . DOMAIN .'/guajiang/'
 		);
 		return $content;
 	}
