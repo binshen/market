@@ -110,9 +110,17 @@ class Api_model extends MY_Model {
 				'expires_in' => $jsonInfo["expires_in"],
 				'created' => date('Y-m-d H:i:s')
 			);
-			$this->db->insert('house_ticket', $data);
+			$this->db->insert('wx_user', $data);
 			return $data;
 		} else {
+			$access_token = $jsonInfo["access_token"];
+			if($access_token != $wx_user['access_token']) {
+				$wx_user['access_token'] = $jsonInfo["access_token"];
+				$wx_user['refresh_token'] = $jsonInfo["refresh_token"];
+				$wx_user['expires_in'] = $jsonInfo["expires_in"];
+				$this->db->where('id', $wx_user['id']);
+				$this->db->update('wx_user', $data);
+			}
 			return $wx_user;
 		}
 	}
