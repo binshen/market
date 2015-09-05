@@ -133,4 +133,12 @@ class Guajiang extends MY_Controller {
 		
 		$this->display('guajiang.html');
 	}
+	
+	public function accept() {
+		
+	}
+	
+	public function confirm() {
+		
+	}
 }
