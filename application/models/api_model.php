@@ -125,6 +125,17 @@ class Api_model extends MY_Model {
 		}
 	}
 	
+	public function get_guajiang() {
+		$this->db->from('lottery');
+		$this->db->where('type_id', 1);
+		return $this->db->get()->row_array();
+	}
+	
+	public function decrease_total_m($id, $rid, $m) {
+		$this->db->where('id', $id);
+		$lottery['m' . $rid] = $m;
+		$this->db->update('lottery', $lottery);
+	}
 	
 //////////////////////////////////////////////////////////////
 // Test code

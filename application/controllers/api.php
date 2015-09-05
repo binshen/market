@@ -83,8 +83,9 @@ class Api extends MY_Controller {
 	
 	private function get_guajiang_message() {
 		$state = 'ggk_1';
+		$scope = 'snsapi_base';
 		$redirect_uri = 'http://' . DOMAIN .'/guajiang/';
-		$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.APP_ID.'&redirect_uri='.$redirect_uri.'&response_type=code&scope=snsapi_base&state='.$state.'#wechat_redirect';
+		$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.APP_ID.'&redirect_uri='.$redirect_uri.'&response_type=code&scope='.$scope.'&state='.$state.'#wechat_redirect';
 		
 		$content = array();
 		$content[] = array(
