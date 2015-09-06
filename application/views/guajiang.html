@@ -62,10 +62,9 @@
 		            <p>
 			            <input name="" class="px" id="name" value="" type="text" placeholder="请输入您的姓名">
 			            <input name="" class="px" id="tel" value="" type="text" placeholder="请输入您的手机号">
-			            <input name="" id="open_id" value="" type="hidden">
-			            <input name="" id="lid" value="" type="hidden">
-			            <input name="" id="winprize" value="" type="hidden">
-			            <input name="" id="rid" value="" type="hidden">
+			            <input name="" id="open_id" value="{{$lottery.open_id}}" type="hidden">
+			            <input name="" id="winprize" value="{{$lottery.prize_title}}" type="hidden">
+			            <input name="" id="rid" value="{{$lottery.prize_id}}" type="hidden">
 		            </p>
 		            <p>
 		            	<input class="pxbtn" name="提 交"  id="save-btn" type="button" value="用户提交">
@@ -155,34 +154,29 @@
 
 	$("#save-btn").bind("click", function() {
 		var btn 	= $(this);
+		var name	= $("#name").val();
 		var tel 	= $("#tel").val();
-		var wxname	= $("#wechaname").val();
-		var wechaid = $("#wechaid").val();
-		var lid 	= $("#lid").val();
-		if (tel == '') {
-	        alert("请认真输入123123");
+		if (name == '') {
+	        alert("请认真输入姓名");
 	        return
 	   	}
-		if(wxname == ''){
-			alert("请认真输入微信号");
+		if(tel == ''){
+			alert("请认真输入手机号");
 			return;
 		}
 		var submitData = {
 			tel 	: tel,
-			wxname	: wxname,
-			wechaid : wechaid,
-			lid 	: 111,
-			rid 	: 222,
-			action 	: "add"
+			name	: name,
+			open_id : '{{$lottery.open_id}}',
+			rid 	: '{{$lottery.prize_id}}'
 		};
-		$.post('index.php?g=Wap&m=Guajiang&a=add', submitData, function(data) {
+		$.post('/guajiang/accept', submitData, function(data) {
 			if (data.success == true) {
 				alert(data.msg);
 				$("#zjl").hide("slow");
 				setTimeout("window.location.href = location.href",2000);
 				return
-			} else { 
-				//alert('失败'+data);
+			} else {
 				return
 			}
 		},"json")
@@ -190,11 +184,11 @@
 
 	$("#save-btnn").bind("click", function () {
 		var submitData = {
-			id: 1111,
-			rid: 22222,
+			id: {{$lottery.id}},
+			rid: '{{$lottery.prize_id}}',
 			parssword: $("#parssword").val()
 		};
-		$.post('/', submitData,
+		$.post('/guajiang/confirm', submitData,
 		function (data) {
 			if (data.success == true) {
 				alert(data.msg);
