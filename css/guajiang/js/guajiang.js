@@ -947,7 +947,7 @@ window.Zepto = Zepto
           chrome = ua.match(/Chrome\/([\d.]+)/) || ua.match(/CriOS\/([\d.]+)/),
           firefox = ua.match(/Firefox\/([\d.]+)/)
 
-        // Todo: clean this up with a better OS/browser seperation:
+        // Todo: clean this up with a better OS/browser separation:
         // - discern (more) between multiple browsers on android
         // - decide if kindle fire in silk mode is android or not
         // - Firefox on Android doesn't specify the Android version

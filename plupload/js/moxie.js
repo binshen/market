@@ -4774,7 +4774,7 @@ define("moxie/xhr/XMLHttpRequest", [
 			Returns all headers from the response, with the exception of those whose field name is Set-Cookie or Set-Cookie2.
 
 			@method getAllResponseHeaders
-			@return {String} reponse headers or empty string
+			@return {String} response headers or empty string
 			*/
 			getAllResponseHeaders: function() {
 				return _responseHeaders || '';

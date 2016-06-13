@@ -58,7 +58,7 @@
 	-moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 	-o-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-	font:14px/1.5 Microsoft YaHei,Helvitica,Verdana,Arial,san-serif;
+	font:14px/1.5 Microsoft YaHei,Helvitica,Verdana,Arial,sans-serif;
 }
 .window .title {
 	
