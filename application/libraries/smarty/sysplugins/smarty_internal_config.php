@@ -196,7 +196,7 @@ class Smarty_Internal_Config
             }
             throw $e;
         }
-        // compiling succeded
+        // compiling succeeded
         // write compiled template
         Smarty_Internal_Write_File::writeFile($this->getCompiledFilepath(), $this->getCompiledConfig(), $this->smarty);
     }

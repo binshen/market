@@ -94,7 +94,7 @@
   ---------------------------------------------------------------------------
 
   Crunch 'original.js' using variable substitution and remove
-  any occurance of whitespace (where permitted...)
+  any occurrence of whitespace (where permitted...)
   and save it as 'crunched.js' (equals -l 3 -$)
    X:\cscript ESC.wsf -l 4 -ow crunched.js original.js
   ---------------------------------------------------------------------------

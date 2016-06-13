@@ -1,6 +1,6 @@
 <?php
 /**
- * Smarty Internal Plugin Compile Object Funtion
+ * Smarty Internal Plugin Compile Object Function
  *
  * Compiles code for registered objects as function
  *

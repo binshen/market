@@ -2,7 +2,7 @@ html{ overflow:hidden}
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
 	margin: 0;
 	padding: 0;color: #444444;
-	font: 14px/1.5 Microsoft YaHei, Helvitica, Verdana, Arial, san-serif;
+	font: 14px/1.5 Microsoft YaHei, Helvitica, Verdana, Arial, sans-serif;
 }
 .activity-lottery-winning{ background: url(images/activity-lottery-bg2.jpg) #2a8a00;overflow-x: hidden;overflow-y: hidden;}
 .activity-lottery-end{ background: url(images/activity-lottery-bg2.jpg) #2a8a00;overflow-x: hidden;overflow-y: hidden;}

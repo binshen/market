@@ -307,7 +307,7 @@ SWFUpload.prototype.buildParamString = function () {
 
 // Public: Used to remove a SWFUpload instance from the page. This method strives to remove
 // all references to the SWF, and other objects so memory is properly freed.
-// Returns true if everything was destroyed. Returns a false if a failure occurs leaving SWFUpload in an inconsistant state.
+// Returns true if everything was destroyed. Returns a false if a failure occurs leaving SWFUpload in an inconsistent state.
 // Credits: Major improvements provided by steffen
 SWFUpload.prototype.destroy = function () {
 	try {
